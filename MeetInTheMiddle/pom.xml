@@ -14,21 +14,21 @@
             <version>4.1.1.4</version>
             <scope>provided</scope>
         </dependency>
-   <!--  <dependency>
+     <!-- <dependency>
         <groupId>org.springframework.android</groupId>
         <artifactId>spring-android-rest-template</artifactId>
         <version>1.0.1.RELEASE</version>
-    </dependency>
-    <dependency>
+    </dependency>-->
+    <!-- <dependency>
         <groupId>org.springframework.android</groupId>
         <artifactId>spring-android-auth</artifactId>
         <version>1.0.1.RELEASE</version>
-    </dependency>
+    </dependency>-->
     <dependency>
         <groupId>org.springframework.android</groupId>
         <artifactId>spring-android-core</artifactId>
         <version>1.0.1.RELEASE</version>
-    </dependency>-->
+    </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
