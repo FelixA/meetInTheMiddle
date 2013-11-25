@@ -19,12 +19,17 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
  */
 public class DisplayLoginActivity extends Activity {
+	DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	String url = "jdbc:oracle:thin:@iwi-w-vm-dbo.hs-karlsruhe.de:1521:oracledbwi";
+	String driver = "oracle.jdbc.driver.OracleDriver";
+
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
@@ -55,6 +60,11 @@ public class DisplayLoginActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+	    dataSource.setDriverClassName(driver);
+	    dataSource.setUrl(url);
+	    dataSource.setUsername("eBW13Db02");
+	    dataSource.setPassword("eBW13Db");
+	    
 		DUMMY_CREDENTIALS.add("felix@felix");
 		DUMMY_CREDENTIALS.add("test");
 		super.onCreate(savedInstanceState);
