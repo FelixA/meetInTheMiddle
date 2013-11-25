@@ -2,7 +2,10 @@ package com.example.meetinthemiddle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+
+import javax.sql.DataSource;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -19,6 +22,10 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 /**
@@ -26,10 +33,10 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  * well.
  */
 public class DisplayLoginActivity extends Activity {
-	DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	DriverManagerDataSource dmdataSource = new DriverManagerDataSource();
+	DataSource dataSource;
 	String url = "jdbc:oracle:thin:@iwi-w-vm-dbo.hs-karlsruhe.de:1521:oracledbwi";
 	String driver = "oracle.jdbc.driver.OracleDriver";
-
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
@@ -50,6 +57,9 @@ public class DisplayLoginActivity extends Activity {
 	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
+	
+	private String dbEmail;
+	private String dbPassword;
 
 	// UI references.
 	private EditText mEmailView;
@@ -57,18 +67,38 @@ public class DisplayLoginActivity extends Activity {
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
-
+	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired( required=true)
+    public void setDataSource(DataSource ds) {
+        dataSource = ds;
+    }
+	
+	public void create(String firstName, String lastName, String email, String kontaktliste, String password) {
+	    JdbcTemplate insert = new JdbcTemplate(dataSource);
+	    insert.update("INSERT INTO PERSON (ID, VORNAME, NACHNAME,EMAIL,KONTAKTLISTE_FK,PASSWORD) VALUES(?,?,?,?,?,?)",
+	        new Object[] { 2, firstName, lastName, email, kontaktliste, password });
+	  }
+	public void setDbConnection(){
+		dmdataSource.setDriverClassName(driver);
+	    dmdataSource.setUrl(url);
+	    dmdataSource.setUsername("eBW13Db02");
+	    dmdataSource.setPassword("eBW13Db");
+	    setDataSource(dmdataSource);
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	    dataSource.setDriverClassName(driver);
-	    dataSource.setUrl(url);
-	    dataSource.setUsername("eBW13Db02");
-	    dataSource.setPassword("eBW13Db");
+	    
 	    
 		DUMMY_CREDENTIALS.add("felix@felix");
 		DUMMY_CREDENTIALS.add("test");
 		super.onCreate(savedInstanceState);
-
+		setDbConnection();
+//		String email= this.jdbcTemplate.query("Select email from PERSON;",
+//                new ResultSetExtractor());
+//		this.jdbcTemplate.getDataSource();
+		//System.out.println(rowCount);
+		
 		setContentView(R.layout.activity_display_login);
 
 		// Set up the login form.
@@ -235,6 +265,8 @@ public class DisplayLoginActivity extends Activity {
 						// Account exists, return true if the password matches.
 						if(DUMMY_CREDENTIALS.get(1).equals(mPassword))
 						{
+							create("Felix", "ALBERT", "felix@felix.de", "1", "test12");
+
 						return true;
 						}
 					}
