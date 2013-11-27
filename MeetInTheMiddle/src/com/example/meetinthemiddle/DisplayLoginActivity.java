@@ -28,6 +28,8 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import com.example.meetinthemiddle.personenverwaltung.PersonMapper;
+
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.

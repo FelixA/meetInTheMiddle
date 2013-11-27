@@ -1,4 +1,4 @@
-package com.example.meetinthemiddle;
+package com.example.meetinthemiddle.personenverwaltung;
 
 public class Person {
 	public Person() {
