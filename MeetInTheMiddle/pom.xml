@@ -25,11 +25,17 @@
         <version>1.0.1.RELEASE</version>
     </dependency>-->
     <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+        <version>1.4.2.RELEASE</version>
+    </dependency>
+
+    <dependency>
         <groupId>org.springframework.android</groupId>
         <artifactId>spring-android-core</artifactId>
         <version>1.0.1.RELEASE</version>
     </dependency>
-    </dependencies>
+</dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
         <sourceDirectory>src</sourceDirectory>

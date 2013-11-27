@@ -47,4 +47,9 @@ public String getPassword() {
 public void setPassword(String password) {
 	this.password = password;
 }
+@Override
+public String toString() {
+	return "Person [vorname=" + vorname + ", nachname=" + nachname + ", email="
+			+ email + ", password=" + password + "]";
+}
 }
