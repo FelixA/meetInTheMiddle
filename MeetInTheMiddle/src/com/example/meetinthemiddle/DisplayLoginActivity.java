@@ -28,6 +28,8 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import com.example.meetinthemiddle.personenverwaltung.PersonMapper;
+
 /**
  * Activity which displays a login screen to the user, offering registration as
  * well.
@@ -68,6 +70,7 @@ public class DisplayLoginActivity extends Activity {
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 	private JdbcTemplate jdbcTemplate;
+	private PersonMapper personMapper;
 	
 	@Autowired( required=true)
     public void setDataSource(DataSource ds) {
@@ -79,6 +82,13 @@ public class DisplayLoginActivity extends Activity {
 	    insert.update("INSERT INTO PERSON (ID, VORNAME, NACHNAME,EMAIL,KONTAKTLISTE_FK,PASSWORD) VALUES(?,?,?,?,?,?)",
 	        new Object[] { 2, firstName, lastName, email, kontaktliste, password });
 	  }
+	
+	public void validate(String email, String password) {
+	    JdbcTemplate select = new JdbcTemplate(dataSource);
+	    select.query("Select EMAIL, PASSWORD from Person where EMAIL = ? AND PASSWORD = ?);", personMapper);
+	    select.execute("Select EMAIL, PASSWORD from Person where EMAIL = ? AND PASSWORD = ?);");
+	  }
+	
 	public void setDbConnection(){
 		try {
 			Class.forName(oracle.jdbc.driver.OracleDriver.class.getName());

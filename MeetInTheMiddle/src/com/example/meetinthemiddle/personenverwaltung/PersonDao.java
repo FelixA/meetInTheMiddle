@@ -1,6 +1,7 @@
-package com.example.meetinthemiddle;
+package com.example.meetinthemiddle.personenverwaltung;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+
 
 public class PersonDao {
 	private JdbcTemplate jdbcTemplate;  

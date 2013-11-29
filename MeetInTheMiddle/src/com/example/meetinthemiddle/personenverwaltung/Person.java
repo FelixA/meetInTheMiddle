@@ -1,4 +1,4 @@
-package com.example.meetinthemiddle;
+package com.example.meetinthemiddle.personenverwaltung;
 
 public class Person {
 	public Person() {
@@ -46,5 +46,10 @@ public String getPassword() {
 }
 public void setPassword(String password) {
 	this.password = password;
+}
+@Override
+public String toString() {
+	return "Person [vorname=" + vorname + ", nachname=" + nachname + ", email="
+			+ email + ", password=" + password + "]";
 }
 }
