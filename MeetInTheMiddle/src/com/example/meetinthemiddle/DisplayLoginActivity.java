@@ -80,6 +80,14 @@ public class DisplayLoginActivity extends Activity {
 	        new Object[] { 2, firstName, lastName, email, kontaktliste, password });
 	  }
 	public void setDbConnection(){
+		try {
+			Class.forName(oracle.jdbc.driver.OracleDriver.class.getName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
+		
 		dmdataSource.setDriverClassName(driver);
 	    dmdataSource.setUrl(url);
 	    dmdataSource.setUsername("eBW13Db02");
