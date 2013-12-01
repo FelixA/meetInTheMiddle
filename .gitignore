@@ -3,4 +3,5 @@
 .jar
 .class
 .classpath
+.project
 /gen
