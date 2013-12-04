@@ -1,6 +1,8 @@
-package com.example.meetinthemiddle.personenverwaltung;
+package com.example.meetinthemiddle.personenverwaltung.dao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 
 
 public class PersonDao {
