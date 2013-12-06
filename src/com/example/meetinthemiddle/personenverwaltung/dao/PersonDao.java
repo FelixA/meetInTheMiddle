@@ -4,7 +4,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 
-
+// Spring framework auf tomcat installieren
+// Ueberpruefen:
+// Gibts bibliotheken fuer REST?
 public class PersonDao {
 	private JdbcTemplate jdbcTemplate;  
 	  
