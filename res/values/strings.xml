@@ -20,6 +20,6 @@
     <string name="user_name">Name</string>
     <string name="user_mail">E-Mail</string>
     <string name="user_information">Benutzerdaten</string>
-    
+    <string name="title_activity_registration">RegistrationActivity</string>
 
 </resources>

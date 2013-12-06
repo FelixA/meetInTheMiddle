@@ -29,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.example.meetinthemiddle.personenverwaltung.PersonMapper;
+import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -43,8 +44,8 @@ public class DisplayLoginActivity extends Activity {
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
 	 */
-//	private static final String[] DUMMY_CREDENTIALS = new String[] {
-//			"felix@felix", "test" };
+	// private static final String[] DUMMY_CREDENTIALS = new String[] {
+	// "felix@felix", "test" };
 	private List<String> DUMMY_CREDENTIALS = new ArrayList<String>();
 	/**
 	 * The default email to populate the email field with.
@@ -59,7 +60,8 @@ public class DisplayLoginActivity extends Activity {
 	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
-	
+	private List<Person> person;
+
 	private String dbEmail;
 	private String dbPassword;
 
@@ -71,25 +73,38 @@ public class DisplayLoginActivity extends Activity {
 	private TextView mLoginStatusMessageView;
 	private JdbcTemplate jdbcTemplate;
 	private PersonMapper personMapper;
-	
-	@Autowired( required=true)
-    public void setDataSource(DataSource ds) {
-        dataSource = ds;
-    }
-	
-	public void create(String firstName, String lastName, String email, String kontaktliste, String password) {
-	    JdbcTemplate insert = new JdbcTemplate(dataSource);
-	    insert.update("INSERT INTO PERSON (ID, VORNAME, NACHNAME,EMAIL,KONTAKTLISTE_FK,PASSWORD) VALUES(?,?,?,?,?,?)",
-	        new Object[] { 2, firstName, lastName, email, kontaktliste, password });
-	  }
-	
-	public void validate(String email, String password) {
-	    JdbcTemplate select = new JdbcTemplate(dataSource);
-	    select.query("Select EMAIL, PASSWORD from Person where EMAIL = ? AND PASSWORD = ?);", personMapper);
-	    select.execute("Select EMAIL, PASSWORD from Person where EMAIL = ? AND PASSWORD = ?);");
-	  }
-	
-	public void setDbConnection(){
+
+	@Autowired(required = true)
+	public void setDataSource(DataSource ds) {
+		dataSource = ds;
+	}
+
+	public void create(String firstName, String lastName, String email,
+			String kontaktliste, String password) {
+		JdbcTemplate insert = new JdbcTemplate(dataSource);
+		insert.update(
+				"INSERT INTO PERSON (ID, VORNAME, NACHNAME,EMAIL,KONTAKTLISTE_FK,PASSWORD) VALUES(?,?,?,?,?,?)",
+				new Object[] { 2, firstName, lastName, email, kontaktliste,
+						password });
+	}
+
+	public List<Person> validate(String email, String password) {
+		System.out.println("HERE I AM");
+		JdbcTemplate select = new JdbcTemplate(dataSource);
+		return select
+				.query("Select EMAIL, PASSWORD from Person where EMAIL = ? AND PASSWORD = ?);",
+						personMapper);
+		// System.out.println(person.toString());
+
+		// select.execute("Select EMAIL, PASSWORD from Person where EMAIL = ? AND PASSWORD = ?);");
+	}
+
+	public List<Person> selectAll() {
+		JdbcTemplate select = new JdbcTemplate(dataSource);
+		return select.query("select * from PERSON", new PersonMapper());
+	}
+
+	public void setDbConnection() {
 		try {
 			Class.forName(oracle.jdbc.driver.OracleDriver.class.getName());
 		} catch (ClassNotFoundException e) {
@@ -97,26 +112,22 @@ public class DisplayLoginActivity extends Activity {
 			e.printStackTrace();
 			return;
 		}
-		
 		dmdataSource.setDriverClassName(driver);
-	    dmdataSource.setUrl(url);
-	    dmdataSource.setUsername("eBW13Db02");
-	    dmdataSource.setPassword("eBW13Db");
-	    setDataSource(dmdataSource);
+		dmdataSource.setUrl(url);
+		dmdataSource.setUsername("eBW13Db02");
+		dmdataSource.setPassword("eBW13Db");
+		setDataSource(dmdataSource);
 	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-	    
-	    
-		DUMMY_CREDENTIALS.add("felix@felix");
-		DUMMY_CREDENTIALS.add("test");
+		System.out.println("Created");
+
+		// DUMMY_CREDENTIALS.add("felix@felix");
+		// DUMMY_CREDENTIALS.add("test");
 		super.onCreate(savedInstanceState);
 		setDbConnection();
-//		String email= this.jdbcTemplate.query("Select email from PERSON;",
-//                new ResultSetExtractor());
-//		this.jdbcTemplate.getDataSource();
-		//System.out.println(rowCount);
-		
+
 		setContentView(R.layout.activity_display_login);
 
 		// Set up the login form.
@@ -159,7 +170,13 @@ public class DisplayLoginActivity extends Activity {
 	}
 
 	/**
-	 * Attempts to sign in or register the account specified by the login form.
+	 * Gives the possibility to register the account.
+	 */
+	public void attemptRegistration() {
+		displayRegistrationActivity(mLoginFormView, mEmail);
+	}
+	/**
+	 * Attempts to sign in the account specified by the login form.
 	 * If there are form errors (invalid email, missing fields, etc.), the
 	 * errors are presented and no actual login attempt is made.
 	 */
@@ -211,10 +228,16 @@ public class DisplayLoginActivity extends Activity {
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);			
+			mAuthTask.execute((Void) null);
 		}
 	}
-	public void displayMainActivity(View view){
+
+	public void displayRegistrationActivity(View view, String email){
+		Intent intent = new Intent(this, DisplayRegistrationActivity.class);
+		startActivity(intent);
+	}
+	
+	public void displayMainActivity(View view) {
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 	}
@@ -273,25 +296,17 @@ public class DisplayLoginActivity extends Activity {
 			} catch (InterruptedException e) {
 				return false;
 			}
+			person = selectAll();
+			System.out.println("hallo" + person.get(0).getEmail());
+			for (int i = 0; i <= person.size(); i++) {
+				if (person.get(i).getEmail().equals(mEmail)) {
 
-			
-				for (int i=0;i<=DUMMY_CREDENTIALS.size();i++){
-					if (DUMMY_CREDENTIALS.get(0).equals(mEmail)) {
-//						System.out.println(pieces[0]);
-//						System.out.println(pieces[1]);
-	
-						// Account exists, return true if the password matches.
-						if(DUMMY_CREDENTIALS.get(1).equals(mPassword))
-						{
-							create("Felix", "ALBERT", "felix@felix.de", "1", "test12");
-
+					// Account exists, return true if the password matches.
+					if (person.get(i).getPassword().equals(mPassword)) {
 						return true;
-						}
 					}
 				}
-			// TODO: register the new account here.
-			System.out.println("bitte registrieren!!!");
-			//register(mEmail);
+			}
 			return false;
 		}
 
