@@ -1,30 +1,47 @@
 package com.example.meetinthemiddle.personenverwaltung.dao;
 
-import org.springframework.jdbc.core.JdbcTemplate;
+import java.util.List;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import com.example.meetinthemiddle.personenverwaltung.PersonMapper;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 
 // Spring framework auf tomcat installieren
 // Ueberpruefen:
 // Gibts bibliotheken fuer REST?
 public class PersonDao {
+	
+	DataSource dataSource;
+	
+	@Autowired(required = true)
+	public void setDataSource(DataSource ds) {
+		dataSource = ds;
+	}
 	private JdbcTemplate jdbcTemplate;  
 	  
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {  
-	    this.jdbcTemplate = jdbcTemplate;  
-	}  
+	public List<Person> selectAll() {
+		JdbcTemplate select = new JdbcTemplate(dataSource);
+		return select.query("select * from PERSON", new PersonMapper());
+	}
 	  
-	public int savePerson(Person e){  
-	    String query="insert into person values('"+e.getVorname()+"','"+e.getNachname()+"','"+ e.getPassword() + "','" + e.getKontaktliste_fk() + "','" + e.getPassword()+"')";  
-	    return jdbcTemplate.update(query);  
-	}  
-//	public int updateEmployee(Employee e){  
-//	    String query="update employee set   
-//	    name='"+e.getName()+"',salary='"+e.getSalary()+"' where id='"+e.getId()+"' ";  
-//	    return jdbcTemplate.update(query);  
-//	}  
-//	public int deleteEmployee(Employee e){  
-//	    String query="delete from employee where id='"+e.getId()+"' ";  
-//	    return jdbcTemplate.update(query);  
-//	}  
+	public void create(String firstName, String lastName, String email,
+			String kontaktliste, String password) {
+		JdbcTemplate insert = new JdbcTemplate(dataSource);
+		insert.update(
+				"INSERT INTO PERSON (ID, VORNAME, NACHNAME,EMAIL,KONTAKTLISTE_FK,PASSWORD) VALUES(?,?,?,?,?,?)",
+				new Object[] { 2, firstName, lastName, email, kontaktliste,
+						password });
+	}
+
+	public List<Person> validate(String email, String password) {
+		JdbcTemplate select = new JdbcTemplate(dataSource);
+		return select
+				.query("Select EMAIL, PASSWORD from Person where EMAIL = ? AND PASSWORD = ?);",
+						new PersonMapper());
+	}
 }

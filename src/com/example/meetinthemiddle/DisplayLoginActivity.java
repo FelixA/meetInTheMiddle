@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -29,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.example.meetinthemiddle.personenverwaltung.PersonMapper;
+import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 
 /**
@@ -36,8 +38,8 @@ import com.example.meetinthemiddle.personenverwaltung.domain.Person;
  * well.
  */
 public class DisplayLoginActivity extends Activity {
-	DriverManagerDataSource dmdataSource = new DriverManagerDataSource();
-	DataSource dataSource;
+	private PersonDao personDao;
+	DriverManagerDataSource dmdataSource;
 	String url = "jdbc:oracle:thin:@iwi-w-vm-dbo.hs-karlsruhe.de:1521:oracledbwi";
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	/**
@@ -74,35 +76,6 @@ public class DisplayLoginActivity extends Activity {
 	private JdbcTemplate jdbcTemplate;
 	private PersonMapper personMapper;
 
-	@Autowired(required = true)
-	public void setDataSource(DataSource ds) {
-		dataSource = ds;
-	}
-
-	public void create(String firstName, String lastName, String email,
-			String kontaktliste, String password) {
-		JdbcTemplate insert = new JdbcTemplate(dataSource);
-		insert.update(
-				"INSERT INTO PERSON (ID, VORNAME, NACHNAME,EMAIL,KONTAKTLISTE_FK,PASSWORD) VALUES(?,?,?,?,?,?)",
-				new Object[] { 2, firstName, lastName, email, kontaktliste,
-						password });
-	}
-
-	public List<Person> validate(String email, String password) {
-		System.out.println("HERE I AM");
-		JdbcTemplate select = new JdbcTemplate(dataSource);
-		return select
-				.query("Select EMAIL, PASSWORD from Person where EMAIL = ? AND PASSWORD = ?);",
-						personMapper);
-		// System.out.println(person.toString());
-
-		// select.execute("Select EMAIL, PASSWORD from Person where EMAIL = ? AND PASSWORD = ?);");
-	}
-
-	public List<Person> selectAll() {
-		JdbcTemplate select = new JdbcTemplate(dataSource);
-		return select.query("select * from PERSON", new PersonMapper());
-	}
 
 	public void setDbConnection() {
 		try {
@@ -116,11 +89,13 @@ public class DisplayLoginActivity extends Activity {
 		dmdataSource.setUrl(url);
 		dmdataSource.setUsername("eBW13Db02");
 		dmdataSource.setPassword("eBW13Db");
-		setDataSource(dmdataSource);
+		personDao.setDataSource(dmdataSource);
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		personDao = new PersonDao();
+		dmdataSource = new DriverManagerDataSource();
 		System.out.println("Created");
 
 		// DUMMY_CREDENTIALS.add("felix@felix");
@@ -172,8 +147,8 @@ public class DisplayLoginActivity extends Activity {
 	/**
 	 * Gives the possibility to register the account.
 	 */
-	public void attemptRegistration() {
-		displayRegistrationActivity(mLoginFormView, mEmail);
+	public void attemptRegistration(View view) {
+		displayRegistrationActivity(view, mEmail);
 	}
 	/**
 	 * Attempts to sign in the account specified by the login form.
@@ -290,25 +265,27 @@ public class DisplayLoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
-			}
-			person = selectAll();
-			System.out.println("hallo" + person.get(0).getEmail());
-			for (int i = 0; i <= person.size(); i++) {
+			person = personDao.selectAll();
+			System.out.println(person.get(0).getEmail());
+			for (int i = 0; i < person.size(); i++) {
 				if (person.get(i).getEmail().equals(mEmail)) {
-
 					// Account exists, return true if the password matches.
 					if (person.get(i).getPassword().equals(mPassword)) {
 						return true;
 					}
 				}
+				//TODO: CHECK IF WORKS
+				mAuthTask.isCancelled();
 			}
+//			emailNotFound(mEmail);
 			return false;
 		}
+
+//		private void emailNotFound(String mEmail) {
+//			System.out.println("Email not found");
+//			DisplayLoginActivity login = new DisplayLoginActivity();
+//			login.attemptLogin();
+//		}
 
 		@Override
 		protected void onPostExecute(final Boolean success) {
@@ -317,7 +294,11 @@ public class DisplayLoginActivity extends Activity {
 
 			if (success) {
 				displayMainActivity(mLoginFormView);
-			} else {
+			} 
+//			if (success==null){
+//				System.out.println("Email not found");
+//			}
+				else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
