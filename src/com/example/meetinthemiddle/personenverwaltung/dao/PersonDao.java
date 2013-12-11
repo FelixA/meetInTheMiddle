@@ -33,8 +33,8 @@ public class PersonDao {
 			String kontaktliste, String password) {
 		JdbcTemplate insert = new JdbcTemplate(dataSource);
 		insert.update(
-				"INSERT INTO PERSON (ID, VORNAME, NACHNAME,EMAIL,KONTAKTLISTE_FK,PASSWORD) VALUES(?,?,?,?,?,?)",
-				new Object[] { 2, firstName, lastName, email, kontaktliste,
+				"INSERT INTO PERSON (ID, VORNAME, NACHNAME,EMAIL,KONTAKTLISTE_FK,PASSWORD) VALUES(SEQUENCE_PERSON_PK.NEXTVAL,?,?,?,?,?)",
+				new Object[] { firstName, lastName, email, kontaktliste,
 						password });
 	}
 

@@ -32,6 +32,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import com.example.meetinthemiddle.personenverwaltung.PersonMapper;
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
+import com.example.meetinthemiddle.util.Constants;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -40,14 +41,12 @@ import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 public class DisplayLoginActivity extends Activity {
 	private PersonDao personDao;
 	DriverManagerDataSource dmdataSource;
-	String url = "jdbc:oracle:thin:@iwi-w-vm-dbo.hs-karlsruhe.de:1521:oracledbwi";
-	String driver = "oracle.jdbc.driver.OracleDriver";
+	String url = Constants.uri;
+	String driver = Constants.driver;
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
 	 */
-	// private static final String[] DUMMY_CREDENTIALS = new String[] {
-	// "felix@felix", "test" };
 	private List<String> DUMMY_CREDENTIALS = new ArrayList<String>();
 	/**
 	 * The default email to populate the email field with.
@@ -64,8 +63,8 @@ public class DisplayLoginActivity extends Activity {
 	private String mPassword;
 	private List<Person> person;
 
-	private String dbEmail;
-	private String dbPassword;
+//	private String dbEmail;
+//	private String dbPassword;
 
 	// UI references.
 	private EditText mEmailView;
@@ -94,13 +93,10 @@ public class DisplayLoginActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
 		personDao = new PersonDao();
 		dmdataSource = new DriverManagerDataSource();
-		System.out.println("Created");
-
-		// DUMMY_CREDENTIALS.add("felix@felix");
-		// DUMMY_CREDENTIALS.add("test");
-		super.onCreate(savedInstanceState);
 		setDbConnection();
 
 		setContentView(R.layout.activity_display_login);
@@ -277,15 +273,9 @@ public class DisplayLoginActivity extends Activity {
 				//TODO: CHECK IF WORKS
 				mAuthTask.isCancelled();
 			}
-//			emailNotFound(mEmail);
 			return false;
 		}
 
-//		private void emailNotFound(String mEmail) {
-//			System.out.println("Email not found");
-//			DisplayLoginActivity login = new DisplayLoginActivity();
-//			login.attemptLogin();
-//		}
 
 		@Override
 		protected void onPostExecute(final Boolean success) {
@@ -295,9 +285,6 @@ public class DisplayLoginActivity extends Activity {
 			if (success) {
 				displayMainActivity(mLoginFormView);
 			} 
-//			if (success==null){
-//				System.out.println("Email not found");
-//			}
 				else {
 				mPasswordView
 						.setError(getString(R.string.error_incorrect_password));
