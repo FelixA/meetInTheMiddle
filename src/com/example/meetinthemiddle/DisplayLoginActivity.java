@@ -33,6 +33,7 @@ import com.example.meetinthemiddle.personenverwaltung.PersonMapper;
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 import com.example.meetinthemiddle.util.Constants;
+import com.example.meetinthemiddle.util.ConvertToMD5;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -261,12 +262,14 @@ public class DisplayLoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
+			ConvertToMD5 converter = new ConvertToMD5();
 			person = personDao.selectAll();
-			System.out.println(person.get(0).getEmail());
+			System.out.println(converter.md5(mPassword));
 			for (int i = 0; i < person.size(); i++) {
 				if (person.get(i).getEmail().equals(mEmail)) {
 					// Account exists, return true if the password matches.
-					if (person.get(i).getPassword().equals(mPassword)) {
+					System.out.println(person.get(i).getPassword());
+					if (person.get(i).getPassword().equals(converter.md5(mPassword))) {
 						return true;
 					}
 				}

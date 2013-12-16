@@ -47,5 +47,6 @@
 	<string name="string_birthday">Pick your birthday</string>
 	<string name="string_register">Register New Account</string>
 	<string name="registration_progress_signing_in">Registering account&#8230;</string>
+	<string name="registration_progress_spinner">Registering account&#8230;</string>
 
 </resources>

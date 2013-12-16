@@ -1,39 +1,75 @@
 package com.example.meetinthemiddle.personenverwaltung.domain;
 
+import java.sql.Date;
+
 public class Person {
+	public Person(String firstName, String lastName, Date birthday,
+			String phone, String email, int kontaktliste_fk, String password,
+			String interests) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.email = email;
+		Kontaktliste_fk = kontaktliste_fk;
+		this.password = password;
+		this.interests = interests;
+	}
 	public Person() {
 	}
-public Person(String vorname, String nachname, String email,
-			 String password) {
-		super();
-		this.vorname = vorname;
-		this.nachname = nachname;
-		this.email = email;
-		Kontaktliste_fk = 1;
-		this.password = password;
-	}
-private String vorname;
-private String nachname;
+
+private String firstName;
+private String lastName;
+private Date birthday;
+private String phone;
 private String email;
+private int Wohnort_fk;
+private int privateinstellungen_fk;
 private int Kontaktliste_fk = 1;
 private String password;
-public String getVorname() {
-	return vorname;
+private String interests;
+public String getFirsName() {
+	return firstName;
 }
-public void setVorname(String vorname) {
-	this.vorname = vorname;
+public void setFirstName(String firstName) {
+	this.firstName = firstName;
 }
-public String getNachname() {
-	return nachname;
+public String getLastName() {
+	return lastName;
 }
-public void setNachname(String nachname) {
-	this.nachname = nachname;
+public void setLastName(String lastName) {
+	this.lastName = lastName;
+}
+public Date getBirthday() {
+	return birthday;
+}
+public void setBirthday(Date birthday) {
+	this.birthday = birthday;
+}
+public String getPhone() {
+	return phone;
+}
+public void setPhone(String phone) {
+	this.phone = phone;
 }
 public String getEmail() {
 	return email;
 }
 public void setEmail(String email) {
 	this.email = email;
+}
+public int getWohnort_fk() {
+	return Wohnort_fk;
+}
+public void setWohnort_fk(int wohnort_fk) {
+	Wohnort_fk = wohnort_fk;
+}
+public int getPrivateinstellungen_fk() {
+	return privateinstellungen_fk;
+}
+public void setPrivateinstellungen_fk(int privateinstellungen_fk) {
+	this.privateinstellungen_fk = privateinstellungen_fk;
 }
 public int getKontaktliste_fk() {
 	return Kontaktliste_fk;
@@ -47,9 +83,11 @@ public String getPassword() {
 public void setPassword(String password) {
 	this.password = password;
 }
-@Override
-public String toString() {
-	return "Person [vorname=" + vorname + ", nachname=" + nachname + ", email="
-			+ email + ", password=" + password + "]";
+public String getInterests() {
+	return interests;
 }
+public void setInterests(String interests) {
+	this.interests = interests;
+}
+
 }

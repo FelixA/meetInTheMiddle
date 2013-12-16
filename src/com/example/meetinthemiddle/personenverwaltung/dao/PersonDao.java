@@ -1,5 +1,6 @@
 package com.example.meetinthemiddle.personenverwaltung.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -29,13 +30,13 @@ public class PersonDao {
 		return select.query("select * from PERSON", new PersonMapper());
 	}
 	  
-	public void create(String firstName, String lastName, String email,
-			String kontaktliste, String password) {
+	public void create(String firstName, String lastName,Date birthday, String phone, String email,
+			String kontaktliste, String password, String interests) {
 		JdbcTemplate insert = new JdbcTemplate(dataSource);
 		insert.update(
-				"INSERT INTO PERSON (ID, VORNAME, NACHNAME,EMAIL,KONTAKTLISTE_FK,PASSWORD) VALUES(SEQUENCE_PERSON_PK.NEXTVAL,?,?,?,?,?)",
-				new Object[] { firstName, lastName, email, kontaktliste,
-						password });
+				"INSERT INTO PERSON (ID, VORNAME, NACHNAME,GEBURTSDATUM,TELEFONNR,EMAIL,KONTAKTLISTE_FK,PASSWORD,INTERESSEN) VALUES(SEQUENCE_PERSON_PK.NEXTVAL,?,?,?,?,?,?,?,?)",
+				new Object[] { firstName, lastName, birthday, phone, email, kontaktliste, 
+						password, interests });
 	}
 
 	public List<Person> validate(String email, String password) {
