@@ -3,46 +3,38 @@ package com.example.meetinthemiddle.personenverwaltung.dao;
 import java.sql.Date;
 import java.util.List;
 
-import javax.sql.DataSource;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import android.content.Context;
 
-import com.example.meetinthemiddle.personenverwaltung.PersonMapper;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
+import com.example.meetinthemiddle.personenverwaltung.domain.PersonList;
+import com.example.meetinthemiddle.util.Constants;
+import com.example.meetinthemiddle.util.WebServiceClient;
 
-// Spring framework auf tomcat installieren
-// Ueberpruefen:
-// Gibts bibliotheken fuer REST?
 public class PersonDao {
 	
-	DataSource dataSource;
+	private Context context;
 	
-	@Autowired(required = true)
-	public void setDataSource(DataSource ds) {
-		dataSource = ds;
+	public PersonDao(Context ctx) {
+		this.context = ctx;
 	}
-	private JdbcTemplate jdbcTemplate;  
-	  
+	
+	
 	public List<Person> selectAll() {
-		JdbcTemplate select = new JdbcTemplate(dataSource);
-		return select.query("select * from PERSON", new PersonMapper());
+		PersonList list = WebServiceClient.get(PersonList.class, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);
+		
+		return list.getPersons();
 	}
 	  
 	public void create(String firstName, String lastName,Date birthday, String phone, String email,
 			String kontaktliste, String password, String interests) {
-		JdbcTemplate insert = new JdbcTemplate(dataSource);
-		insert.update(
-				"INSERT INTO PERSON (ID, VORNAME, NACHNAME,GEBURTSDATUM,TELEFONNR,EMAIL,KONTAKTLISTE_FK,PASSWORD,INTERESSEN) VALUES(SEQUENCE_PERSON_PK.NEXTVAL,?,?,?,?,?,?,?,?)",
-				new Object[] { firstName, lastName, birthday, phone, email, kontaktliste, 
-						password, interests });
+		// TODO
 	}
 
 	public List<Person> validate(String email, String password) {
-		JdbcTemplate select = new JdbcTemplate(dataSource);
-		return select
-				.query("Select EMAIL, PASSWORD from Person where EMAIL = ? AND PASSWORD = ?);",
-						new PersonMapper());
+		// TODO
+		return null;
 	}
 }

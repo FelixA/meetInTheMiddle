@@ -7,8 +7,6 @@ import java.sql.Date;
 import java.util.Calendar;
 import java.util.logging.Logger;
 
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
 import com.example.meetinthemiddle.DisplayLoginActivity.UserLoginTask;
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
@@ -35,9 +33,6 @@ import android.widget.DatePicker;
 public class DisplayRegistrationActivity extends Activity {
 	private static final Logger logger = Logger.getLogger( DisplayRegistrationActivity.class.getName() );
 	private PersonDao personDao;
-	DriverManagerDataSource dmdataSource;
-	String url = Constants.uri;
-	String driver = Constants.driver;
 	
 	// Values used for registration process.
 		private String mFirstName;
@@ -74,27 +69,11 @@ public class DisplayRegistrationActivity extends Activity {
 		 */
 		private UserRegistrationTask mAuthTask = null;
 		
-		public void setDbConnection() {
-			try {
-				Class.forName(oracle.jdbc.driver.OracleDriver.class.getName());
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return;
-			}
-			dmdataSource.setDriverClassName(driver);
-			dmdataSource.setUrl(url);
-			dmdataSource.setUsername("eBW13Db02");
-			dmdataSource.setPassword("eBW13Db");
-			personDao.setDataSource(dmdataSource);
-		}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_registration);
-		personDao = new PersonDao();
-		dmdataSource = new DriverManagerDataSource();
-		setDbConnection();
+		personDao = new PersonDao(this);
 		
 		// Get the EMail
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);

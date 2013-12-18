@@ -17,19 +17,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
-import com.example.meetinthemiddle.personenverwaltung.PersonMapper;
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 import com.example.meetinthemiddle.util.Constants;
@@ -41,9 +35,6 @@ import com.example.meetinthemiddle.util.ConvertToMD5;
  */
 public class DisplayLoginActivity extends Activity {
 	private PersonDao personDao;
-	DriverManagerDataSource dmdataSource;
-	String url = Constants.uri;
-	String driver = Constants.driver;
 	/**
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
@@ -73,33 +64,26 @@ public class DisplayLoginActivity extends Activity {
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
-	private JdbcTemplate jdbcTemplate;
-	private PersonMapper personMapper;
 
-
-	public void setDbConnection() {
-		try {
-			Class.forName(oracle.jdbc.driver.OracleDriver.class.getName());
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
-		dmdataSource.setDriverClassName(driver);
-		dmdataSource.setUrl(url);
-		dmdataSource.setUsername("eBW13Db02");
-		dmdataSource.setPassword("eBW13Db");
-		personDao.setDataSource(dmdataSource);
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		personDao = new PersonDao();
-		dmdataSource = new DriverManagerDataSource();
-		setDbConnection();
+		personDao = new PersonDao(this);
+		
+		
+		
+		//// TODO das ist nur ein test
+		List<Person> persons = personDao.selectAll();
 
+		Log.v(DisplayLoginActivity.class.getSimpleName(), "gefundene personen vom webservice:");
+		for (Person person : persons) {
+			Log.v(DisplayLoginActivity.class.getSimpleName(), person.toString());
+		}
+		
+		
+		////ende test
 		setContentView(R.layout.activity_display_login);
 
 		// Set up the login form.
