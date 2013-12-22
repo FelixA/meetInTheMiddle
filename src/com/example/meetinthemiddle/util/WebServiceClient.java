@@ -52,6 +52,7 @@ public class WebServiceClient {
 	 */
 	public static String getBaseUrl() {
 		if (TextUtils.isEmpty(Constants.port)) {
+			Log.v("WebServiceClient", Constants.protocol + "://" + Constants.host);
 			return Constants.protocol + "://" + Constants.host;
 		}
 		return Constants.protocol + "://" + Constants.host + ":" + Constants.port;
@@ -66,8 +67,10 @@ public class WebServiceClient {
 	 * @return
 	 */
 	public static <T> T get(Class<? extends T> clazz, String urlStr,
-			Context ctx, String... dateFormat) {
-		T result = read(clazz, urlStr, ctx, dateFormat);
+			Context ctx, String... dateFormat) throws RuntimeException{
+		Log.v("WebServiceClient", urlStr);
+		String url = getBaseUrl() + urlStr;
+		T result = read(clazz, url, ctx, dateFormat);
 		return result;
 	}
 
@@ -149,15 +152,15 @@ public class WebServiceClient {
 	 * @return
 	 */
 	private static String doGetRequest(String url, Context ctx) {
-
-		// Client definieren
+		Log.v("WebServiceClient", "URL von doGetRequest: " + url);
+		// Client definieren;
 		DefaultHttpClient client = new DefaultHttpClient();
 
 		// Login-Daten festlegen
 		
 		// TODO
 
-		// GetRequest definieren
+		// GetRequest definierxen
 		HttpGet getRequest = new HttpGet(url);
 
 		try {

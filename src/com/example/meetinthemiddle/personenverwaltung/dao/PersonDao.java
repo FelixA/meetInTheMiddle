@@ -23,7 +23,7 @@ public class PersonDao {
 	
 	
 	public List<Person> selectAll() {
-		PersonList list = WebServiceClient.get(PersonList.class, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);
+		PersonList list = WebServiceClient.get(PersonList.class, "/serverApp/rest/persons", context, Constants.DATE_FORMAT_JAXB);
 		
 		return list.getPersons();
 	}

@@ -73,16 +73,6 @@ public class DisplayLoginActivity extends Activity {
 		personDao = new PersonDao(this);
 		
 		
-		
-		//// TODO das ist nur ein test
-		List<Person> persons = personDao.selectAll();
-
-		Log.v(DisplayLoginActivity.class.getSimpleName(), "gefundene personen vom webservice:");
-		for (Person person : persons) {
-			Log.v(DisplayLoginActivity.class.getSimpleName(), person.toString());
-		}
-		
-		
 		////ende test
 		setContentView(R.layout.activity_display_login);
 
@@ -247,12 +237,25 @@ public class DisplayLoginActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			ConvertToMD5 converter = new ConvertToMD5();
-			person = personDao.selectAll();
+		
+			Log.v(DisplayLoginActivity.class.getSimpleName(), "gefundene personen vom webservice:");
+			try{
+				person = personDao.selectAll();
+				for(Person p : person){
+					Log.v(DisplayLoginActivity.class.getSimpleName(), p.toString());
+				}
+			}catch (RuntimeException e)
+			{
+				Log.e("DisplayLoginActivity","Es konnte keine Verbindung hergestellt werden");
+				mAuthTask.isCancelled();
+				return false;
+			}
 			System.out.println(converter.md5(mPassword));
 			for (int i = 0; i < person.size(); i++) {
 				if (person.get(i).getEmail().equals(mEmail)) {
 					// Account exists, return true if the password matches.
-					System.out.println(person.get(i).getPassword());
+					Log.v(DisplayLoginActivity.class.getSimpleName(), person.toString());
+
 					if (person.get(i).getPassword().equals(converter.md5(mPassword))) {
 						return true;
 					}
