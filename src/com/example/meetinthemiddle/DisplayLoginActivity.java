@@ -174,6 +174,7 @@ public class DisplayLoginActivity extends Activity {
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
+			
 			mAuthTask.execute((Void) null);
 		}
 	}
@@ -238,10 +239,11 @@ public class DisplayLoginActivity extends Activity {
 		protected Boolean doInBackground(Void... params) {
 			ConvertToMD5 converter = new ConvertToMD5();
 		
-			Log.v(DisplayLoginActivity.class.getSimpleName(), "gefundene personen vom webservice:");
 			try{
 				person = personDao.selectAll();
+				Log.v(DisplayLoginActivity.class.getSimpleName(), "gefundene personen vom webservice:");
 				for(Person p : person){
+					
 					Log.v(DisplayLoginActivity.class.getSimpleName(), p.toString());
 				}
 			}catch (RuntimeException e)

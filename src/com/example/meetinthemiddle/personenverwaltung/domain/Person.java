@@ -89,5 +89,14 @@ public String getInterests() {
 public void setInterests(String interests) {
 	this.interests = interests;
 }
+@Override
+public String toString() {
+	return "Person [firstName=" + firstName + ", lastName=" + lastName
+			+ ", birthday=" + birthday + ", phone=" + phone + ", email="
+			+ email + ", Wohnort_fk=" + Wohnort_fk
+			+ ", privateinstellungen_fk=" + privateinstellungen_fk
+			+ ", Kontaktliste_fk=" + Kontaktliste_fk + ", password=" + password
+			+ ", interests=" + interests + "]";
+}
 
 }

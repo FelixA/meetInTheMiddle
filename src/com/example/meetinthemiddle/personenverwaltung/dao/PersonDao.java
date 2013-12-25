@@ -23,14 +23,15 @@ public class PersonDao {
 	
 	
 	public List<Person> selectAll() {
-		PersonList list = WebServiceClient.get(PersonList.class, "/serverApp/rest/persons", context, Constants.DATE_FORMAT_JAXB);
+		PersonList list = WebServiceClient.get(PersonList.class, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);
 		
 		return list.getPersons();
 	}
 	  
 	public void create(String firstName, String lastName,Date birthday, String phone, String email,
-			String kontaktliste, String password, String interests) {
-		// TODO
+			Integer kontaktliste, String password, String interests) {
+		Person person = new Person(firstName, lastName, birthday, phone, email, kontaktliste, password, interests);
+		WebServiceClient.post(person, "/rest/persons/create", context);
 	}
 
 	public List<Person> validate(String email, String password) {

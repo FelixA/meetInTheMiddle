@@ -214,7 +214,7 @@ public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
 	ConvertToMD5 converter = new ConvertToMD5();
 	@Override
 	protected Boolean doInBackground(Void... params) {
-		personDao.create(mFirstName,mLastName, new java.sql.Date(mBirthday.getTime()), mPhone, mEmail, "1", converter.md5(mPassword), mInterests);
+		personDao.create(mFirstName,mLastName, new java.sql.Date(mBirthday.getTime()), mPhone, mEmail, 1, converter.md5(mPassword), mInterests);
 		return true;
 	}
 

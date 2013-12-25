@@ -52,10 +52,10 @@ public class WebServiceClient {
 	 */
 	public static String getBaseUrl() {
 		if (TextUtils.isEmpty(Constants.port)) {
-			Log.v("WebServiceClient", Constants.protocol + "://" + Constants.host);
-			return Constants.protocol + "://" + Constants.host;
+			Log.v("WebServiceClient", Constants.protocol + "://" + Constants.host +"/"+ Constants.projectName);
+			return Constants.protocol + "://" + Constants.host + "/"+ Constants.projectName;
 		}
-		return Constants.protocol + "://" + Constants.host + ":" + Constants.port;
+		return Constants.protocol + "://" + Constants.host + ":" + Constants.port + "/"+ Constants.projectName;
 	}
 
 	/**
@@ -82,7 +82,8 @@ public class WebServiceClient {
 	 * @return
 	 */
 	public static String post(Object obj, String urlStr, Context ctx) {
-		final String location = write(obj, urlStr, HttpMethodType.POST, ctx);
+		String url = getBaseUrl() + urlStr;
+		final String location = write(obj, url, HttpMethodType.POST, ctx);
 		return location;
 	}
 
@@ -122,13 +123,14 @@ public class WebServiceClient {
 			Serializer serializer = null;
 			
 			if (dateFormat != null && dateFormat.length != 0) {
+				
 				Log.v("WebServiceClient", "Datumsformat " + dateFormat[0] + " wird verwendet");
 				final DateFormat format = new SimpleDateFormat(dateFormat[0],
 						Locale.getDefault());
 				final RegistryMatcher registryMatcher = new RegistryMatcher();
 				registryMatcher.bind(Date.class, new DateTransformer(format));
-
-				serializer = new Persister(registryMatcher);
+//
+//				serializer = new Persister(registryMatcher);
 			}
 			else {
 				Log.v("WebServiceClient", "Kein Datumsformat wird verwendet");
