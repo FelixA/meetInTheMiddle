@@ -241,18 +241,13 @@ public class DisplayLoginActivity extends Activity {
 		
 			try{
 				person = personDao.selectAll();
-				Log.v(DisplayLoginActivity.class.getSimpleName(), "gefundene personen vom webservice:");
-				for(Person p : person){
-					
-					Log.v(DisplayLoginActivity.class.getSimpleName(), p.toString());
-				}
+
 			}catch (RuntimeException e)
 			{
-				Log.e("DisplayLoginActivity","Es konnte keine Verbindung hergestellt werden");
+				Log.e("DisplayLoginActivity","Es konnte keine Verbindung hergestellt werden" + e);
 				mAuthTask.isCancelled();
 				return false;
 			}
-			System.out.println(converter.md5(mPassword));
 			for (int i = 0; i < person.size(); i++) {
 				if (person.get(i).getEmail().equals(mEmail)) {
 					// Account exists, return true if the password matches.

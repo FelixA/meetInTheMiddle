@@ -3,7 +3,8 @@ package com.example.meetinthemiddle;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Date;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Calendar;
 import java.util.logging.Logger;
 
@@ -214,7 +215,12 @@ public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
 	ConvertToMD5 converter = new ConvertToMD5();
 	@Override
 	protected Boolean doInBackground(Void... params) {
-		personDao.create(mFirstName,mLastName, new java.sql.Date(mBirthday.getTime()), mPhone, mEmail, 1, converter.md5(mPassword), mInterests);
+		try {
+			personDao.create(mFirstName,mLastName, mBirthday, mPhone, mEmail, 1, converter.md5(mPassword), mInterests);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 

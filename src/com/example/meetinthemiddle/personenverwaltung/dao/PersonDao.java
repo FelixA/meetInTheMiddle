@@ -1,7 +1,11 @@
 package com.example.meetinthemiddle.personenverwaltung.dao;
 
-import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -29,13 +33,12 @@ public class PersonDao {
 	}
 	  
 	public void create(String firstName, String lastName,Date birthday, String phone, String email,
-			Integer kontaktliste, String password, String interests) {
-		Person person = new Person(firstName, lastName, birthday, phone, email, kontaktliste, password, interests);
-		WebServiceClient.post(person, "/rest/persons/create", context);
-	}
-
-	public List<Person> validate(String email, String password) {
-		// TODO
-		return null;
+			Integer kontaktliste, String password, String interests) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_JAXB, Locale.getDefault());
+    	String format = sdf.format(birthday);
+		Date birthdaynew = sdf.parse(format);
+		System.out.println(" formatted bday: "+ birthdaynew);
+		Person person = new Person(firstName, lastName, birthdaynew, phone, email, kontaktliste, password, interests);
+		WebServiceClient.post(person, "/rest/persons/create", context, Constants.DATE_FORMAT_JAXB);
 	}
 }

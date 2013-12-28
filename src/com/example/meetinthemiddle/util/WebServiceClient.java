@@ -7,8 +7,11 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import org.apache.http.Header;
@@ -81,9 +84,9 @@ public class WebServiceClient {
 	 * @param urlStr
 	 * @return
 	 */
-	public static String post(Object obj, String urlStr, Context ctx) {
+	public static String post(Object obj, String urlStr, Context ctx, String...dateFormat ) {
 		String url = getBaseUrl() + urlStr;
-		final String location = write(obj, url, HttpMethodType.POST, ctx);
+		final String location = write(obj, url, HttpMethodType.POST, ctx, dateFormat);
 		return location;
 	}
 
@@ -105,7 +108,8 @@ public class WebServiceClient {
 	public static void delete(String urlStr) {
 		// TODO
 	}
-
+	
+	
 	/**
 	 * Allgemeines Lesen
 	 * 
@@ -127,10 +131,10 @@ public class WebServiceClient {
 				Log.v("WebServiceClient", "Datumsformat " + dateFormat[0] + " wird verwendet");
 				final DateFormat format = new SimpleDateFormat(dateFormat[0],
 						Locale.getDefault());
+				System.out.println(dateFormat[0]);
 				final RegistryMatcher registryMatcher = new RegistryMatcher();
 				registryMatcher.bind(Date.class, new DateTransformer(format));
-//
-//				serializer = new Persister(registryMatcher);
+				serializer = new Persister(registryMatcher);
 			}
 			else {
 				Log.v("WebServiceClient", "Kein Datumsformat wird verwendet");
@@ -198,11 +202,21 @@ public class WebServiceClient {
 	 * @return
 	 */
 	private static String write(Object obj, String urlStr,
-			HttpMethodType httpMethod, Context ctx) {
-		final Serializer serializer = new Persister();
+			HttpMethodType httpMethod, Context ctx, String... dateFormat) {
+		Serializer serializer = new Persister();
 		Writer writer = new StringWriter();
 
 		try {
+				
+				Log.v("WebServiceClient", "Datumsformat " + dateFormat[0] + " wird verwendet");
+				final DateFormat format = new SimpleDateFormat(dateFormat[0],
+						Locale.getDefault());
+				System.out.println(dateFormat[0]);
+				final RegistryMatcher registryMatcher = new RegistryMatcher();
+				registryMatcher.bind(Date.class, new DateTransformer(format));
+			
+			serializer = new Persister(registryMatcher);
+
 			serializer.write(obj, writer);
 			String xmlString = writer.toString();
 			writer.close();

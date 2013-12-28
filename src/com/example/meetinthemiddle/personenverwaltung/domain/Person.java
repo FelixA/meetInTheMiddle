@@ -1,7 +1,14 @@
 package com.example.meetinthemiddle.personenverwaltung.domain;
 
-import java.sql.Date;
+import static com.example.meetinthemiddle.util.Constants.NAMESPACE_PERSONENVERWALTUNG;
 
+import java.util.Date;
+
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Namespace;
+import org.simpleframework.xml.Root;
+@Root
+@Namespace(reference=NAMESPACE_PERSONENVERWALTUNG)
 public class Person {
 	public Person(String firstName, String lastName, Date birthday,
 			String phone, String email, int kontaktliste_fk, String password,
@@ -18,18 +25,28 @@ public class Person {
 	}
 	public Person() {
 	}
-
+@Element
 private String firstName;
+@Element
 private String lastName;
+@Element
 private Date birthday;
+@Element
 private String phone;
+@Element
 private String email;
+@Element
 private int Wohnort_fk;
+@Element
 private int privateinstellungen_fk;
+@Element
 private int Kontaktliste_fk = 1;
+@Element
 private String password;
+@Element
 private String interests;
-public String getFirsName() {
+
+public String getFirstName() {
 	return firstName;
 }
 public void setFirstName(String firstName) {
