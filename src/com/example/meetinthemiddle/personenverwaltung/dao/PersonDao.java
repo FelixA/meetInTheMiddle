@@ -31,14 +31,24 @@ public class PersonDao {
 		
 		return list.getPersons();
 	}
+	
+	public Person findPersonById(Long id){
+		Person person = WebServiceClient.get(Person.class, "/rest/persons/" + id, context, Constants.DATE_FORMAT_JAXB);
+		return person;
+	}
+	
+	public List<Person> findContactsById(Long id){
+		PersonList list = WebServiceClient.get(PersonList.class, "/rest/persons/" + id + "/contacts", context, Constants.DATE_FORMAT_JAXB);
+		return list.getPersons();
+	}
 	  
 	public void create(String firstName, String lastName,Date birthday, String phone, String email,
-			Integer kontaktliste, String password, String interests) throws ParseException {
+			 String password, String interests) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_JAXB, Locale.getDefault());
     	String format = sdf.format(birthday);
 		Date birthdaynew = sdf.parse(format);
 		System.out.println(" formatted bday: "+ birthdaynew);
-		Person person = new Person(firstName, lastName, birthdaynew, phone, email, kontaktliste, password, interests);
-		WebServiceClient.post(person, "/rest/persons/create", context, Constants.DATE_FORMAT_JAXB);
+		Person person = new Person(firstName, lastName, birthdaynew, phone, email, password, interests);
+		WebServiceClient.post(person, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);
 	}
 }

@@ -5,14 +5,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Calendar;
 import java.util.logging.Logger;
 
-import com.example.meetinthemiddle.DisplayLoginActivity.UserLoginTask;
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
-import com.example.meetinthemiddle.util.Constants;
 import com.example.meetinthemiddle.util.ConvertToMD5;
+import com.example.meetinthemiddle.util.WebServiceClient;
 
 import android.os.AsyncTask;
 import android.os.Build;
@@ -21,18 +19,18 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.DatePicker;
 
 public class DisplayRegistrationActivity extends Activity {
-	private static final Logger logger = Logger.getLogger( DisplayRegistrationActivity.class.getName() );
+	@SuppressWarnings("unused")
+	private static final String LOG_TAG = DisplayRegistrationActivity.class
+			.getSimpleName();
 	private PersonDao personDao;
 	
 	// Values used for registration process.
@@ -43,14 +41,10 @@ public class DisplayRegistrationActivity extends Activity {
 		private String mInterests;
 		private String mPhone;
 		private Date mBirthday;
-		private Person person;
 		private View mRegistrationFormView;
 		private View mRegistrationStatusView;
 		private TextView mRegistrationStatusMessageView;
 		
-		private int year;
-		private int month;
-		private int day;
 		
 		// UI references.
 		private EditText mFirstNameView;
@@ -66,9 +60,9 @@ public class DisplayRegistrationActivity extends Activity {
 
 		
 		/**
-		 * Keep track of the login task to ensure we can cancel it if requested.
+		 * Keep track of the registration task to ensure we can cancel it if requested.
 		 */
-		private UserRegistrationTask mAuthTask = null;
+		private UserRegistrationTask mRegistrationTask = null;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +92,6 @@ public class DisplayRegistrationActivity extends Activity {
 		mLastNameView.setText(mLastName);
 		
 		mBirthdayView = (DatePicker) findViewById(R.id.birthday);
-//		(DatePicker) findViewById (R.id.birthday);
-//		mBirthdayView.set
 		
 		mRegistrationStatusView = findViewById(R.id.registration_status);
 		mRegistrationStatusMessageView = (TextView) findViewById(R.id.registration_status_message);
@@ -122,7 +114,7 @@ public class DisplayRegistrationActivity extends Activity {
 	}
 	
 	public void attemptRegistration(){
-		if (mAuthTask != null) {
+		if (mRegistrationTask != null) {
 			return;
 		}
 		
@@ -154,8 +146,8 @@ public class DisplayRegistrationActivity extends Activity {
 		} else {
 		mRegistrationStatusMessageView.setText(R.string.registration_progress_spinner);
 		showProgress(true);
-		mAuthTask = new UserRegistrationTask();
-		mAuthTask.execute((Void) null);
+		mRegistrationTask = new UserRegistrationTask();
+		mRegistrationTask.execute((Void) null);
 		}
 	}
 	
@@ -216,7 +208,7 @@ public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(Void... params) {
 		try {
-			personDao.create(mFirstName,mLastName, mBirthday, mPhone, mEmail, 1, converter.md5(mPassword), mInterests);
+			personDao.create(mFirstName,mLastName, mBirthday, mPhone, mEmail, converter.md5(mPassword), mInterests);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -226,11 +218,10 @@ public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
 
 	@Override
 	protected void onPostExecute(final Boolean success) {
-		mAuthTask = null;
-//		showProgress(false);
+		mRegistrationTask = null;
 
 		if (success) {
-			System.out.println("Herzlichen Glückwunsch, Ihr Konto wurde angelegt");
+			Log.v("DisplayRegistrationTask","Herzlichen Glückwunsch, Ihr Konto wurde angelegt");
 			displayLoginActivity(mRegistrationFormView);
 		} 
 			else {
@@ -240,7 +231,7 @@ public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
 
 	@Override
 	protected void onCancelled() {
-		mAuthTask = null;
+		mRegistrationTask = null;
 //		showProgress(false);
 	}
 }

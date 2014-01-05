@@ -119,7 +119,7 @@ public class DisplayLoginActivity extends Activity {
 	 * Gives the possibility to register the account.
 	 */
 	public void attemptRegistration(View view) {
-		displayRegistrationActivity(view, mEmail);
+		displayRegistrationActivity(view);
 	}
 	/**
 	 * Attempts to sign in the account specified by the login form.
@@ -179,13 +179,14 @@ public class DisplayLoginActivity extends Activity {
 		}
 	}
 
-	public void displayRegistrationActivity(View view, String email){
+	public void displayRegistrationActivity(View view){
 		Intent intent = new Intent(this, DisplayRegistrationActivity.class);
 		startActivity(intent);
 	}
 	
-	public void displayMainActivity(View view) {
+	public void displayMainActivity(View view, Long id) {
 		Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtra("PersonId", id);
 		startActivity(intent);
 	}
 
@@ -234,9 +235,9 @@ public class DisplayLoginActivity extends Activity {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+	public class UserLoginTask extends AsyncTask<Void, Void, Long> {
 		@Override
-		protected Boolean doInBackground(Void... params) {
+		protected Long doInBackground(Void... params) {
 			ConvertToMD5 converter = new ConvertToMD5();
 		
 			try{
@@ -246,7 +247,7 @@ public class DisplayLoginActivity extends Activity {
 			{
 				Log.e("DisplayLoginActivity","Es konnte keine Verbindung hergestellt werden" + e);
 				mAuthTask.isCancelled();
-				return false;
+				return -1L;
 			}
 			for (int i = 0; i < person.size(); i++) {
 				if (person.get(i).getEmail().equals(mEmail)) {
@@ -254,28 +255,29 @@ public class DisplayLoginActivity extends Activity {
 					Log.v(DisplayLoginActivity.class.getSimpleName(), person.toString());
 
 					if (person.get(i).getPassword().equals(converter.md5(mPassword))) {
-						return true;
+						return person.get(i).getId();
 					}
 				}
 				//TODO: CHECK IF WORKS
 				mAuthTask.isCancelled();
 			}
-			return false;
+			return -1L;
 		}
 
 
 		@Override
-		protected void onPostExecute(final Boolean success) {
+		protected void onPostExecute(Long id) {
 			mAuthTask = null;
 			showProgress(false);
 
-			if (success) {
-				displayMainActivity(mLoginFormView);
+			if (id==-1L) {
+				mPasswordView
+				.setError(getString(R.string.error_incorrect_password));
+				mPasswordView.requestFocus();
+				
 			} 
 				else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
+				displayMainActivity(mLoginFormView, id);
 			}
 		}
 
