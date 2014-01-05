@@ -16,57 +16,117 @@
         android:text="Meet in the Middle"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-	<TableRow
-    android:layout_height="wrap_content"
-    android:layout_width="fill_parent"
-    android:gravity="center_horizontal">
-   
-    <Button
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_contacts"
-        android:onClick="displayContacts"/>
+        android:layout_height="wrap_content" >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_messages"
-    	android:onClick="displayMessages"/>
-    
-    </TableRow>
-    
-    <TableRow
-    android:layout_height="wrap_content"
-    android:layout_width="fill_parent"
-    android:gravity="center_horizontal">
-    
-	<Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_meet"
-        android:onClick="displayMeetings" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_profile"
-        android:onClick="displayProfile" />
-    </TableRow>
-    
-    <TableRow
-    android:layout_height="wrap_content"
-    android:layout_width="fill_parent"
-    android:gravity="center_horizontal">
-    
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_questions"
-        android:onClick="displayQuestions" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_settings"
-        android:onClick="displaySettings" />
-    </TableRow>
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="27dp"
+            android:src="@drawable/contacts" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="23dp"
+            android:src="@drawable/message" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView2"
+            android:layout_alignRight="@+id/imageView2"
+            android:layout_below="@+id/imageView2"
+            android:text="Nachrichten" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView3"
+            android:layout_alignBottom="@+id/textView3"
+            android:layout_alignLeft="@+id/imageView1"
+            android:layout_marginLeft="14dp"
+            android:text="Kontakte" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView4"
+            android:layout_below="@+id/imageView4"
+            android:layout_marginTop="15dp"
+            android:text="Profil" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView4"
+            android:layout_alignBottom="@+id/textView4"
+            android:layout_alignLeft="@+id/imageView3"
+            android:text="Treffen" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignLeft="@+id/imageView1"
+            android:layout_alignTop="@+id/imageView4"
+            android:src="@drawable/meet" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_below="@+id/textView3"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/happy" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/TextView01"
+            android:layout_below="@+id/TextView01"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/question" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView4"
+            android:layout_alignTop="@+id/imageView5"
+            android:src="@drawable/settings" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView5"
+            android:layout_below="@+id/imageView5"
+            android:layout_marginTop="18dp"
+            android:text="Fragen ?" />
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView5"
+            android:layout_alignBottom="@+id/textView5"
+            android:layout_alignLeft="@+id/imageView6"
+            android:text="Einstellungen" />
+
+    </RelativeLayout>
     
 </TableLayout>

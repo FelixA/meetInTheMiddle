@@ -10,18 +10,9 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:src="@drawable/person" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView3"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="31dp"
-        android:src="@drawable/truck" />
 
     <EditText
         android:id="@+id/EditText03"
@@ -37,24 +28,6 @@
 
         <requestFocus />
     </EditText>
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView4"
-        android:layout_marginBottom="24dp"
-        android:layout_toLeftOf="@+id/EditText03"
-        android:src="@drawable/clock" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/home" />
 
     <EditText
         android:id="@+id/EditText02"
@@ -87,5 +60,40 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Art des Treffens" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_above="@+id/imageView3"
+        android:layout_alignLeft="@+id/imageView1"
+        android:layout_marginBottom="35dp"
+        android:src="@drawable/home" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/EditText02"
+        android:layout_marginTop="35dp"
+        android:layout_toLeftOf="@+id/EditText03"
+        android:src="@drawable/truck" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/EditText02"
+        android:src="@drawable/clock" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/EditText03"
+        android:layout_below="@+id/EditText03"
+        android:layout_marginTop="22dp"
+        android:text="Anfrage senden" />
 
 </RelativeLayout>
