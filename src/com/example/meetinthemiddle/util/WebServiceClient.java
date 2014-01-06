@@ -96,8 +96,10 @@ public class WebServiceClient {
 	 * @param obj
 	 * @param urlStr
 	 */
-	public static void put(Object obj, String urlStr, Context ctx) {
-		write(obj, urlStr, HttpMethodType.PUT, ctx);
+	public static String put(Object obj, String urlStr, Context ctx, String... dateFormat) {
+		String url = getBaseUrl() + urlStr;
+		final String location = write(obj, urlStr, HttpMethodType.PUT, ctx, dateFormat);
+		return location;
 	}
 
 	/**

@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Logger;
 
-import com.example.meetinthemiddle.DisplayRegistrationActivity.UserRegistrationTask;
+import com.example.meetinthemiddle.locationverwaltung.dao.LocationDao;
+import com.example.meetinthemiddle.locationverwaltung.domain.Location;
+import com.example.meetinthemiddle.meetingverwaltung.dao.MeetingDao;
+import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
-import com.example.meetinthemiddle.personenverwaltung.domain.PersonList;
-import com.example.meetinthemiddle.util.ConvertToMD5;
+import com.example.meetinthemiddle.placesverwaltung.dao.PlaceDao;
+import com.example.meetinthemiddle.placesverwaltung.domain.Place;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,11 +24,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,25 +32,60 @@ public class MainActivity extends Activity {
 	@SuppressWarnings("unused")
 	private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
+	MeetingDao meetingDao;
+	private List<Meeting> meetings;
+	private List<Person> firstPersons;
+	private List<Person> secondPersons;
+	private List<Place> places;
+	private List<Location> locations;
+	private Place place;
+	private Person person;
+	private Location location;
 	PersonDao personDao;
-	private List<Person> persons;
-
-	/**
-	 * Keep track of the login task to ensure we can cancel it if requested.
-	 */
-	private ShowContactsTask showContactsTask = null;
+	PlaceDao placeDao;
+	LocationDao locationDao;
+	
+	private ShowMeetingsTask showMeetingsTask = null;
+	private ShowFirstPersonTask showFirstPersonTask = null;
+	private ShowSecondPersonTask showSecondPersonTask = null;
+	private ShowPlaceTask showPlaceTask = null;
+	private ShowLocationTask showLocationTask = null;
 
 	public final static String EXTRA_MESSAGE = "com.example.meetinthemiddle.EXTRA_MESSAGE";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		persons = new ArrayList<Person>();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		meetings = new ArrayList<Meeting>();
+		firstPersons = new ArrayList<Person>();
+		secondPersons = new ArrayList<Person>();
+		locations = new ArrayList<Location>();
+		places = new ArrayList<Place>();
+		place = new Place();
+		person = new Person();
+		location = new Location();
+		
+		meetingDao = new MeetingDao(this);
 		personDao = new PersonDao(this);
-		showContactsTask = new ShowContactsTask();
+		placeDao = new PlaceDao(this);
+		locationDao = new LocationDao(this);
+		
+		showMeetingsTask = new ShowMeetingsTask();
 		try {
-			persons = showContactsTask.execute((Void) null).get();
+			meetings = showMeetingsTask.execute((Void) null).get();
+			for(int i = 0; i<meetings.size();++i){
+				System.out.println(i);
+				showFirstPersonTask = new ShowFirstPersonTask();
+				firstPersons.add(showFirstPersonTask.execute(meetings.get(i).getPers1_fk()).get());
+				showSecondPersonTask = new ShowSecondPersonTask();
+				secondPersons.add(showSecondPersonTask.execute(meetings.get(i).getPers2_fk()).get());
+				showPlaceTask = new ShowPlaceTask();
+				places.add(showPlaceTask.execute(meetings.get(i).getOrt_fk()).get());
+				showLocationTask = new ShowLocationTask();
+				locations.add(showLocationTask.execute(meetings.get(i).getLokalitaet_fk()).get());
+			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,47 +94,53 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 
-//		populatePersonList();
 		populateListView();
 	}
 
-//	private void populatePersonList() {
-//		persons.add(new Person("Felix","Albert",new Date(),"12345","fwfew@cdew","dewdew","interessen"));	
-//	}
-
 	private void populateListView() {
-		ArrayAdapter<Person> adapter = new MyListAdapter();
+		ArrayAdapter<Meeting> adapter = new MyListAdapter();
 		ListView list = (ListView) findViewById(R.id.pastMeetingsView);
 		list.setAdapter(adapter);
 	}
 
-	private class MyListAdapter extends ArrayAdapter<Person> {
+	private class MyListAdapter extends ArrayAdapter<Meeting> {
 		public MyListAdapter() {
-			super(MainActivity.this, R.layout.contacts_view, persons);
+			super(MainActivity.this, R.layout.meetings_view, meetings);
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			 View contacts_view = convertView;
-			 //Make sure a view is present
-			 if(contacts_view == null){
-				 contacts_view = getLayoutInflater().inflate(R.layout.contacts_view, parent, false);
-			 }
+			View meetings_view = convertView;
+			// Make sure a view is present
+			if (meetings_view == null) {
+				meetings_view = getLayoutInflater().inflate(
+						R.layout.meetings_view, parent, false);
+			}
+
+			Meeting currentMeeting = meetings.get(position);
+
+			// TODO: Bilder vom User
+			// ImageView imageView = (ImageView)
+			// contacts_view.findViewById(R.id.contacts_personImage);
+			// imageView.setImageResource(currentPerson.getIconID());
+
+			TextView meetingFirstPersonView = (TextView) meetings_view.findViewById(R.id.meeting_firstPersonName);
+			meetingFirstPersonView.setText(firstPersons.get(position).getFirstName());
+
+			TextView meetingSecondPersonView = (TextView) meetings_view.findViewById(R.id.meeting_secondPersonName);
+			meetingSecondPersonView.setText(secondPersons.get(position).getFirstName());
 			
-			Person currentPerson = persons.get(position);
+			TextView meetingLocationView = (TextView) meetings_view.findViewById(R.id.meeting_locationName);
+			meetingLocationView.setText(locations.get(position).getBeschreibung());
 			
-			//TODO: Bilder vom User
-//			ImageView imageView = (ImageView) contacts_view.findViewById(R.id.contacts_personImage);
-//			imageView.setImageResource(currentPerson.getIconID());
+			TextView meetingPlaceView = (TextView) meetings_view.findViewById(R.id.meeting_placeName);
+			meetingPlaceView.setText(places.get(position).getStadtname().toString());
 			
-			TextView personNameView = (TextView) contacts_view.findViewById(R.id.contacts_personName);
-			personNameView.setText(currentPerson.getFirstName());
-			
-			TextView interestsView = (TextView) contacts_view.findViewById(R.id.contacts_personInteressen);
-			interestsView.setText(currentPerson.getInterests());
-			return contacts_view;
+			TextView meetingCommentView = (TextView) meetings_view.findViewById(R.id.meeting_comment);
+			meetingCommentView.setText(currentMeeting.getKommentar().toString());
+			return meetings_view;
 		}
-		
+
 	}
 
 	@Override
@@ -151,46 +191,71 @@ public class MainActivity extends Activity {
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
 	 */
-	public class ShowContactsTask extends AsyncTask<Void, Void, List<Person>> {
+	public class ShowMeetingsTask extends AsyncTask<Void, Void, List<Meeting>> {
 		@Override
-		protected List<Person> doInBackground(Void... params) {
+		protected List<Meeting> doInBackground(Void... params) {
 			try {
-				Long personId = null;
-				Bundle extras = getIntent().getExtras();
-				if (extras != null) {
-					personId = extras.getLong("PersonId");
-				} else {
-					throw new Exception("Id ist nicht vorhanden");
-				}
-				persons = new ArrayList<Person>();
-				persons = personDao.findContactsById(personId);
-				for (int i = 0; i < persons.size(); i++) {
-					Log.v(MainActivity.class.getName(), persons.get(i)
+				// Hole aus den extras die Id der gesuchten Person
+				// Long meetingId = null;
+				// Bundle extras = getIntent().getExtras();
+				// if (extras != null) {
+				// meetingId = extras.getLong("PersonId");
+				// } else {
+				// throw new Exception("Id ist nicht vorhanden");
+				// }
+				meetings = new ArrayList<Meeting>();
+				meetings = meetingDao.selectAll();
+				for (int i = 0; i < meetings.size(); i++) {
+					Log.v(MainActivity.class.getName(), meetings.get(i)
 							.toString());
-					return persons;
+					// return meetings;
 				}
-
-				LinearLayout linear = (LinearLayout) findViewById(R.layout.activity_main);
-				TextView[] txt = new TextView[3];
-
-				for (int i = 0; i < txt.length; i++) {
-					txt[i] = new TextView(MainActivity.this);
-					txt[i].setText("text " + i);
-					txt[i].setLayoutParams(new LayoutParams(
-							LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-					linear.addView(txt[i]);
-				}
-			} catch (RuntimeException e) {
-				Log.e(MainActivity.class.getName(),
-						"Es konnte keine Verbindung hergestellt werden" + e);
-//				return false;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				try {
+					throw new Exception("Keine Verbindung" + e);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
-			return persons;
-
-//			return false;
+			return meetings;
+			// return false;
 		}
+	}
+	public class ShowFirstPersonTask extends AsyncTask<Long, Void, Person>{
+		@Override
+		protected Person doInBackground(Long... firstPersonId) {
+			person = new Person();
+			person = personDao.findPersonById(firstPersonId[0]);
+			return person;
+		}
+	}
+	public class ShowSecondPersonTask extends AsyncTask<Long, Void, Person>{
+		@Override
+		protected Person doInBackground(Long... secondPersonId) {
+			person = new Person();
+			person = personDao.findPersonById(secondPersonId[0]);
+			return person;
+		}
+	}
+	
+	public class ShowPlaceTask extends AsyncTask<Long, Void, Place>{
+		@Override
+		protected Place doInBackground(Long... placeId) {
+			place = new Place();
+			place = placeDao.findPlaceById(placeId[0]);
+			return place;
+		}
+	}
+	
+	public class ShowLocationTask extends AsyncTask<Long, Void, Location>{
+
+		@Override
+		protected Location doInBackground(Long... locationId) {
+			location = new Location();
+			location = locationDao.findLocationById(locationId[0]);
+			return location;
+		}
+		
 	}
 }
