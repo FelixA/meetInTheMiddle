@@ -76,7 +76,6 @@ public class MainActivity extends Activity {
 		try {
 			meetings = showMeetingsTask.execute((Void) null).get();
 			for(int i = 0; i<meetings.size();++i){
-				System.out.println(i);
 				showFirstPersonTask = new ShowFirstPersonTask();
 				firstPersons.add(showFirstPersonTask.execute(meetings.get(i).getPers1_fk()).get());
 				showSecondPersonTask = new ShowSecondPersonTask();

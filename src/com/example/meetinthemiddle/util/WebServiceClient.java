@@ -133,7 +133,6 @@ public class WebServiceClient {
 				Log.v("WebServiceClient", "Datumsformat " + dateFormat[0] + " wird verwendet");
 				final DateFormat format = new SimpleDateFormat(dateFormat[0],
 						Locale.getDefault());
-				System.out.println(dateFormat[0]);
 				final RegistryMatcher registryMatcher = new RegistryMatcher();
 				registryMatcher.bind(Date.class, new DateTransformer(format));
 				serializer = new Persister(registryMatcher);
@@ -213,7 +212,6 @@ public class WebServiceClient {
 				Log.v("WebServiceClient", "Datumsformat " + dateFormat[0] + " wird verwendet");
 				final DateFormat format = new SimpleDateFormat(dateFormat[0],
 						Locale.getDefault());
-				System.out.println(dateFormat[0]);
 				final RegistryMatcher registryMatcher = new RegistryMatcher();
 				registryMatcher.bind(Date.class, new DateTransformer(format));
 			

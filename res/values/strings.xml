@@ -48,5 +48,6 @@
 	<string name="string_register">Register New Account</string>
 	<string name="registration_progress_signing_in">Registering account&#8230;</string>
 	<string name="registration_progress_spinner">Registering account&#8230;</string>
+	<string name="title_activity_display_contacts">DisplayContactsActivity</string>
 
 </resources>

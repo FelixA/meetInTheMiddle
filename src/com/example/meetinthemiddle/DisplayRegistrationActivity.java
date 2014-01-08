@@ -157,7 +157,7 @@ public class DisplayRegistrationActivity extends Activity {
 	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 	private void showProgress(final boolean show) {
-		System.out.println("Progress bar should be seen now");
+		//TODO:Progressbar
 		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
 		// for very easy animations. If available, use these APIs to fade-in
 		// the progress spinner.
@@ -219,20 +219,21 @@ public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
 	@Override
 	protected void onPostExecute(final Boolean success) {
 		mRegistrationTask = null;
+		showProgress(false);
 
 		if (success) {
 			Log.v("DisplayRegistrationTask","Herzlichen Glückwunsch, Ihr Konto wurde angelegt");
 			displayLoginActivity(mRegistrationFormView);
 		} 
 			else {
-			System.out.println("Fehler");
+			Log.e(DisplayRegistrationActivity.class.getName(),"Konto konnte nicht angelegt werden");
 		}
 	}
 
 	@Override
 	protected void onCancelled() {
 		mRegistrationTask = null;
-//		showProgress(false);
+		showProgress(false);
 	}
 }
 }

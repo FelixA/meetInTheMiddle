@@ -11,9 +11,11 @@ import org.simpleframework.xml.Root;
 @Root
 @Namespace(reference=NAMESPACE_MEETINGVERWALTUNG)
 public class Meeting {
+
 	public Meeting(Long pers1_fk, Long pers2_fk, Date uhrzeit,
 			Long lokalitaet_fk, Long ort_fk, int bewertung,
-			Long verkehrsmittel_fk, String kommentar) {
+			Long verkehrsmittel_pers1_fk, String kommentar,
+			Long verkehrsmittel_pers2_fk) {
 		super();
 		this.pers1_fk = pers1_fk;
 		this.pers2_fk = pers2_fk;
@@ -21,8 +23,9 @@ public class Meeting {
 		this.lokalitaet_fk = lokalitaet_fk;
 		this.ort_fk = ort_fk;
 		this.bewertung = bewertung;
-		this.verkehrsmittel_fk = verkehrsmittel_fk;
+		this.verkehrsmittel_pers1_fk = verkehrsmittel_pers1_fk;
 		this.kommentar = kommentar;
+		this.verkehrsmittel_pers2_fk = verkehrsmittel_pers2_fk;
 	}
 	public Meeting() {}
 	@Element
@@ -38,16 +41,19 @@ public class Meeting {
 	@Element(required = false)
 	private int bewertung;
 	@Element
-	private Long verkehrsmittel_fk;
+	private Long verkehrsmittel_pers1_fk;
 	@Element(required = false)
 	private String kommentar;
+	@Element
+	private Long verkehrsmittel_pers2_fk;
 	@Override
 	public String toString() {
 		return "Meeting [pers1_fk=" + pers1_fk + ", pers2_fk=" + pers2_fk
 				+ ", uhrzeit=" + uhrzeit + ", lokalitaet_fk=" + lokalitaet_fk
 				+ ", ort_fk=" + ort_fk + ", bewertung=" + bewertung
-				+ ", verkehrsmittel_fk=" + verkehrsmittel_fk + ", kommentar="
-				+ kommentar + "]";
+				+ ", verkehrsmittel_pers1_fk=" + verkehrsmittel_pers1_fk
+				+ ", kommentar=" + kommentar + ", verkehrsmittel_pers2_fk="
+				+ verkehrsmittel_pers2_fk + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -66,8 +72,12 @@ public class Meeting {
 		result = prime * result + ((uhrzeit == null) ? 0 : uhrzeit.hashCode());
 		result = prime
 				* result
-				+ ((verkehrsmittel_fk == null) ? 0 : verkehrsmittel_fk
-						.hashCode());
+				+ ((verkehrsmittel_pers1_fk == null) ? 0
+						: verkehrsmittel_pers1_fk.hashCode());
+		result = prime
+				* result
+				+ ((verkehrsmittel_pers2_fk == null) ? 0
+						: verkehrsmittel_pers2_fk.hashCode());
 		return result;
 	}
 	@Override
@@ -111,10 +121,17 @@ public class Meeting {
 				return false;
 		} else if (!uhrzeit.equals(other.uhrzeit))
 			return false;
-		if (verkehrsmittel_fk == null) {
-			if (other.verkehrsmittel_fk != null)
+		if (verkehrsmittel_pers1_fk == null) {
+			if (other.verkehrsmittel_pers1_fk != null)
 				return false;
-		} else if (!verkehrsmittel_fk.equals(other.verkehrsmittel_fk))
+		} else if (!verkehrsmittel_pers1_fk
+				.equals(other.verkehrsmittel_pers1_fk))
+			return false;
+		if (verkehrsmittel_pers2_fk == null) {
+			if (other.verkehrsmittel_pers2_fk != null)
+				return false;
+		} else if (!verkehrsmittel_pers2_fk
+				.equals(other.verkehrsmittel_pers2_fk))
 			return false;
 		return true;
 	}
@@ -154,11 +171,11 @@ public class Meeting {
 	public void setBewertung(int bewertung) {
 		this.bewertung = bewertung;
 	}
-	public Long getVerkehrsmittel_fk() {
-		return verkehrsmittel_fk;
+	public Long getVerkehrsmittel_pers1_fk() {
+		return verkehrsmittel_pers1_fk;
 	}
-	public void setVerkehrsmittel_fk(Long verkehrsmittel_fk) {
-		this.verkehrsmittel_fk = verkehrsmittel_fk;
+	public void setVerkehrsmittel_pers1_fk(Long verkehrsmittel_pers1_fk) {
+		this.verkehrsmittel_pers1_fk = verkehrsmittel_pers1_fk;
 	}
 	public String getKommentar() {
 		return kommentar;
@@ -166,4 +183,11 @@ public class Meeting {
 	public void setKommentar(String kommentar) {
 		this.kommentar = kommentar;
 	}
+	public Long getVerkehrsmittel_pers2_fk() {
+		return verkehrsmittel_pers2_fk;
+	}
+	public void setVerkehrsmittel_pers2_fk(Long verkehrsmittel_pers2_fk) {
+		this.verkehrsmittel_pers2_fk = verkehrsmittel_pers2_fk;
+	}
+
 }

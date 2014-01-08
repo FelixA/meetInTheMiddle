@@ -1,16 +1,13 @@
 package com.example.meetinthemiddle.personenverwaltung.dao;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-
 import android.content.Context;
+import android.util.Log;
 
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 import com.example.meetinthemiddle.personenverwaltung.domain.PersonList;
@@ -47,7 +44,7 @@ public class PersonDao {
         SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_JAXB, Locale.getDefault());
     	String format = sdf.format(birthday);
 		Date birthdaynew = sdf.parse(format);
-		System.out.println(" formatted bday: "+ birthdaynew);
+		Log.v(PersonDao.class.getName()," formatted bday: "+ birthdaynew);
 		Person person = new Person(firstName, lastName, birthdaynew, phone, email, password, interests);
 		WebServiceClient.post(person, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);
 	}
