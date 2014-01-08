@@ -1,132 +1,136 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#ffffff"
+	android:shrinkColumns="*"
+	android:stretchColumns="*" >
 
+	<TextView
+		android:id="@+id/textView1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:text="Meet in the Middle"
+		android:textAppearance="?android:attr/textAppearanceLarge" />
 
-<TableLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:shrinkColumns="*" 
-            android:stretchColumns="*" 
-            android:background="#ffffff">
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Meet in the Middle"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+		<ImageView
+			android:id="@+id/imageView1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
+			android:layout_marginLeft="27dp"
+			android:src="@drawable/contacts" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+		<ImageView
+			android:id="@+id/imageView2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentTop="true"
+			android:layout_marginRight="23dp"
+			android:src="@drawable/message" />
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="27dp"
-            android:src="@drawable/contacts" />
+		<TextView
+			android:id="@+id/textView3"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/imageView2"
+			android:layout_alignRight="@+id/imageView2"
+			android:layout_below="@+id/imageView2"
+			android:text="Nachrichten" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="23dp"
-            android:src="@drawable/message" />
+		<TextView
+			android:id="@+id/textView2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBaseline="@+id/textView3"
+			android:layout_alignBottom="@+id/textView3"
+			android:layout_alignLeft="@+id/imageView1"
+			android:layout_marginLeft="14dp"
+			android:text="Kontakte" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView2"
-            android:layout_alignRight="@+id/imageView2"
-            android:layout_below="@+id/imageView2"
-            android:text="Nachrichten" />
+		<TextView
+			android:id="@+id/textView4"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/imageView4"
+			android:layout_below="@+id/imageView4"
+			android:layout_marginTop="15dp"
+			android:text="Profil" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView3"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_alignLeft="@+id/imageView1"
-            android:layout_marginLeft="14dp"
-            android:text="Kontakte" />
+		<TextView
+			android:id="@+id/TextView01"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBaseline="@+id/textView4"
+			android:layout_alignBottom="@+id/textView4"
+			android:layout_alignLeft="@+id/imageView3"
+			android:text="Treffen" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView4"
-            android:layout_below="@+id/imageView4"
-            android:layout_marginTop="15dp"
-            android:text="Profil" />
+		<ImageView
+			android:id="@+id/imageView3"
+			android:layout_width="120dp"
+			android:layout_height="120dp"
+			android:layout_alignLeft="@+id/imageView1"
+			android:layout_alignTop="@+id/imageView4"
+			android:src="@drawable/meet" />
 
-        <TextView
-            android:id="@+id/TextView01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView4"
-            android:layout_alignBottom="@+id/textView4"
-            android:layout_alignLeft="@+id/imageView3"
-            android:text="Treffen" />
+		<ImageView
+			android:id="@+id/imageView4"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/textView3"
+			android:layout_below="@+id/textView3"
+			android:layout_marginTop="30dp"
+			android:src="@drawable/happy" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_alignLeft="@+id/imageView1"
-            android:layout_alignTop="@+id/imageView4"
-            android:src="@drawable/meet" />
+		<ImageView
+			android:id="@+id/imageView5"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/TextView01"
+			android:layout_below="@+id/TextView01"
+			android:layout_marginTop="30dp"
+			android:src="@drawable/question" />
 
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView3"
-            android:layout_below="@+id/textView3"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/happy" />
+		<ImageView
+			android:id="@+id/imageView6"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/textView4"
+			android:layout_alignTop="@+id/imageView5"
+			android:src="@drawable/settings" />
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TextView01"
-            android:layout_below="@+id/TextView01"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/question" />
+		<TextView
+			android:id="@+id/textView5"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/imageView5"
+			android:layout_below="@+id/imageView5"
+			android:layout_marginTop="18dp"
+			android:text="Fragen ?" />
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView4"
-            android:layout_alignTop="@+id/imageView5"
-            android:src="@drawable/settings" />
+		<TextView
+			android:id="@+id/TextView02"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBaseline="@+id/textView5"
+			android:layout_alignBottom="@+id/textView5"
+			android:layout_alignLeft="@+id/imageView6"
+			android:text="Einstellungen" />
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView5"
-            android:layout_below="@+id/imageView5"
-            android:layout_marginTop="18dp"
-            android:text="Fragen ?" />
+		<ListView
+			android:id="@+id/pastMeetingsView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true" >
+		</ListView>
+	</RelativeLayout>
 
-        <TextView
-            android:id="@+id/TextView02"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView5"
-            android:layout_alignBottom="@+id/textView5"
-            android:layout_alignLeft="@+id/imageView6"
-            android:text="Einstellungen" />
-
-    </RelativeLayout>
-    
 </TableLayout>

@@ -27,8 +27,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
+/**
+ * 
+ * @author Felix
+ *
+ */
 public class MainActivity extends Activity {
+	//TODO: Treffen = 0 error
 	@SuppressWarnings("unused")
 	private static final String LOG_TAG = MainActivity.class.getSimpleName();
 

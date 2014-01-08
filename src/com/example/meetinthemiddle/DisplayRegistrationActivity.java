@@ -26,8 +26,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.DatePicker;
-
+/**
+ * 
+ * @author Felix
+ *
+ */
 public class DisplayRegistrationActivity extends Activity {
+	//TODO: check for unique email
 	@SuppressWarnings("unused")
 	private static final String LOG_TAG = DisplayRegistrationActivity.class
 			.getSimpleName();
