@@ -8,23 +8,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".DisplayMeetingsActivity" >
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignLeft="@+id/imageButton2"
         android:src="@drawable/person" />
 
     <EditText
-        android:id="@+id/EditText03"
+        android:id="@+id/EditText01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView4"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="14dp"
+        android:layout_alignBottom="@+id/imageButton1"
+        android:layout_toRightOf="@+id/imageButton1"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Verkehrsmittel" >
+        android:text="Mit wem?" >
 
         <requestFocus />
     </EditText>
@@ -33,67 +32,65 @@
         android:id="@+id/EditText02"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView3"
-        android:layout_marginBottom="16dp"
-        android:layout_toRightOf="@+id/imageView4"
+        android:layout_alignBottom="@+id/imageButton3"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignParentRight="true"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Wann?" />
 
-    <EditText
-        android:id="@+id/EditText01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignRight="@+id/EditText02"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Mit wem?" />
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignLeft="@+id/imageButton3"
+        android:layout_below="@+id/imageButton1"
+        android:src="@drawable/home" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageButton2"
+        android:src="@drawable/clock" />
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView2"
-        android:layout_toRightOf="@+id/imageView2"
+        android:layout_above="@+id/imageButton3"
+        android:layout_toRightOf="@+id/imageButton2"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Art des Treffens" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_above="@+id/imageView3"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_marginBottom="35dp"
-        android:src="@drawable/home" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_alignLeft="@+id/imageButton3"
         android:layout_below="@+id/EditText02"
-        android:layout_marginTop="35dp"
-        android:layout_toLeftOf="@+id/EditText03"
         android:src="@drawable/truck" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/EditText02"
-        android:src="@drawable/clock" />
+    <EditText
+        android:id="@+id/EditText03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageButton4"
+        android:layout_alignLeft="@+id/EditText02"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Verkehrsmittel" />
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/EditText03"
-        android:layout_below="@+id/EditText03"
-        android:layout_marginTop="22dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
         android:text="Anfrage senden" />
 
 </RelativeLayout>
