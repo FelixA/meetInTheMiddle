@@ -157,6 +157,12 @@ public class MainActivity extends Activity {
 	// Zeigt die Kontakte des jeweiligen Users.
 	public void displayContacts(View view) {
 		Intent intent = new Intent(this, DisplayContactsActivity.class);
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		    Long id = extras.getLong("PersonId");
+		    System.out.println(id);
+			intent.putExtra("PersonId", id);
+		}
 		startActivity(intent);
 	}
 

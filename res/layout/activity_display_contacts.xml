@@ -17,7 +17,7 @@
 	</SearchView>
 
 	<ListView
-		android:id="@+id/listView1"
+		android:id="@+id/contacts_view"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"

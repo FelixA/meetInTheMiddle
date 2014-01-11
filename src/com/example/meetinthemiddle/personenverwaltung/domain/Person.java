@@ -19,7 +19,6 @@ public class Person {
 		this.birthday = birthday;
 		this.phone = phone;
 		this.email = email;
-		// Wohnort_fk = wohnort_fk;
 		this.password = password;
 		this.interests = interests;
 	}
@@ -39,8 +38,6 @@ public class Person {
 	private String phone;
 	@Element
 	private String email;
-	@Element(required = false)
-	private Long Wohnort_fk;
 	@Element
 	private String password;
 	@Element(required = false)
@@ -94,14 +91,6 @@ public class Person {
 		this.email = email;
 	}
 
-	public Long getWohnort_fk() {
-		return Wohnort_fk;
-	}
-
-	public void setWohnort_fk(Long wohnort_fk) {
-		Wohnort_fk = wohnort_fk;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -147,8 +136,6 @@ public class Person {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (Wohnort_fk != other.Wohnort_fk)
-			return false;
 		if (birthday == null) {
 			if (other.birthday != null)
 				return false;
@@ -196,8 +183,9 @@ public class Person {
 	public String toString() {
 		return "Person [id=" + id + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", birthday=" + birthday + ", phone=" + phone
-				+ ", email=" + email + ", Wohnort_fk=" + Wohnort_fk
-				+ ", password=" + password + ", interests=" + interests + "]";
+				+ ", email=" + email + ", password=" + password
+				+ ", interests=" + interests + "]";
 	}
+
 
 }
