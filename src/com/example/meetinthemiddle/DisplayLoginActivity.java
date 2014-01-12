@@ -187,6 +187,7 @@ public class DisplayLoginActivity extends Activity {
 	public void displayMainActivity(View view, Long id) {
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra("PersonId", id);
+		System.out.println(id);
 		startActivity(intent);
 	}
 

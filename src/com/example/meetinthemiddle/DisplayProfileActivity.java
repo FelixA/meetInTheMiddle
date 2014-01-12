@@ -1,21 +1,58 @@
 package com.example.meetinthemiddle;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
+import com.example.meetinthemiddle.personenverwaltung.domain.Person;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
 
 public class DisplayProfileActivity extends Activity {
 
+	PersonDao personDao;
+	List<Person> persons;
+	Person person;
+	TextView profileView;
+	
+	public ShowProfileTask showProfileTask;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_profile);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		persons = new ArrayList<Person>();
+		person = new Person();
+		personDao = new PersonDao(this);
+		showProfileTask = new ShowProfileTask();
+		try {
+			person = showProfileTask.execute((Void) null).get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		showPersonViews();
+		
+	}
+
+	private void showPersonViews() {
+//		TextView personFirstNameView = (TextView) profileView.findViewById(R.id.profile_firstName)
+//		personFirstNameView.setText(person.getFirstName());
 	}
 
 	/**
@@ -50,6 +87,21 @@ public class DisplayProfileActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	private class ShowProfileTask extends AsyncTask<Void, Void, Person>{
+
+		@Override
+		protected Person doInBackground(Void... arg0) {
+			Bundle extras = getIntent().getExtras();
+			if (extras != null) {
+				Long id = extras.getLong("ContactId");
+				Person person = new Person();
+				return person = personDao.findPersonById(id);
+			}
+			return null;
+		}
+		
 	}
 
 }
