@@ -175,7 +175,13 @@ public class MainActivity extends Activity {
 	// Zeigt den Bildschirm zur auswahl ob man ein meeting erstellen will, oder
 	// sich die historie einsehen.
 	public void displayMeetings(View view) {
-		Intent intent = new Intent(this, DisplayMeetingsActivity.class);
+		Intent intent = new Intent(this, DisplayMeetingFunctionsActivity.class);
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		    Long id = extras.getLong("PersonId");
+		    System.out.println(id);
+			intent.putExtra("PersonId", id);
+		}
 		startActivity(intent);
 	}
 

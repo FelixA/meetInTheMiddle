@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/menu002"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" >
+
+	<item
+		android:id="@+id/kindoftransportation_foot"
+		android:title="zu Fuß"/>
+
+	<item
+		android:id="@+id/kindoftransportation_public"
+		android:title="öffentliche"/>
+
+	<item
+		android:id="@+id/kindoftransportation_bike"
+		android:title="Fahrrad"/>
+
+	<item
+		android:id="@+id/kindoftransportation_car"
+		android:title="Auto"/>
+
+</menu>

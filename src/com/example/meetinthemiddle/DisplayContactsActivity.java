@@ -9,11 +9,18 @@ import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.app.Activity;
+import android.app.ListActivity;
+import android.app.SearchManager;
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -21,20 +28,36 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DisplayContactsActivity extends Activity {
+public class DisplayContactsActivity extends Activity{
 	@SuppressWarnings("unused")
 	private static final String LOG_TAG = DisplayContactsActivity.class
 			.getSimpleName();
 
-	PersonDao personDao;
+	private PersonDao personDao;
 	private List<Person> persons;
 
 	private ShowPersonTask showPersonTask;
+	
+	private ListView contactsView;
+	private SearchView searchView;
+	ArrayAdapter<Person> adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_contacts);
+		ViewGroup relativeLayout = (ViewGroup) findViewById(R.id.contacts_layout_id);
+
+		
+		
+//		//prepare the SearchView
+//        searchView = (SearchView) findViewById(R.id.searchContacts);
+// 
+//        //Sets the default or resting state of the search field. If true, a single search icon is shown by default and
+//        // expands to show the text field and other buttons when pressed. Also, if the default state is iconified, then it
+//        // collapses to that state when the close button is pressed. Changes to this property will take effect immediately.
+//        //The default value is true.
+//        searchView.setIconifiedByDefault(false);
 
 		persons = new ArrayList<Person>();
 		personDao = new PersonDao(this);
@@ -43,6 +66,7 @@ public class DisplayContactsActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			Long id = extras.getLong("PersonId");
+			
 			try {
 				persons = showPersonTask.execute(id).get();
 			} catch (InterruptedException e) {
@@ -53,13 +77,38 @@ public class DisplayContactsActivity extends Activity {
 				e.printStackTrace();
 			}
 		}
-
+		
+		// Get the intent, verify the action and get the query
+	    Intent intent = getIntent();
+	    if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+	      String query = intent.getStringExtra(SearchManager.QUERY);
+	      doMySearch(query);
+	    }
+ 
 		populateListView();
 		registerClickCallback();
+		
+		
 	}
 
+	private void doMySearch(String query) {
+		System.out.println("HEREENIORVCNOIVMR");
+		adapter = new MyListAdapter();
+		List<Person> personsResult = new ArrayList<Person>();
+		ListView list = (ListView) findViewById(R.id.contacts_view);
+		list.setAdapter(adapter);
+		
+    	for(int i=0; i<persons.size();i++){
+    		if(query.toUpperCase().contains(persons.get(i).getFirstName().toUpperCase()) || query.toUpperCase().contains(persons.get(i).getLastName().toUpperCase())){
+    			personsResult.add(persons.get(i));
+    		}
+    	}
+	
+		Toast.makeText(DisplayContactsActivity.this, personsResult.get(0).toString(), 0).show();
+    }
+	
 	private void populateListView() {
-		ArrayAdapter<Person> adapter = new MyListAdapter();
+		adapter = new MyListAdapter();
 		ListView list = (ListView) findViewById(R.id.contacts_view);
 		list.setAdapter(adapter);
 	}
@@ -110,18 +159,22 @@ public class DisplayContactsActivity extends Activity {
 				intent.putExtra("ContactId", contact.getId());
 				startActivity(intent);
 				
-//				Toast.makeText(DisplayContactsActivity.this, message, Toast.LENGTH_LONG).show();
+				Bundle extras = getIntent().getExtras();
+				if(extras.getBoolean("goToMeeting")){
+					Intent intentNew = new Intent(DisplayContactsActivity.this, DisplayMeetingsActivity.class);
+					 Long personId = extras.getLong("PersonId");
+					 System.out.println(personId);
+					 intentNew.putExtra("PersonId", personId);
+					intentNew.putExtra("ContactId", contact.getId());
+					startActivity(intentNew);
+				}
 			}
 		});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.display_contacts, menu);
-		return true;
-	}
 
+
+    	
 	public class ShowPersonTask extends AsyncTask<Long, Void, List<Person>> {
 
 		@Override

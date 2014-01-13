@@ -1,96 +1,95 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".DisplayMeetingsActivity" >
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingBottom="@dimen/activity_vertical_margin"
+	android:paddingLeft="@dimen/activity_horizontal_margin"
+	android:paddingRight="@dimen/activity_horizontal_margin"
+	android:paddingTop="@dimen/activity_vertical_margin"
+	tools:context=".DisplayMeetingsActivity" >
 
-    <ImageButton
-        android:id="@+id/imageButton1"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_alignLeft="@+id/imageButton2"
-        android:src="@drawable/person" />
+	<ImageButton
+		android:id="@+id/meetings_profile_Button"
+		android:layout_width="90dp"
+		android:layout_height="90dp"
+		android:layout_alignLeft="@+id/meetings_kindOf_button"
+		android:onClick="displayContacts"
+		android:src="@drawable/person" />
 
-    <EditText
-        android:id="@+id/EditText01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageButton1"
-        android:layout_toRightOf="@+id/imageButton1"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Mit wem?" >
+	<TextView
+		android:id="@+id/meetings_profile_View"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/meetings_profile_Button"
+		android:layout_toRightOf="@+id/meetings_profile_Button"
+		android:text="Mit wem?"
+		android:textSize="25sp" >
+	</TextView>
 
-        <requestFocus />
-    </EditText>
+	<ImageButton
+		android:id="@+id/meetings_kindOf_button"
+		android:layout_width="90dp"
+		android:layout_height="90dp"
+		android:layout_alignLeft="@+id/meetings_time_button"
+		android:layout_below="@+id/meetings_profile_Button"
+		android:src="@drawable/home" />
 
-    <EditText
-        android:id="@+id/EditText02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageButton3"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Wann?" />
+	<ImageButton
+		android:id="@+id/meetings_time_button"
+		android:layout_width="90dp"
+		android:layout_height="90dp"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/meetings_kindOf_button"
+		android:src="@drawable/clock" />
 
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_alignLeft="@+id/imageButton3"
-        android:layout_below="@+id/imageButton1"
-        android:src="@drawable/home" />
+	<TextView
+		android:id="@+id/meetings_kindOf_View"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/meetings_time_button"
+		android:layout_toRightOf="@+id/meetings_kindOf_button"
+		android:ems="10"
+		android:text="Art des Treffens"
+		android:textSize="25sp" />
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageButton2"
-        android:src="@drawable/clock" />
+	<ImageButton
+		android:id="@+id/meetings_kindOfTransportation_button"
+		android:layout_width="90dp"
+		android:layout_height="90dp"
+		android:layout_alignLeft="@+id/meetings_time_button"
+		android:layout_below="@+id/meetings_time_view"
+		android:src="@drawable/truck" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageButton3"
-        android:layout_toRightOf="@+id/imageButton2"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Art des Treffens" />
+	<TextView
+		android:id="@+id/meetings_kindOfTransportation_View"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/meetings_kindOfTransportation_button"
+		android:layout_alignLeft="@+id/meetings_time_view"
+		android:layout_alignParentRight="true"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="Verkehrsmittel"
+		android:textSize="25sp" />
 
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_alignLeft="@+id/imageButton3"
-        android:layout_below="@+id/EditText02"
-        android:src="@drawable/truck" />
+	<Button
+		android:id="@+id/button1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"
+		android:layout_marginBottom="16dp"
+		android:text="Anfrage senden" />
 
-    <EditText
-        android:id="@+id/EditText03"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageButton4"
-        android:layout_alignLeft="@+id/EditText02"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Verkehrsmittel" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:text="Anfrage senden" />
+	<TextView
+		android:id="@+id/meetings_time_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/meetings_time_button"
+		android:layout_alignLeft="@+id/meetings_kindOf_View"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="Wann?"
+		android:textSize="25sp" />
 
 </RelativeLayout>

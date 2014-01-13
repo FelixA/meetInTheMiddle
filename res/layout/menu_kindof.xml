@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/menu002"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" >
+
+	<item
+		android:id="@+id/kindof_Restaurant"
+		android:title="Restaurant"/>
+
+	<item
+		android:id="@+id/kindof_Cinema"
+		android:title="Kino"/>
+
+	<item
+		android:id="@+id/kindof_bar"
+		android:title="Bar"/>
+
+	<item
+		android:id="@+id/kindof_disco"
+		android:title="Disco"/>
+
+</menu>
