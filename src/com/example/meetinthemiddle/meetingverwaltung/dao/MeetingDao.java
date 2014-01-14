@@ -35,7 +35,7 @@ public class MeetingDao {
 	}
 
 	public void create(Long pers1_fk, Long pers2_fk, Date uhrzeit,
-			Long lokalitaet_fk, Long ort_fk, int bewertung,
+			Long lokalitaet_fk, Long ort_fk, Integer bewertung,
 			Long verkehrsmittel_pers1_fk, String kommentar, Long verkehrsmittel_pers2_fk) throws ParseException {
   
 		Meeting meeting = new Meeting(pers1_fk, pers2_fk, uhrzeit, lokalitaet_fk, ort_fk, bewertung, verkehrsmittel_pers1_fk, kommentar, verkehrsmittel_pers2_fk);

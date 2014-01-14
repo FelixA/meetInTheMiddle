@@ -2,15 +2,23 @@ package com.example.meetinthemiddle.personenverwaltung.domain;
 
 import static com.example.meetinthemiddle.util.Constants.NAMESPACE_PERSONENVERWALTUNG;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Root;
 
+import android.os.Parcelable;
+
 @Root
 @Namespace(reference = NAMESPACE_PERSONENVERWALTUNG)
-public class Person {
+public class Person implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Person(String firstName, String lastName, Date birthday,
 			String phone, String email, String password, String interests) {
 		super();

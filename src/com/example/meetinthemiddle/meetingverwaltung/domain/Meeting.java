@@ -13,7 +13,7 @@ import org.simpleframework.xml.Root;
 public class Meeting {
 
 	public Meeting(Long pers1_fk, Long pers2_fk, Date uhrzeit,
-			Long lokalitaet_fk, Long ort_fk, int bewertung,
+			Long lokalitaet_fk, Long ort_fk, Integer bewertung,
 			Long verkehrsmittel_pers1_fk, String kommentar,
 			Long verkehrsmittel_pers2_fk) {
 		super();
@@ -34,17 +34,17 @@ public class Meeting {
 	private Long pers2_fk;
 	@Element
 	private Date uhrzeit;
-	@Element
+	@Element(required = false)
 	private Long lokalitaet_fk;
-	@Element
+	@Element(required = false)
 	private Long ort_fk;
 	@Element(required = false)
-	private int bewertung;
-	@Element
+	private Integer bewertung;
+	@Element(required = false)
 	private Long verkehrsmittel_pers1_fk;
 	@Element(required = false)
 	private String kommentar;
-	@Element
+	@Element(required = false)
 	private Long verkehrsmittel_pers2_fk;
 	@Override
 	public String toString() {
@@ -165,10 +165,10 @@ public class Meeting {
 	public void setOrt_fk(Long ort_fk) {
 		this.ort_fk = ort_fk;
 	}
-	public int getBewertung() {
+	public Integer getBewertung() {
 		return bewertung;
 	}
-	public void setBewertung(int bewertung) {
+	public void setBewertung(Integer bewertung) {
 		this.bewertung = bewertung;
 	}
 	public Long getVerkehrsmittel_pers1_fk() {

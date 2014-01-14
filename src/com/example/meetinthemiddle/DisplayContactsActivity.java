@@ -164,8 +164,14 @@ public class DisplayContactsActivity extends Activity{
 					Intent intentNew = new Intent(DisplayContactsActivity.this, DisplayMeetingsActivity.class);
 					 Long personId = extras.getLong("PersonId");
 					 System.out.println(personId);
+					 System.out.println("kind " + extras.getString("kindOf"));
+					 System.out.println("transport " + extras.getString("kindOfTransportation"));
 					 intentNew.putExtra("PersonId", personId);
-					intentNew.putExtra("ContactId", contact.getId());
+					intentNew.putExtra("Contact", contact);
+					intentNew.putExtra("kindOf", extras.getString("kindOf"));
+					intentNew.putExtra("kindOfTransportation", extras.getString("kindOfTransportation"));
+					intentNew.putExtra("true", true);
+
 					startActivity(intentNew);
 				}
 			}
