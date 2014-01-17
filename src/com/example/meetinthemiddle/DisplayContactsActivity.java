@@ -45,7 +45,6 @@ public class DisplayContactsActivity extends Activity {
 	private List<String> contactFirstNames;
 	private List<String> contactLastNames;
 
-
 	private List<String> possibleContactFirstNames;
 	private List<String> possibleContactLastNames;
 
@@ -58,8 +57,8 @@ public class DisplayContactsActivity extends Activity {
 	private ListView contactPersons;
 
 	private ListView possibleContactPersons;
-public	SimpleAdapter simpleAdapter;
-public SimpleAdapter  possible_contacts_adapter;
+	public SimpleAdapter simpleAdapter;
+	public SimpleAdapter possible_contacts_adapter;
 
 	// Search EditText
 	EditText inputSearch;
@@ -93,9 +92,12 @@ public SimpleAdapter  possible_contacts_adapter;
 
 			try {
 				contactFirstNames = showPersonFirstNameTask.execute(id).get();
+				
 				contactLastNames = showPersonLastNameTask.execute(id).get();
-				possibleContactFirstNames = showPossibleContactsFirstNameTask.execute().get();
-				possibleContactLastNames = showPossibleContactsLastNameTask.execute().get();
+				possibleContactFirstNames = showPossibleContactsFirstNameTask
+						.execute().get();
+				possibleContactLastNames = showPossibleContactsLastNameTask
+						.execute().get();
 				if (contactFirstNames == null) {
 					System.out.println("Noch keine Kontakte");
 					return;
@@ -107,11 +109,14 @@ public SimpleAdapter  possible_contacts_adapter;
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			catch(Exception e){
+				contactFirstNames.add("Nobody");
+			}
 		}
 
 		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		List<Map<String, String>> possibleContacts = new ArrayList<Map<String, String>>();
-		
+
 		for (int i = 0; i < contactFirstNames.size(); i++) {
 			Map<String, String> personName = new HashMap<String, String>(2);
 			personName.put("firstName", contactFirstNames.get(i));
@@ -124,24 +129,28 @@ public SimpleAdapter  possible_contacts_adapter;
 			personName.put("lastName", possibleContactLastNames.get(i));
 			possibleContacts.add(personName);
 		}
-		
-		simpleAdapter = new SimpleAdapter(DisplayContactsActivity.this, data,android.R.layout.two_line_list_item, new String[] {
+
+		simpleAdapter = new SimpleAdapter(DisplayContactsActivity.this, data,
+				android.R.layout.two_line_list_item, new String[] {
 						"firstName", "lastName" }, new int[] {
 						android.R.id.text1, android.R.id.text2 });
 		contactPersons.setAdapter(simpleAdapter);
-		possible_contacts_adapter = new SimpleAdapter(DisplayContactsActivity.this, possibleContacts,android.R.layout.two_line_list_item, new String[] {
-				"firstName", "lastName" }, new int[] {
-				android.R.id.text1, android.R.id.text2 });
+		possible_contacts_adapter = new SimpleAdapter(
+				DisplayContactsActivity.this, possibleContacts,
+				android.R.layout.two_line_list_item, new String[] {
+						"firstName", "lastName" }, new int[] {
+						android.R.id.text1, android.R.id.text2 });
 		possibleContactPersons.setAdapter(possible_contacts_adapter);
-
 
 		inputSearch = (EditText) findViewById(R.id.contacts_searchText);
 		inputSearch.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void onTextChanged(CharSequence cs, int arg1, int arg2,
 					int arg3) {
-				DisplayContactsActivity.this.simpleAdapter.getFilter().filter(cs);
-				DisplayContactsActivity.this.possible_contacts_adapter.getFilter().filter(cs);
+				DisplayContactsActivity.this.simpleAdapter.getFilter().filter(
+						cs);
+				DisplayContactsActivity.this.possible_contacts_adapter
+						.getFilter().filter(cs);
 			}
 
 			@Override
@@ -167,6 +176,7 @@ public SimpleAdapter  possible_contacts_adapter;
 		});
 		registerClickCallback();
 	}
+
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Bundle extras = getIntent().getExtras();
@@ -180,7 +190,6 @@ public SimpleAdapter  possible_contacts_adapter;
 		return super.onKeyDown(keyCode, event);
 	}
 
-
 	public class ShowPersonFirstNameTask extends
 			AsyncTask<Long, Void, List<String>> {
 
@@ -188,67 +197,95 @@ public SimpleAdapter  possible_contacts_adapter;
 		protected List<String> doInBackground(Long... personId) {
 			List<Person> persons = new ArrayList<Person>();
 			contactFirstNames = new ArrayList<String>();
-			contactLastNames = new ArrayList<String>();
 
+			try{
 			persons = personDao.findContactsById(personId[0]);
+			if(persons.size()!=0){
 			for (int i = 0; i < persons.size(); ++i) {
 				contactFirstNames.add(persons.get(i).getFirstName());
-				contactLastNames.add(persons.get(i).getLastName());
+				
 			}
+			}}catch(Exception e){
+				contactFirstNames.add("noch kein Kontakt vorhanden");
+			}
+			
 			return contactFirstNames;
 		}
 	}
+
 	private void registerClickCallback() {
 		final ListView possibleContactsList = (ListView) findViewById(R.id.contacts_possibleContacts_List);
-		possibleContactsList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-			@Override
-			public void onItemClick(AdapterView<?> parent, View viewClicked,int position, long id) {
-				AddNewFriendTask addNewFriendTask = new AddNewFriendTask();
-				Bundle extras = getIntent().getExtras();
-				if(extras!=null){
-					Long personId = extras.getLong("PersonId");
-					TextView textView = (TextView) viewClicked.findViewById(R.id.contacts_firstName);
-					
-			        String text = possibleContactsList.getItemAtPosition(position).toString();
-			        System.out.println(text);
-			        String[] parts = text.split("=");
-			        for(String part: parts)
-			        {
-			        	System.out.println(part);
-			        }
-			        String[] bla = parts[1].split(",");
-			        String firstName = bla[0];
-//			       String[] blubb = parts[2].length() -1;
-			      
-//			    		   .split("}");
-			       String lastName = parts[2].substring(0, parts[2].length() - 1);
-//			    		   blubb[0];
-			       System.out.println(firstName + " " + lastName);
-			        
-					GetContactIdTask getContactIdTask= new GetContactIdTask();
-					try {
-						addNewFriendTask.execute(personId,getContactIdTask.execute(firstName,lastName).get());
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (ExecutionException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+		possibleContactsList
+				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent,View viewClicked, int position, long id) {
+						System.out.println("bin in possibleContactsListListener");
+						AddNewFriendTask addNewFriendTask = new AddNewFriendTask();
+						Bundle extras = getIntent().getExtras();
+						if (extras != null) {
+							Long personId = extras.getLong("PersonId");
+							TextView textView = (TextView) viewClicked
+									.findViewById(R.id.contacts_firstName);
+
+							String text = possibleContactsList
+									.getItemAtPosition(position).toString();
+							System.out.println(text);
+							String[] parts = text.split("=");
+							for (String part : parts) {
+								System.out.println(part);
+							}
+							String[] bla = parts[1].split(",");
+							String firstName = bla[0];
+							String lastName = parts[2].substring(0,
+									parts[2].length() - 1);
+							System.out.println(firstName + " " + lastName);
+
+							GetContactIdTask getContactIdTask = new GetContactIdTask();
+							try {
+								addNewFriendTask.execute(
+										personId,
+										getContactIdTask.execute(firstName,
+												lastName).get());
+								Toast.makeText(getApplicationContext(), "Kontakt " + firstName + " " + lastName + " wurde angelegt. Bitte aktualisiere die Ansicht", Toast.LENGTH_LONG).show();
+
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							} catch (ExecutionException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
 					}
-				}
-				
-			}
-		});
-			
-		
+				});
+
 		ListView list = (ListView) findViewById(R.id.contacts_List);
 		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View viewClicked,
 					int position, long id) {
+				
+				System.out.println("bin in ListListener");
+
 				Bundle extras = getIntent().getExtras();
 				if (extras.getBoolean("goToMeeting")) {
+					TextView textView = (TextView) viewClicked.findViewById(R.id.contacts_firstName);
+
+					String text = possibleContactsList.getItemAtPosition(position).toString();
+					System.out.println(text);
+					String[] parts = text.split("=");
+					for (String part : parts) {
+						System.out.println(part);
+					}
+					String[] bla = parts[1].split(",");
+					String firstName = bla[0];
+					String lastName = parts[2].substring(0,
+							parts[2].length() - 1);
+					System.out.println(firstName + " " + lastName);
+
+					GetContactByNameTask getContactByNameTask = new GetContactByNameTask();
+					
 					Intent intentNew = new Intent(DisplayContactsActivity.this,
 							DisplayMeetingsActivity.class);
 					Long personId = extras.getLong("PersonId");
@@ -257,22 +294,32 @@ public SimpleAdapter  possible_contacts_adapter;
 					System.out.println("transport "
 							+ extras.getString("kindOfTransportation"));
 					intentNew.putExtra("PersonId", personId);
-//					intentNew.putExtra("Contact", contact);
+					 try {
+						intentNew.putExtra("Contact", getContactByNameTask.execute(firstName,lastName).get());
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					intentNew.putExtra("kindOf", extras.getString("kindOf"));
 					intentNew.putExtra("kindOfTransportation",
 							extras.getString("kindOfTransportation"));
 					intentNew.putExtra("true", true);
 
 					startActivity(intentNew);
+					return;
 				}
-				
-				
+
 				String contactFirstName = contactFirstNames.get(position);
 				String contactLastName = contactLastNames.get(position);
-				GetContactIdTask getContactIdTask= new GetContactIdTask();
+				GetContactIdTask getContactIdTask = new GetContactIdTask();
 				Long contactId = -1L;
 				try {
-					contactId = getContactIdTask.execute(contactFirstName,contactLastName).get();
+					contactId = getContactIdTask.execute(contactFirstName,
+							contactLastName).get();
+					System.out.println(contactId);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -282,22 +329,22 @@ public SimpleAdapter  possible_contacts_adapter;
 				}
 				Intent intent = new Intent(DisplayContactsActivity.this,
 						DisplayProfileActivity.class);
+				System.out.println("Starte Activity Profil");
 				intent.putExtra("ContactId", contactId);
 				startActivity(intent);
 
-			
 			}
 		});
 	}
-	
-	public class AddNewFriendTask extends AsyncTask<Long, Void, List<String>>{
+
+	public class AddNewFriendTask extends AsyncTask<Long, Void, List<String>> {
 
 		@Override
 		protected List<String> doInBackground(Long... persons) {
-			personDao.createKontakt(persons[0],persons[1]);
+			personDao.createKontakt(persons[0], persons[1]);
 			return null;
 		}
-		
+
 	}
 
 	public class ShowPersonLastNameTask extends
@@ -310,24 +357,34 @@ public SimpleAdapter  possible_contacts_adapter;
 			contactLastNames = new ArrayList<String>();
 
 			personsLastNames = personDao.findContactsById(personId[0]);
-			System.out.println(personsLastNames.get(0).getFirstName());
+			try{
 			for (int i = 0; i < personsLastNames.size(); ++i) {
 				contactFirstNames.add(personsLastNames.get(i).getFirstName());
 				contactLastNames.add(personsLastNames.get(i).getLastName());
+			}}catch(Exception e){
+				contactLastNames.add("Bitte jemanden aus der Liste unten hinzufügen");
 			}
+			
 			return contactLastNames;
 		}
 	}
+
 	public class GetContactIdTask extends AsyncTask<String, Void, Long> {
 
 		@Override
 		protected Long doInBackground(String... name) {
-			Long id = personDao.findPersonByFirstLastName(name[0],name[1]).getId();
+			Long id = personDao.findPersonByFirstLastName(name[0], name[1])
+					.getId();
 			return id;
 		}
+	}
+	public class GetContactByNameTask extends AsyncTask<String, Void, Person> {
 
-
-		
+		@Override
+		protected Person doInBackground(String... name) {
+			Person p = personDao.findPersonByFirstLastName(name[0], name[1]);
+			return p;
+		}
 	}
 
 	public class ShowPossibleContactsFirstNameTask extends
@@ -339,7 +396,8 @@ public SimpleAdapter  possible_contacts_adapter;
 			possibleContactFirstNames = new ArrayList<String>();
 			contactNames = personDao.selectAll();
 			for (int i = 0; i < contactNames.size(); ++i) {
-				possibleContactFirstNames.add(contactNames.get(i).getFirstName());
+				possibleContactFirstNames.add(contactNames.get(i)
+						.getFirstName());
 			}
 			return possibleContactFirstNames;
 		}
