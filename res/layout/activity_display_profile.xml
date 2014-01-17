@@ -1,152 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="20dp" >
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:orientation="vertical"
+		android:padding="20dp" >
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="@string/user_information"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+		<TextView
+			android:id="@+id/textView8"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="20dp"
+			android:text="@string/user_information"
+			android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="20dp" >
+		<TableLayout
+			android:layout_width="match_parent"
+			android:layout_height="340dp"
+			android:padding="20dp" >
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.24"
-                android:src="@drawable/ic_launcher" />
+			<ImageView
+				android:id="@+id/imageView1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="0.24"
+				android:src="@drawable/ic_launcher" />
 
-            <TableRow
-                android:id="@+id/tableRow2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+			<TableRow
+				android:id="@+id/tableRow2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="Vorname" />
+				<TextView
+					android:id="@+id/textView2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginRight="10dp"
+					android:text="Vorname" />
 
-                <EditText
-                    android:id="@+id/name_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName" />
-            </TableRow>
+				<EditText
+					android:id="@+id/profile_first_name"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:inputType="textPersonName" />
+			</TableRow>
 
-            <TableRow
-                android:id="@+id/tableRow3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+			<TableRow
+				android:id="@+id/tableRow3"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nachname" />
+				<TextView
+					android:id="@+id/textView3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Nachname" />
 
-                <EditText
-                    android:id="@+id/email_input"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textEmailAddress" />
-            </TableRow>
+				<EditText
+					android:id="@+id/profile_last_name"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:inputType="textEmailAddress" />
+			</TableRow>
 
-            <TableRow
-                android:id="@+id/tableRow1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+			<TableRow
+				android:id="@+id/tableRow1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/TextView01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Alter" />
+				<TextView
+					android:id="@+id/TextView01"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Alter" />
 
-                <EditText
-                    android:id="@+id/EditText01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textEmailAddress" />
-            </TableRow>
+				<EditText
+					android:id="@+id/profile_age"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:inputType="textEmailAddress" />
+			</TableRow>
 
-            <TableRow
-                android:id="@+id/tableRow4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+			<TableRow
+				android:id="@+id/tableRow4"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/TextView02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Telefon" />
+				<TextView
+					android:id="@+id/TextView02"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Telefon" />
 
-                <EditText
-                    android:id="@+id/EditText02"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textEmailAddress" />
-            </TableRow>
+				<EditText
+					android:id="@+id/profile_phone"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:inputType="textEmailAddress" />
+			</TableRow>
 
-            <TableRow
-                android:id="@+id/tableRow5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+			<TableRow
+				android:id="@+id/tableRow5"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/TextView03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="E-Mail" />
+				<TextView
+					android:id="@+id/TextView03"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="E-Mail" />
 
-                <EditText
-                    android:id="@+id/EditText03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textEmailAddress" />
-            </TableRow>
+				<EditText
+					android:id="@+id/profile_mail"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:inputType="textEmailAddress" />
+			</TableRow>
 
-            <TableRow
-                android:id="@+id/tableRow6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+			<TableRow
+				android:id="@+id/tableRow6"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/TextView04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Interessen" />
+				<TextView
+					android:id="@+id/TextView04"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Interessen" />
 
-                <EditText
-                    android:id="@+id/EditText04"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textEmailAddress" />
-            </TableRow>
-        </TableLayout>
+				<EditText
+					android:id="@+id/profile_interests"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:ems="10"
+					android:inputType="textEmailAddress" />
+			</TableRow>
+		</TableLayout>
 
-    </LinearLayout>
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" >
+
+			<Button
+				android:id="@+id/profile_change"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentTop="true"
+				android:onClick="changeProfile"
+				android:text="Profil bearbeiten" />
+		</RelativeLayout>
+	</LinearLayout>
 
 </LinearLayout>

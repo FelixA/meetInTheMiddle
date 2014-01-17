@@ -1,6 +1,9 @@
 package com.example.meetinthemiddle;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -12,9 +15,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class DisplayProfileActivity extends Activity {
@@ -22,7 +29,12 @@ public class DisplayProfileActivity extends Activity {
 	PersonDao personDao;
 	List<Person> persons;
 	Person person;
-	TextView profileView;
+	EditText personFirstNameView;
+	EditText personLastNameView;
+	EditText personAgeView;
+	EditText personEmailView;
+	EditText personPhoneView;
+	EditText personInterestsView;
 	
 	public ShowProfileTask showProfileTask;
 	
@@ -46,13 +58,33 @@ public class DisplayProfileActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(person);
 		showPersonViews();
 		
 	}
 
 	private void showPersonViews() {
-//		TextView personFirstNameView = (TextView) profileView.findViewById(R.id.profile_firstName)
-//		personFirstNameView.setText(person.getFirstName());
+		personFirstNameView = (EditText) findViewById(R.id.profile_first_name);
+		personFirstNameView.setEnabled(false);
+		personFirstNameView.setText(person.getFirstName());
+		personLastNameView = (EditText) findViewById(R.id.profile_last_name);
+		personLastNameView.setEnabled(false);
+		personLastNameView.setText(person.getLastName());
+		personAgeView = (EditText) findViewById(R.id.profile_age);
+		personAgeView.setEnabled(false);
+		Date age = new Date();
+		long millis = age.getTime()-person.getBirthday().getTime();
+		long year = (long) (millis/31536000000L);
+		personAgeView.setText(String.valueOf(year));
+	    personEmailView = (EditText) findViewById(R.id.profile_mail);
+		personEmailView.setEnabled(false);
+		personEmailView.setText(person.getEmail());
+		personPhoneView = (EditText) findViewById(R.id.profile_phone);
+		personPhoneView.setEnabled(false);
+		personPhoneView.setText(person.getPhone());
+		personInterestsView = (EditText) findViewById(R.id.profile_interests);
+		personInterestsView.setEnabled(false);
+		personInterestsView.setText(person.getInterests());
 	}
 
 	/**
@@ -89,18 +121,63 @@ public class DisplayProfileActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	public void changeProfile(View view){
+		Button btn = (Button) findViewById(R.id.profile_change);
+		if(!btn.getText().equals("Speichern")){
+		personFirstNameView = (EditText) findViewById(R.id.profile_first_name);
+		personFirstNameView.setEnabled(true);
+		personLastNameView.setEnabled(true);
+		personEmailView.setEnabled(true);
+		personPhoneView.setEnabled(true);
+		personInterestsView.setEnabled(true);
+		btn.setText("Speichern");
+		return;
+		}
+		PersonUpdateTask personUpdateTask = new PersonUpdateTask();
+		String firstname = (personFirstNameView.getText().toString());
+		String lastname = (personLastNameView.getText().toString());
+		String email = (personEmailView.getText().toString());
+		String phone = (personPhoneView.getText().toString());
+		String interests = (personInterestsView.getText().toString());
+		personUpdateTask.execute(firstname,lastname,email,phone,interests);
+		Bundle extras = getIntent().getExtras();
+		if(extras != null){
+			Long id = extras.getLong("PersonId");
+			Intent intent = new Intent(this,MainActivity.class);
+			intent.putExtra("PersonId", id);
+			startActivity(intent);
+		}
+	}
+	
 	private class ShowProfileTask extends AsyncTask<Void, Void, Person>{
 
 		@Override
 		protected Person doInBackground(Void... arg0) {
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-				Long id = extras.getLong("ContactId");
+				if(extras.getLong("PersonId")!= -0L){
+				Long id = extras.getLong("PersonId");
 				Person person = new Person();
 				return person = personDao.findPersonById(id);
+				}
+				if(extras.getLong("ContactId")!=0L){
+					Long id = extras.getLong("ContactId");
+					Person person = new Person();
+					return person = personDao.findPersonById(id);
+				}
 			}
 			return null;
 		}
+		
+	}
+	private class PersonUpdateTask extends AsyncTask<String, Void, Void>{
+
+		@Override
+		protected Void doInBackground(String... params) {
+			personDao.update(person.getId(), params[0], params[1], person.getBirthday(), params[2], params[3],person.getPassword(), params[4]);
+			return null;
+		}
+
 		
 	}
 

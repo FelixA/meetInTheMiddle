@@ -35,6 +35,7 @@
 	<string name="error_invalid_email">This email address is invalid</string>
 	<string name="error_invalid_password">This password is too short</string>
 	<string name="error_incorrect_password">Incorrect password or email</string>
+	<string name="err_verbindung_fehlgeschlagen">Es konnte keine Verbindung hergestellt werden</string>
 	<string name="error_field_required">This field is required</string>
 	<!-- Strings related to register -->
 	<string name="title_activity_display_register">Sign in</string>

@@ -1,21 +1,33 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/LinearLayout1"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="#ffffff"
-	android:shrinkColumns="*"
-	android:stretchColumns="*" >
+	android:background="@drawable/status_bar_background22"
+	android:orientation="vertical" >
 
 	<TextView
 		android:id="@+id/textView1"
-		android:layout_width="wrap_content"
+		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center"
 		android:text="Meet in the Middle"
-		android:textAppearance="?android:attr/textAppearanceLarge" />
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@android:color/white"
+		android:textColorLink="@android:color/white" />
 
 	<RelativeLayout
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content" >
+
+		<ImageButton
+			android:id="@+id/imageButton4"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_above="@+id/TextView03"
+			android:layout_alignLeft="@+id/TextView03"
+			android:background="@null"
+			android:onClick="displayProfile"
+			android:src="@drawable/person" />
 
 		<ImageButton
 			android:id="@+id/imageButton2"
@@ -23,82 +35,27 @@
 			android:layout_height="wrap_content"
 			android:layout_alignParentRight="true"
 			android:layout_alignParentTop="true"
-			android:layout_marginRight="30dp"
+			android:background="@null"
 			android:onClick="displayMessages"
 			android:src="@drawable/message" />
-
-		<ImageButton
-			android:id="@+id/imageButton1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentTop="true"
-			android:layout_marginLeft="20dp"
-			android:onClick="displayContacts"
-			android:src="@drawable/contacts" />
-
-		<TextView
-			android:id="@+id/TextView01"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignBaseline="@+id/textView2"
-			android:layout_alignBottom="@+id/textView2"
-			android:layout_alignLeft="@+id/imageButton2"
-			android:layout_marginLeft="23dp"
-			android:text="TextView" />
 
 		<ImageButton
 			android:id="@+id/imageButton3"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignLeft="@+id/imageButton1"
-			android:layout_below="@+id/textView2"
-			android:layout_marginTop="15dp"
+			android:layout_alignParentTop="true"
+			android:layout_centerHorizontal="true"
+			android:background="@null"
 			android:onClick="displayMeetings"
 			android:src="@drawable/meet" />
-
-		<TextView
-			android:id="@+id/textView2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignLeft="@+id/imageButton1"
-			android:layout_below="@+id/imageButton1"
-			android:layout_marginLeft="15dp"
-			android:text="TextView" />
-
-		<ImageButton
-			android:id="@+id/imageButton4"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignLeft="@+id/imageButton2"
-			android:layout_alignTop="@+id/imageButton3"
-			android:onClick="displayProfile"
-			android:src="@drawable/happy" />
-
-		<TextView
-			android:id="@+id/textView3"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignLeft="@+id/textView2"
-			android:layout_below="@+id/imageButton3"
-			android:text="TextView" />
-
-		<TextView
-			android:id="@+id/TextView02"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignBaseline="@+id/textView3"
-			android:layout_alignBottom="@+id/textView3"
-			android:layout_alignLeft="@+id/TextView01"
-			android:text="TextView" />
 
 		<ImageButton
 			android:id="@+id/imageButton5"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignLeft="@+id/imageButton3"
-			android:layout_below="@+id/textView3"
-			android:layout_marginTop="19dp"
+			android:layout_alignParentRight="true"
+			android:layout_below="@+id/imageButton2"
+			android:background="@null"
 			android:onClick="displayQuestions"
 			android:src="@drawable/question" />
 
@@ -106,36 +63,28 @@
 			android:id="@+id/imageButton6"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignLeft="@+id/imageButton4"
-			android:layout_alignTop="@+id/imageButton5"
+			android:layout_alignLeft="@+id/imageButton3"
+			android:layout_below="@+id/imageButton3"
+			android:background="@null"
 			android:onClick="displaySettings"
 			android:src="@drawable/settings" />
 
-		<TextView
-			android:id="@+id/TextView03"
+		<ImageButton
+			android:id="@+id/imageButton1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignLeft="@+id/textView3"
-			android:layout_below="@+id/imageButton5"
-			android:text="TextView" />
-
-		<TextView
-			android:id="@+id/TextView04"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignBaseline="@+id/TextView03"
-			android:layout_alignBottom="@+id/TextView03"
-			android:layout_alignLeft="@+id/TextView02"
-			android:text="TextView" />
+			android:layout_alignParentLeft="true"
+			android:layout_alignTop="@+id/imageButton6"
+			android:background="@null"
+			android:onClick="displayContacts"
+			android:src="@drawable/contacts" />
 	</RelativeLayout>
 
 	<ListView
 		android:id="@+id/pastMeetingsView"
 		android:layout_width="match_parent"
-		android:layout_height="46dp"
-		android:layout_alignParentRight="true"
-		android:layout_below="@+id/pastMeetingsView"
+		android:layout_height="match_parent"
 		android:layout_marginTop="24dp" >
 	</ListView>
 
-</TableLayout>
+</LinearLayout>

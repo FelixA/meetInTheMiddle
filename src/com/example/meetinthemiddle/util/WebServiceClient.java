@@ -89,6 +89,59 @@ public class WebServiceClient {
 		final String location = write(obj, url, HttpMethodType.POST, ctx, dateFormat);
 		return location;
 	}
+	
+	/**
+	 * Anlegen
+	 * 
+	 * @param obj
+	 * @param urlStr
+	 * @return
+	 */
+	public static String postNewContact(Long pers1, Long pers2, String urlStr, Context ctx, String...dateFormat ) {
+		String url = getBaseUrl() + urlStr;
+		final String location = writeNewContact(pers1,pers2, url, HttpMethodType.POST, ctx, dateFormat);
+		return location;
+	}
+	private static String writeNewContact(Long pers1, Long pers2, String urlStr,
+			HttpMethodType httpMethod, Context ctx, String... dateFormat) {
+		Serializer serializer = new Persister();
+		Writer writer = new StringWriter();
+
+		try {
+				
+				Log.v("WebServiceClient", "Datumsformat " + dateFormat[0] + " wird verwendet");
+				final DateFormat format = new SimpleDateFormat(dateFormat[0],
+						Locale.getDefault());
+				final RegistryMatcher registryMatcher = new RegistryMatcher();
+				registryMatcher.bind(Date.class, new DateTransformer(format));
+//			String start = "<person xmlns='urn:meetInTheMiddle:persons'>";
+//			serializer = new Persister(registryMatcher);
+//			serializer.write(start, writer);
+//			serializer.write(pers1, writer);
+//			serializer.write(pers2, writer);
+//			serializer.write("</person", writer);
+			String xmlString = "<person xmlns='urn:meetInTheMiddle:persons'>" + "<long>" + pers1 + "</long>" + "<long>" + pers2 + "</long>" + "</person>";
+//					writer.toString();
+//			System.out.println("serializer String" + xmlString);
+//			writer.close();
+
+			switch (httpMethod) {
+			case POST:
+				Log.v("WebserviceClient/urlStr aus static String write ", ""+urlStr);
+				return doPostRequest(xmlString, urlStr, ctx);
+			case PUT:
+				Log.v("WebserviceClient/doPutRequest ", "xmlString, urlStr, ctx"+ xmlString+ " " +urlStr + " " + ctx);
+				doPutRequest(xmlString, urlStr, ctx);
+				return null;
+			default:
+				throw new RuntimeException(
+						"No HTTP Method (post, put) selected");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
 
 	/**
 	 * Aendern
@@ -98,7 +151,8 @@ public class WebServiceClient {
 	 */
 	public static String put(Object obj, String urlStr, Context ctx, String... dateFormat) {
 		String url = getBaseUrl() + urlStr;
-		final String location = write(obj, urlStr, HttpMethodType.PUT, ctx, dateFormat);
+		System.out.println(url);
+		final String location = write(obj, url, HttpMethodType.PUT, ctx, dateFormat);
 		return location;
 	}
 
@@ -330,7 +384,7 @@ public class WebServiceClient {
 			Log.v("WebServiceClient/StatusCode und putResponse", ""+statusCode + " "+putResponse);
 
 			// No content oder nicht?
-			if (statusCode != HttpStatus.SC_NO_CONTENT)
+			if (statusCode != HttpStatus.SC_CREATED)
 				throw new RuntimeException(EntityUtils.toString(putResponse.getEntity()));
 
 		} catch (IOException e) {

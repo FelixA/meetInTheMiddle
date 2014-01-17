@@ -188,6 +188,12 @@ public class MainActivity extends Activity {
 	// Zeigt das Profil des Users.
 	public void displayProfile(View view) {
 		Intent intent = new Intent(this, DisplayProfileActivity.class);
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		    Long id = extras.getLong("PersonId");
+		    System.out.println(id);
+			intent.putExtra("PersonId", id);
+		}
 		startActivity(intent);
 	}
 

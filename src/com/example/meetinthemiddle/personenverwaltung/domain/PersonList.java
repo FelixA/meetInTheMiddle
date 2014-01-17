@@ -8,7 +8,7 @@ import org.simpleframework.xml.Root;
 @Root(name = "persons")
 public class PersonList {
 
-	@ElementList(inline = true, entry = "person")
+	@ElementList(inline = true, entry = "person",required=false)
 	private List<Person> persons;
 
 	public List<Person> getPersons() {

@@ -75,9 +75,6 @@ public class DisplayMeetingsActivity extends Activity implements
         displayTime = (TextView) findViewById(R.id.meetings_time_view);
         pickTime = (ImageButton) findViewById(R.id.meetings_time_button);
  
-        
-
-        
         /** Get the current time */
         final Calendar cal = Calendar.getInstance(new Locale("CET"));
         pHour = cal.get(Calendar.HOUR_OF_DAY);
