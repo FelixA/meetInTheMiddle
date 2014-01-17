@@ -4,11 +4,11 @@
 	android:layout_height="wrap_content" >
 
 	<item
-		android:id="@+id/kindof_Restaurant"
-		android:title="Restaurant"/>
+		android:id="@+id/kindof_Cafe"
+		android:title="Cafe"/>
 
 	<item
-		android:id="@+id/kindof_Cinema"
+		android:id="@+id/kindof_night_cafe"
 		android:title="Kino"/>
 
 	<item
@@ -16,7 +16,23 @@
 		android:title="Bar"/>
 
 	<item
-		android:id="@+id/kindof_disco"
-		android:title="Disco"/>
+		android:id="@+id/kindof_hindu_temple"
+		android:title="Hindu Tempel"/>
+
+	<item
+		android:id="@+id/kindof_museum"
+		android:title="Museum"/>
+
+	<item
+		android:id="@+id/kindof_park"
+		android:title="Park"/>
+
+	<item
+		android:id="@+id/kindof_restaurant"
+		android:title="Restaurant"/>
+
+	<item
+		android:id="@+id/kindof_movie_theater"
+		android:title="Kino"/>
 
 </menu>

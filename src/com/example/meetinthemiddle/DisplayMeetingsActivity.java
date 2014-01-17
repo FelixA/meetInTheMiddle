@@ -37,6 +37,8 @@ public class DisplayMeetingsActivity extends Activity implements
 	private PopupMenu popupMenuKindOfTransportation;
 	private String kindofString;
 	private String kindofTransportationString;
+	private Long kindofId;
+	private Long kindofTransportationId;
 	TextView kindof;
 	TextView time;
 	TextView kindofTransportation;
@@ -69,6 +71,9 @@ public class DisplayMeetingsActivity extends Activity implements
 		meetingDao = new MeetingDao(this);
 		kindofString = "";
 		kindofTransportationString = "";
+		kindofId = -1L;
+		kindofTransportationId = -1L;
+		
 		kindof = (TextView) findViewById(R.id.meetings_kindOf_View);
 		kindofTransportation = (TextView) findViewById(R.id.meetings_kindOfTransportation_View);
 		/** Capture our View elements */
@@ -126,11 +131,7 @@ public class DisplayMeetingsActivity extends Activity implements
                     .append(pad(pMinute)));
     }
     
-//    /** Displays a notification when the time is updated */
-//    private void displayToast() {
-//        Toast.makeText(this, new StringBuilder().append("Time choosen is ").append(displayTime.getText()),   Toast.LENGTH_SHORT).show();
-//             
-//    }
+
     /** Add padding to numbers less than ten */
     private static String pad(int c) {
         if (c >= 10)
@@ -168,37 +169,70 @@ public class DisplayMeetingsActivity extends Activity implements
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.kindof_Cafe:
+			kindof.setText(item.getTitle());
+			kindofString = item.getTitle().toString();
+			kindofId = 1L;
+			break;
+		case R.id.kindof_night_cafe:
+			kindof.setText(item.getTitle());
+			kindofString = item.getTitle().toString();
+			kindofId = 2L;
+			break;
 		case R.id.kindof_bar:
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
+			kindofId = 3L;
 			break;
-		case R.id.kindof_Cinema:
+		case R.id.kindof_museum:
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
+			kindofId = 4L;
 			break;
-		case R.id.kindof_disco:
+		case R.id.kindof_park:
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
+			kindofId = 5L;
+
 			break;
-		case R.id.kindof_Restaurant:
+		case R.id.kindof_restaurant:
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
+			kindofId = 6L;
+
+			break;
+		case R.id.kindof_movie_theater:
+			kindof.setText(item.getTitle());
+			kindofString = item.getTitle().toString();
+			kindofId = 7L;
+			break;
+		case R.id.kindof_hindu_temple:
+			kindof.setText(item.getTitle());
+			kindofString = item.getTitle().toString();
+			kindofId = 8L;
 			break;
 		case R.id.kindoftransportation_bike:
 			kindofTransportation.setText(item.getTitle());
 			kindofTransportationString = item.getTitle().toString();
+			kindofTransportationId = 1L;
+
 			break;
 		case R.id.kindoftransportation_car:
 			kindofTransportation.setText(item.getTitle());
 			kindofTransportationString = item.getTitle().toString();
+			kindofTransportationId = 2L;
+
 			break;
 		case R.id.kindoftransportation_foot:
 			kindofTransportation.setText(item.getTitle());
 			kindofTransportationString = item.getTitle().toString();
+			kindofTransportationId = 3L;
+
 			break;
 		case R.id.kindoftransportation_public:
 			kindofTransportation.setText(item.getTitle());
 			kindofTransportationString = item.getTitle().toString();
+			kindofTransportationId = 4L;
 			break;
 		}
 		return false;
@@ -266,20 +300,16 @@ public class DisplayMeetingsActivity extends Activity implements
 			Bundle extras = getIntent().getExtras();
 			Person contact = (Person) extras.getSerializable("Contact");
 			/** Get the current time */
-//	        final Calendar cal = Calendar.getInstance(new Locale("CET"));
-//	        cal.set(Calendar.HOUR, pHour);
-//	        pMinute = cal.get(Calendar.MINUTE);
 	        Date date = new Date();
 	        date.setHours(pHour);
 	        date.setMinutes(pMinute);
 	        System.out.println(extras.getLong("PersonId")+ ""+ contact.getId()+""+ date);
 	        try {
-				meetingDao.create(extras.getLong("PersonId"), contact.getId(), date, null, null, null, null, null, null);
+				meetingDao.create(extras.getLong("PersonId"), contact.getId(), date, kindofId, 15L, 4, kindofTransportationId, "BLubberBlubb", kindofTransportationId);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-//			meeting.setVerkehrsmittel_pers1_fk(verkehrsmittel_pers1_fk)
 			return null;
 			}
 	}
