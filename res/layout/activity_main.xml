@@ -2,7 +2,7 @@
 	android:id="@+id/LinearLayout1"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@drawable/status_bar_background22"
+	    android:background="@drawable/background"
 	android:orientation="vertical" >
 
 	<TextView
@@ -84,7 +84,9 @@
 		android:id="@+id/pastMeetingsView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginTop="24dp" >
+		android:layout_marginTop="24dp" 
+		android:background="@null">
+		
 	</ListView>
 
 </LinearLayout>

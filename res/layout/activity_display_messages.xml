@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".DisplayMessagesActivity" >
+    tools:context=".DisplayMessagesActivity" 
+    android:background="@drawable/background">
 
     <TextView
         android:id="@+id/textView1"
@@ -14,7 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Nachrichten" />
+        android:text="Liste der Nachrichten" 
+        android:textColorLink="@android:color/black"
+        android:textColor="@android:color/black" />
 
     <ListView
         android:id="@+id/listView1"
