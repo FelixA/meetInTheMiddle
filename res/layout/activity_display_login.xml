@@ -34,7 +34,8 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent" 
+        android:background="@drawable/background">
 
         <LinearLayout
             style="@style/LoginFormContainer"
@@ -47,7 +48,8 @@
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true" 
+                android:gravity=""/>
 
             <EditText
                 android:id="@+id/password"
@@ -70,7 +72,9 @@
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
                 android:text="@string/action_sign_in" 
-                android:onClick="attemptLogin"/>
+                android:onClick="attemptLogin"
+                android:gravity="center"
+                android:textStyle="italic"/>
             
             <Button
                 android:id="@+id/register_button"
@@ -81,7 +85,8 @@
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
                 android:text="@string/action_register" 
-                android:onClick="attemptRegistration"/>
+                android:onClick="attemptRegistration"
+                android:textStyle="italic"/>
 
         </LinearLayout>
     </ScrollView>

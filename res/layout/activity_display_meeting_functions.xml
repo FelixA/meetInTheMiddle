@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical" >
+	android:orientation="vertical" 
+	android:background="@drawable/background">
 
 	<RelativeLayout
 		android:layout_width="match_parent"
@@ -16,7 +17,8 @@
 			android:layout_centerHorizontal="true"
 			android:layout_marginTop="84dp"
 			android:onClick="displayMeetings"
-			android:src="@drawable/meet" />
+			android:src="@drawable/meet" 
+			android:background="@null"/>
 
 		<TextView
 			android:id="@+id/textView1"
@@ -24,7 +26,9 @@
 			android:layout_height="wrap_content"
 			android:layout_below="@+id/createMeeting"
 			android:layout_centerHorizontal="true"
-			android:text="Erstelle ein neues Treffen" />
+			android:text="Erstelle ein neues Treffen" 
+			android:textColor="@android:color/secondary_text_light"
+			android:textStyle="italic"/>
 
 		<ImageButton
 			android:id="@+id/meetingHistory"
@@ -33,7 +37,8 @@
 			android:layout_alignLeft="@+id/createMeeting"
 			android:layout_below="@+id/textView1"
 			android:layout_marginTop="41dp"
-			android:src="@drawable/clock" />
+			android:src="@drawable/clock" 
+			android:background="@null"/>
 
 		<TextView
 			android:id="@+id/textView2"
@@ -41,7 +46,9 @@
 			android:layout_height="wrap_content"
 			android:layout_below="@+id/meetingHistory"
 			android:layout_centerHorizontal="true"
-			android:text="Geplante und vergangene Treffen" />
+			android:text="Geplante und vergangene Treffen" 
+			android:textColor="@android:color/secondary_text_light"
+			android:textStyle="italic"/>
 	</RelativeLayout>
 
 </LinearLayout>

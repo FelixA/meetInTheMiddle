@@ -8,7 +8,8 @@
 	android:paddingLeft="@dimen/activity_horizontal_margin"
 	android:paddingRight="@dimen/activity_horizontal_margin"
 	android:paddingTop="@dimen/activity_vertical_margin"
-	tools:context=".DisplayContactsActivity" >
+	tools:context=".DisplayContactsActivity" 
+	android:background="@drawable/background">
 
 	<EditText
 		android:id="@+id/contacts_searchText"
@@ -25,7 +26,9 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="Kontakte"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textStyle="italic" 
+		android:textColor="@android:color/secondary_text_light" />
 
 	<ListView
 		android:id="@+id/contacts_List"
@@ -39,7 +42,9 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="Kontakt hinzufügen"
-		android:textAppearance="?android:attr/textAppearanceMedium" />
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textColor="@android:color/secondary_text_light"
+		android:textStyle="italic" />
 
 	<ListView
 		android:id="@+id/contacts_possibleContacts_List"

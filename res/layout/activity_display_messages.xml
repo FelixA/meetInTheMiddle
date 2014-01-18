@@ -17,7 +17,8 @@
         android:layout_centerHorizontal="true"
         android:text="Liste der Nachrichten" 
         android:textColorLink="@android:color/black"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/secondary_text_light"
+        android:textStyle="italic" />
 
     <ListView
         android:id="@+id/listView1"

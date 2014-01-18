@@ -19,7 +19,7 @@
 		    android:layout_marginBottom="20dp"
 		    android:text="@string/user_information"
 		    android:textAppearance="?android:attr/textAppearanceLarge"
-		    android:textColor="@android:color/black" />
+		    android:textColor="@android:color/secondary_text_light"/>
 
 		<TableLayout
 			android:layout_width="match_parent"
@@ -44,7 +44,8 @@
 				    android:layout_height="wrap_content"
 				    android:layout_marginRight="10dp"
 				    android:text="Vorname"
-				    android:textColor="@android:color/secondary_text_light" />
+				    android:textColor="@android:color/secondary_text_light" 
+				    android:textStyle="italic"/>
 
 				<EditText
 					android:id="@+id/profile_first_name"
@@ -65,7 +66,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Nachname" 
-					android:textColor="@android:color/secondary_text_light" />
+					android:textColor="@android:color/secondary_text_light"
+					android:textStyle="italic" />
 
 				<EditText
 					android:id="@+id/profile_last_name"
@@ -86,7 +88,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Alter" 
-					android:textColor="@android:color/secondary_text_light" />
+					android:textColor="@android:color/secondary_text_light"
+					android:textStyle="italic" />
 
 				<EditText
 					android:id="@+id/profile_age"
@@ -107,7 +110,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Telefon" 
-					android:textColor="@android:color/secondary_text_light" />
+					android:textColor="@android:color/secondary_text_light" 
+					android:textStyle="italic"/>
 
 				<EditText
 					android:id="@+id/profile_phone"
@@ -128,7 +132,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="E-Mail" 
-					android:textColor="@android:color/secondary_text_light" />
+					android:textColor="@android:color/secondary_text_light" 
+					android:textStyle="italic"/>
 
 				<EditText
 					android:id="@+id/profile_mail"
@@ -149,7 +154,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="Interessen" 
-					android:textColor="@android:color/secondary_text_light" />
+					android:textColor="@android:color/secondary_text_light" 
+					android:textStyle="italic"/>
 
 				<EditText
 					android:id="@+id/profile_interests"

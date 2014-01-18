@@ -153,7 +153,8 @@
 					android:layout_height="wrap_content"
 					android:layout_marginTop="10dip"
 					android:onClick="attemptRegistration"
-					android:text="@string/string_register" />
+					android:text="@string/string_register" 
+					android:textStyle="italic"/>
 				<!-- Link to Login Screen -->
 
 			</LinearLayout>

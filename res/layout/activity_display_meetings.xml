@@ -26,7 +26,8 @@
 		android:layout_toRightOf="@+id/meetings_profile_Button"
 		android:text="Mit wem?"
 		android:textSize="25sp"
-		android:textColor="@android:color/secondary_text_light">
+		android:textColor="@android:color/secondary_text_light"
+		android:textStyle="italic">
 	</TextView>
 
 	<ImageButton
@@ -56,7 +57,8 @@
 		android:ems="10"
 		android:text="Art des Treffens"
 		android:textSize="25sp" 
-		android:textColor="@android:color/secondary_text_light"/>
+		android:textColor="@android:color/secondary_text_light"
+		android:textStyle="italic"/>
 
 	<ImageButton
 		android:id="@+id/meetings_kindOfTransportation_button"
@@ -78,18 +80,8 @@
 		android:inputType="textPersonName"
 		android:text="Verkehrsmittel"
 		android:textSize="25sp" 
-		android:textColor="@android:color/secondary_text_light"/>
-
-	<Button
-		android:id="@+id/meetings_sendInvitation"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_centerHorizontal="true"
-		android:layout_marginBottom="16dp"
-		android:onClick="sendInvitation"
-		android:text="Anfrage senden"
-		android:textColor="@android:color/secondary_text_light" />
+		android:textColor="@android:color/secondary_text_light"
+		android:textStyle="italic"/>
 
 	<TextView
 		android:id="@+id/meetings_time_view"
@@ -101,6 +93,19 @@
 		android:inputType="textPersonName"
 		android:text="Wann?"
 		android:textSize="25sp" 
-		android:textColor="@android:color/secondary_text_light"/>
+		android:textColor="@android:color/secondary_text_light"
+		android:textStyle="italic"/>
+
+	<Button
+	    android:id="@+id/meetings_sendInvitation"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/meetings_kindOfTransportation_button"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="16dp"
+	    android:onClick="sendInvitation"
+	    android:text="Anfrage senden"
+	    android:textColor="@android:color/secondary_text_light"
+	    android:textStyle="italic" />
 
 </RelativeLayout>
