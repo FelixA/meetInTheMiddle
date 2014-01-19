@@ -2,6 +2,8 @@
 <resources>
 
 	<string name="app_name">MeetInTheMiddle</string>
+	<!-- id for Facebook -->
+	<string name="app_id">249637715205351</string>
 	<string name="search_label">Search</string>
 	<string name="search_hint">Search Contacts</string>
 	<string name="action_settings">Settings</string>

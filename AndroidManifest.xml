@@ -9,6 +9,7 @@
 		android:targetSdkVersion="18" />
 
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -101,6 +102,10 @@
 			android:name="com.example.meetinthemiddle.DisplayMeetingFunctionsActivity"
 			android:label="@string/title_activity_display_meeting_functions" >
 		</activity>
+
+		<meta-data
+			android:name="com.facebook.sdk.ApplicationId"
+			android:value="@string/app_id" />
 	</application>
 	<!--
     <application>
@@ -117,7 +122,7 @@
             </intent-filter>
         </receiver>
         <service android:name=".GcmIntentService" />
-	</application>
+	</application>
 	-->
 
 </manifest>

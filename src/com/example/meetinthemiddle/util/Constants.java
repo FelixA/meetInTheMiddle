@@ -3,7 +3,7 @@ package com.example.meetinthemiddle.util;
 public class Constants {
 //public final static String host = "10.0.2.2";
 //remoteHost
-public final static String host = "10.84.41.74";
+public final static String host = "185.16.61.87";
 public final static String port = "8080";
 public final static String protocol = "http";
 

@@ -2,8 +2,15 @@
 	android:id="@+id/LinearLayout1"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	    android:background="@drawable/background"
+	android:background="@drawable/background"
 	android:orientation="vertical" >
+
+	<Button
+		android:id="@+id/share_button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:onClick="share"
+		android:text="Share" />
 
 	<TextView
 		android:id="@+id/textView1"
@@ -81,27 +88,25 @@
 	</RelativeLayout>
 
 	<TextView
-	    android:id="@+id/TextView01"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="center"
-	    android:text="Neuigkeiten"
-	    android:textAppearance="?android:attr/textAppearanceLarge"
-	    android:textColor="@android:color/secondary_text_light"
-	    android:textColorLink="@android:color/secondary_text_light" />
+		android:id="@+id/TextView01"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:text="Neuigkeiten"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@android:color/secondary_text_light"
+		android:textColorLink="@android:color/secondary_text_light" />
 
 	<ListView
 		android:id="@+id/pastMeetingsView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginTop="24dp" 
-		android:background="@null"
-		android:layout_marginRight = "15dip"
-		android:layout_marginLeft = "15dip"
 		android:layout_marginBottom="15dip"
-		android:gravity = "center_horizontal">
-		
+		android:layout_marginLeft="15dip"
+		android:layout_marginRight="15dip"
+		android:layout_marginTop="24dp"
+		android:background="@null"
+		android:gravity="center_horizontal" >
 	</ListView>
-	
 
 </LinearLayout>
