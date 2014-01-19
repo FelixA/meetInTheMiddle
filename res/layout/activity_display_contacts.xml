@@ -34,7 +34,11 @@
 		android:id="@+id/contacts_List"
 		android:layout_width="fill_parent"
 		android:layout_height="0dp"
-		android:layout_weight="0.3" >
+		android:layout_weight="0.3"
+		android:layout_marginRight = "8dip"
+		android:layout_marginLeft = "8dip"
+		android:layout_marginBottom="8dip"
+		android:gravity = "center_horizontal" >
 	</ListView>
 
 	<TextView
@@ -50,7 +54,10 @@
 		android:id="@+id/contacts_possibleContacts_List"
 		android:layout_width="fill_parent"
 		android:layout_height="0dp"
-		android:layout_weight="0.4" >
+		android:layout_weight="0.4" 
+		android:layout_marginRight = "8dip"
+		android:layout_marginLeft = "8dip"
+		android:gravity = "center_horizontal">
 	</ListView>
 
 </LinearLayout>

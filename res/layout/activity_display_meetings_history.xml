@@ -21,7 +21,11 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/searchView1"
         android:layout_marginTop="24dp"
-        android:layout_weight="0.55" >
+        android:layout_weight="0.55" 
+        android:layout_marginRight = "15dip"
+		android:layout_marginLeft = "15dip"
+		android:layout_marginBottom="15dip"
+		android:gravity = "center_horizontal">
     </ListView>
 
 </TableLayout>

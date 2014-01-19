@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	android:id="@+id/RelativeLayout01"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:paddingBottom="10dp"
+	android:paddingTop="10dp"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/background">
+	<LinearLayout
+		android:id="@+id/LinearLayout01"
+		android:layout_height="wrap_content"
+		android:gravity="center_vertical"
+		android:layout_width="fill_parent">
+
+		<ImageView
+		    android:id="@+id/img_user"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="40dp"
+		    android:src="@drawable/ic_launcher" />
+
+		<TableLayout
+			android:id="@+id/TableLayout01"
+			android:layout_below="@+id/LinearLayout01"
+			android:layout_height="wrap_content"
+			android:layout_width="fill_parent"
+			android:layout_marginLeft="40dp">
+			<TableRow
+				android:id="@+id/TableRow01"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+				<TextView
+					android:id="@+id/TextView01"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@android:color/secondary_text_light"
+					android:paddingRight="10dp"
+					android:text="Wer mit wem?"></TextView>
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:id="@+id/txt_name"
+					android:textColor="@android:color/secondary_text_light"
+					android:textStyle="bold"
+					android:paddingBottom="5dp"></TextView>
+			</TableRow>
+			<TableRow
+				android:id="@+id/TableRow02"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@android:color/secondary_text_light"
+					android:paddingRight="10dp"
+					android:text="Wo?"
+					android:id="@+id/TextView02"></TextView>
+				<TextView
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textColor="@android:color/secondary_text_light"
+					android:paddingBottom="5dp"
+					android:id="@+id/txt_town"></TextView>
+			</TableRow>
+			<TableRow
+				android:id="@+id/TableRow03"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@android:color/secondary_text_light"
+					android:paddingRight="10dp"
+					android:text="Wann?"
+					android:id="@+id/TextView03"></TextView>
+				<TextView
+					android:layout_toRightOf="@+id/TableLayout01"
+					android:layout_below="@+id/LinearLayout01"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content"
+					android:textColor="@android:color/secondary_text_light"
+					android:id="@+id/txt_phone"></TextView>
+			</TableRow>
+		</TableLayout>
+	</LinearLayout>
+</RelativeLayout>
