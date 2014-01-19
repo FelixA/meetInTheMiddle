@@ -174,7 +174,7 @@ public class DisplayProfileActivity extends Activity {
 
 		@Override
 		protected Void doInBackground(String... params) {
-			personDao.update(person.getId(), params[0], params[1], person.getBirthday(), params[2], params[3],person.getPassword(), params[4]);
+			personDao.update(person.getId(), params[0], params[1], person.getBirthday(), params[2], params[3], params[4]);
 			return null;
 		}
 

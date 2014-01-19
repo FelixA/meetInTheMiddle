@@ -50,8 +50,14 @@ public class PersonDao {
 		WebServiceClient.post(person, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);
 	}
 	
-	public void update(Long id, String firstName, String lastName,Date birthday, String phone, String email, String password,
+	public void update(Long id, String firstName, String lastName,Date birthday, String phone, String email,
 			  String interests){
+		Person person = new Person(firstName,lastName,birthday, phone,email, interests);
+		person.setId(id);
+		WebServiceClient.put(person, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);
+	}
+	public void update(Long id, String firstName, String lastName,Date birthday, String phone, String email,
+			  String password, String interests){
 		Person person = new Person(firstName,lastName,birthday, phone,email,password, interests);
 		person.setId(id);
 		WebServiceClient.put(person, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);

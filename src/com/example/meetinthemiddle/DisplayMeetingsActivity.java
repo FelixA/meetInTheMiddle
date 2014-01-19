@@ -168,72 +168,55 @@ public class DisplayMeetingsActivity extends Activity implements
 
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.kindof_Cafe:
+		int itemId = item.getItemId();
+		if (itemId == R.id.kindof_Cafe) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
 			kindofId = 1L;
-			break;
-		case R.id.kindof_night_cafe:
+		} else if (itemId == R.id.kindof_night_cafe) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
 			kindofId = 2L;
-			break;
-		case R.id.kindof_bar:
+		} else if (itemId == R.id.kindof_bar) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
 			kindofId = 3L;
-			break;
-		case R.id.kindof_museum:
+		} else if (itemId == R.id.kindof_museum) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
 			kindofId = 4L;
-			break;
-		case R.id.kindof_park:
+		} else if (itemId == R.id.kindof_park) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
 			kindofId = 5L;
-
-			break;
-		case R.id.kindof_restaurant:
+		} else if (itemId == R.id.kindof_restaurant) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
 			kindofId = 6L;
-
-			break;
-		case R.id.kindof_movie_theater:
+		} else if (itemId == R.id.kindof_movie_theater) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
 			kindofId = 7L;
-			break;
-		case R.id.kindof_hindu_temple:
+		} else if (itemId == R.id.kindof_hindu_temple) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
 			kindofId = 8L;
-			break;
-		case R.id.kindoftransportation_bike:
+		} else if (itemId == R.id.kindoftransportation_bike) {
 			kindofTransportation.setText(item.getTitle());
 			kindofTransportationString = item.getTitle().toString();
 			kindofTransportationId = 1L;
-
-			break;
-		case R.id.kindoftransportation_car:
+		} else if (itemId == R.id.kindoftransportation_car) {
 			kindofTransportation.setText(item.getTitle());
 			kindofTransportationString = item.getTitle().toString();
 			kindofTransportationId = 2L;
-
-			break;
-		case R.id.kindoftransportation_foot:
+		} else if (itemId == R.id.kindoftransportation_foot) {
 			kindofTransportation.setText(item.getTitle());
 			kindofTransportationString = item.getTitle().toString();
 			kindofTransportationId = 3L;
-
-			break;
-		case R.id.kindoftransportation_public:
+		} else if (itemId == R.id.kindoftransportation_public) {
 			kindofTransportation.setText(item.getTitle());
 			kindofTransportationString = item.getTitle().toString();
 			kindofTransportationId = 4L;
-			break;
 		}
 		return false;
 	}

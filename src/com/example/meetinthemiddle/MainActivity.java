@@ -1,10 +1,20 @@
 package com.example.meetinthemiddle;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Logger;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.meetinthemiddle.locationverwaltung.dao.LocationDao;
 import com.example.meetinthemiddle.locationverwaltung.domain.Location;
@@ -14,20 +24,10 @@ import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 import com.example.meetinthemiddle.placesverwaltung.dao.PlaceDao;
 import com.example.meetinthemiddle.placesverwaltung.domain.Place;
-
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.text.Html;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.FacebookDialog;
 /**
  * 
  * @author Felix
@@ -56,6 +56,21 @@ public class MainActivity extends Activity {
 	private ShowSecondPersonTask showSecondPersonTask = null;
 	private ShowPlaceTask showPlaceTask = null;
 	private ShowLocationTask showLocationTask = null;
+	private UiLifecycleHelper uiHelper;
+	
+	private Session.StatusCallback callback = new Session.StatusCallback()
+	{
+
+		@Override
+		public void call(Session session, SessionState state,
+				Exception exception) {
+			// TODO Auto-generated method stub
+			
+		}
+       
+    };
+
+     
 
 	public final static String EXTRA_MESSAGE = "com.example.meetinthemiddle.EXTRA_MESSAGE";
 
@@ -64,6 +79,8 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		uiHelper = new UiLifecycleHelper(this, callback);
+	    uiHelper.onCreate(savedInstanceState);
 		meetings = new ArrayList<Meeting>();
 		firstPersons = new ArrayList<Person>();
 		secondPersons = new ArrayList<Person>();
@@ -77,6 +94,8 @@ public class MainActivity extends Activity {
 		personDao = new PersonDao(this);
 		placeDao = new PlaceDao(this);
 		locationDao = new LocationDao(this);
+		
+		
 		
 		showMeetingsTask = new ShowMeetingsTask();
 		try {
@@ -106,6 +125,48 @@ public class MainActivity extends Activity {
 		ArrayAdapter<Meeting> adapter = new MyListAdapter();
 		ListView list = (ListView) findViewById(R.id.pastMeetingsView);
 		list.setAdapter(adapter);
+	}
+	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, resultCode, data);
+
+	    uiHelper.onActivityResult(requestCode, resultCode, data, new FacebookDialog.Callback() {
+	        @Override
+	        public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
+	            Log.e("Activity", String.format("Error: %s", error.toString()));
+	        }
+
+	        @Override
+	        public void onComplete(FacebookDialog.PendingCall pendingCall, Bundle data) {
+	            Log.i("Activity", "Success!");
+	        }
+	    });
+	}
+	
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    uiHelper.onResume();
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+	    super.onSaveInstanceState(outState);
+	    uiHelper.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onPause() {
+	    super.onPause();
+	    uiHelper.onPause();
+	}
+
+	@Override
+	public void onDestroy() {
+	    super.onDestroy();
+	    uiHelper.onDestroy();
 	}
 
 	private class MyListAdapter extends ArrayAdapter<Meeting> {
@@ -156,10 +217,10 @@ public class MainActivity extends Activity {
 	}
 	
 	public void share(View view){
-		Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-		sharingIntent.setType("text/html");
-		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, Html.fromHtml("<p>This is the text that will be shared.</p>"));
-		startActivity(Intent.createChooser(sharingIntent,"Share using"));
+		FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
+		.setDescription("Felix war mit Lukas in Karlsruhe in Hindu Tempel")
+        .build();
+		uiHelper.trackPendingDialogCall(shareDialog.present());
 	}
 
 

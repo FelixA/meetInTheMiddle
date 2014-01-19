@@ -34,6 +34,17 @@ public class Person implements Serializable{
 	public Person() {
 	}
 
+	public Person(String firstName, String lastName, Date birthday,
+			String phone, String email, String interests) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.email = email;
+		this.interests = interests;
+	}
+
 	@Element(required = false)
 	private Long id;
 	@Element
@@ -46,7 +57,7 @@ public class Person implements Serializable{
 	private String phone;
 	@Element
 	private String email;
-	@Element
+	@Element(required = false)
 	private String password;
 	@Element(required = false)
 	private String interests;
