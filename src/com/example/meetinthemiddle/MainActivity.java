@@ -5,9 +5,15 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -217,6 +223,21 @@ public class MainActivity extends Activity {
 	}
 	
 	public void share(View view){
+		//Define Notification Manager
+		NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+		//Define sound URI
+		Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext())
+		     
+		        .setSound(soundUri); //This sets the sound to play
+
+		//Display notification
+		notificationManager.notify(0, mBuilder.build());
+		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		// Vibrate for 500 milliseconds
+		v.vibrate(500);
 		FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
 		.setDescription("Felix war mit Lukas in Karlsruhe in Hindu Tempel")
         .build();
