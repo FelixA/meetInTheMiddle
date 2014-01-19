@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent" 
-	android:background="@drawable/background">
+	android:layout_height="match_parent" >
 
 	<ImageView
 		android:id="@+id/contacts_profile_image"
@@ -16,31 +15,24 @@
 		android:src="@drawable/person" />
 
 	<TextView
-	    android:id="@+id/contacts_firstName"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentTop="true"
-	    android:layout_marginLeft="16dp"
-	    android:layout_toRightOf="@+id/contacts_profile_image"
-	    android:text="Wer?"
-	    android:textAppearance="?android:attr/textAppearanceMedium" />
+		android:id="@+id/contacts_firstName"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/contacts_profile_image"
+		android:layout_marginBottom="16dp"
+		android:layout_marginLeft="15dp"
+		android:layout_toRightOf="@+id/contacts_profile_image"
+		android:text="Vorname"
+		android:textAppearance="?android:attr/textAppearanceMedium" />
 
 	<TextView
-	    android:id="@+id/position"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/contacts_firstName"
-	    android:layout_below="@+id/contacts_firstName"
-	    android:text="Ort"
-	    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-	<TextView
-	    android:id="@+id/time"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/position"
-	    android:layout_below="@+id/position"
-	    android:text="Wann?"
-	    android:textAppearance="?android:attr/textAppearanceMedium" />
+		android:id="@+id/contacts_lastName"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/contacts_firstName"
+		android:layout_alignBottom="@+id/contacts_firstName"
+		android:layout_toRightOf="@+id/contacts_firstName"
+		android:text=" Nachname"
+		android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

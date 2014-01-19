@@ -15,7 +15,7 @@
         android:textStyle="italic" />
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/list_messages"
         android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_alignParentRight="true"
