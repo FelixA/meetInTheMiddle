@@ -9,10 +9,10 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
+		android:background="@drawable/background"
 		android:gravity="center_horizontal"
 		android:orientation="vertical"
-		android:visibility="gone"
-		android:background="@drawable/background">
+		android:visibility="gone" >
 
 		<ProgressBar
 			style="?android:attr/progressBarStyleLarge"
@@ -36,9 +36,9 @@
 		android:fillViewport="true" >
 
 		<RelativeLayout
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:background="@drawable/background" >
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:background="@drawable/background" >
 
 			<!-- Header  Starts -->
 
@@ -153,12 +153,36 @@
 					android:layout_height="wrap_content"
 					android:layout_marginTop="10dip"
 					android:onClick="attemptRegistration"
-					android:text="@string/string_register" 
-					android:textStyle="italic"/>
+					android:text="@string/string_register"
+					android:textStyle="italic" />
 				<!-- Link to Login Screen -->
 
 			</LinearLayout>
 			<!-- Registration Form Ends -->
+
+			<TextView
+				android:id="@+id/tv_reg_status"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/registry_status" />
+
+			<TextView
+				android:id="@+id/tv_reg_status_result"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/registry_status_result" />
+
+			<TextView
+				android:id="@+id/tv_message_label"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/broadcast_label" />
+
+			<TextView
+				android:id="@+id/tv_message"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/broadcast_result" />
 		</RelativeLayout>
 	</ScrollView>
 
