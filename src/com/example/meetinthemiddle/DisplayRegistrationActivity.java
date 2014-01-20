@@ -20,10 +20,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -64,11 +67,15 @@ public class DisplayRegistrationActivity extends Activity {
         private EditText mInterestsView;
         private EditText mPhoneView;
         private DatePicker mBirthdayView;
+        
 
         // Replace the xxx with the project id generated from the Google console
         // when
         // you defined a Google APIs project.
         private static final String PROJECT_ID = "355205271798";
+        
+        private NotificationManager mNotificationManager;
+        public static final int NOTIFICATION_ID = 1;
 
         // This tag is used in Log.x() calls
         private static final String TAG = "MainActivity";
@@ -104,10 +111,35 @@ public class DisplayRegistrationActivity extends Activity {
                         if (broadcastMessage != null) {
                                 // display our received message
                                 tvBroadcastMessage.setText(broadcastMessage);
+                                Log.d(TAG, broadcastMessage);
+                                sendNotification(broadcastMessage);
                         }
                 }
         };
+        
+        // Put the message into a notification and post it.
+        // This is just one simple example of what you might choose to do with
+        // a GCM message.
+        private void sendNotification(String msg) {
+            mNotificationManager = (NotificationManager)
+                    this.getSystemService(Context.NOTIFICATION_SERVICE);
 
+            PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                    new Intent(this, DisplayRegistrationActivity.class), 0);
+
+            NotificationCompat.Builder mBuilder =
+                    new NotificationCompat.Builder(this)
+            .setSmallIcon(R.drawable.clock)
+            .setContentTitle("GCM Notification")
+            .setStyle(new NotificationCompat.BigTextStyle()
+            .bigText(msg))
+            .setContentText(msg);
+
+            mBuilder.setContentIntent(contentIntent);
+            mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+        }
+
+        
         public static final String EXTRA_EMAIL = "com.example.android.registration.extra.EMAIL";
         static final int DATE_DIALOG_ID = 999;
 
@@ -157,6 +189,7 @@ public class DisplayRegistrationActivity extends Activity {
                 gcmFilter = new IntentFilter();
                 gcmFilter.addAction("GCM_RECEIVED_ACTION");
 
+                registerClient();
 
                 findViewById(R.id.btnRegister).setOnClickListener(
                                 new View.OnClickListener() {
@@ -391,7 +424,7 @@ public class DisplayRegistrationActivity extends Activity {
                 protected Boolean doInBackground(Void... params) {
                         try {
                                 personDao.create(mFirstName, mLastName, mBirthday, mPhone,
-                                                mEmail, converter.md5(mPassword), mInterests,registerClient());
+                                                mEmail, converter.md5(mPassword), mInterests,regId);
                         } catch (ParseException e) {
                                 // TODO Auto-generated catch block
                                 e.printStackTrace();

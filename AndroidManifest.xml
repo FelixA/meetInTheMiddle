@@ -15,14 +15,14 @@
 	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.USE_CREDENTIALS" />
-	     
+	<uses-permission android:name="android.permission.C2D_MESSAGE" />	     
 	<uses-permission android:name="android.permission.READ_OWNER_DATA" />
 	<permission
-		android:name="com.example.gcm.permission.C2D_MESSAGE"
+		android:name="com.example.meetinthemiddle.permission.C2D_MESSAGE"
 		android:protectionLevel="signature" />
 
-	<uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
-
+	<uses-permission android:name="com.example.meetinthemiddle.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="android.permission.WRITE_USER_DICTIONARY"/>
 	<application
 		android:allowBackup="true"
 		android:icon="@drawable/ic_launcher"
