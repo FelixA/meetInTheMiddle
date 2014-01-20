@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    	<LinearLayout
+	    android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dip"
+        android:orientation="horizontal" >
+
+		<ImageView
+		    android:id="@+id/imageView1"
+		    android:layout_width="20dip"
+        	android:layout_height="20dip"
+		    android:layout_marginLeft="50dip"
+		    android:layout_marginTop="10dip"
+		    android:clickable="true"
+		    android:src="@drawable/btn_back"
+		    android:onClick="showViewbefore" />
+
+		<TextView
+		    android:id="@+id/headline_routing"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginRight="5dip"
+		    android:text="Routenführung"
+		    android:textSize="30dip" />
+	    
+	    </LinearLayout>
+	    
+    		<LinearLayout
+	        android:id="@+id/linearLayout4"
+	        android:layout_width="match_parent"
+	        android:layout_height="120pt"
+	        android:layout_marginTop="20dip"
+	        android:orientation="horizontal" >
+	        
+	    <fragment
+	        android:id="@+id/map"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_marginLeft="15dip"
+	        android:layout_marginRight="15dip"
+	        class="com.google.android.gms.maps.MapFragment" />
+	    
+	        </LinearLayout>
+	        
+	        <LinearLayout
+	        android:id="@+id/linearLayout15"
+	        android:layout_width="match_parent"
+	        android:layout_height="20pt"
+	        android:layout_marginRight="15dip"
+	        android:layout_marginLeft="15dip"
+	        android:background="@color/common_action_bar_splitter"
+	        android:orientation="horizontal" >
+	    
+	            <TextView
+    		        android:id="@+id/TextViewTime"
+    		        android:layout_width="wrap_content"
+    		        android:layout_height="wrap_content"
+    		        android:layout_marginLeft="15dip"
+    		        android:layout_marginRight="5dip"
+    		        android:text="Dauer"
+    		        android:textSize="20dip" />
+
+    		    <TextView
+    		        android:id="@+id/TextView02"
+    		        android:layout_width="wrap_content"
+    		        android:layout_height="wrap_content"
+    		        android:layout_marginLeft="25dip"
+    		        android:layout_marginRight="10dip"
+    		        android:text="Distanz"
+    		        android:textSize="20dip" >
+    		    </TextView>
+	    
+	            
+	    </LinearLayout>
+	        
+    		<LinearLayout
+    		    android:id="@+id/linearLayout5"
+    		    android:layout_width="match_parent"
+    		    android:layout_height="15pt"
+    		    android:layout_marginTop="20dip"
+    		    android:orientation="horizontal" >
+
+    		</LinearLayout>
+			<LinearLayout
+    		    android:id="@+id/linearLayout9"
+    		    android:layout_width="match_parent"
+    		    android:layout_height="20pt"
+    		    android:layout_marginTop="20dip"
+    		    android:orientation="horizontal" >
+    			
+    			<Button
+			    android:id="@+id/startrouting"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			   	android:layout_marginLeft="40dip"
+		        android:layout_marginRight="15dip"
+			    android:text="Start Routenführung"
+			    android:onClick="showMapRouting" />
+    			
+	    		<ProgressBar
+	            android:id="@+id/progressBar"
+	            style="?android:attr/progressBarStyleLarge"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_centerHorizontal="true"
+	            android:layout_centerVertical="true"
+	            android:visibility="gone"
+	            android:indeterminateDrawable="@drawable/progress" >
+        		</ProgressBar>
+    			
+    		</LinearLayout>
+</LinearLayout>
