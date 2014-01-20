@@ -54,7 +54,7 @@
 			android:label="@string/app_name" >
 		</activity>
 		 <activity
-            android:name="com.example.meetinthemiddle.OverviewRouting"
+            android:name="com.example.meetinthemiddle.DisplayOverviewRouting"
             android:label="@string/app_name" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />

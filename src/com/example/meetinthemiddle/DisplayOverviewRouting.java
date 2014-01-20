@@ -19,7 +19,7 @@ import android.location.Location;
 // Aufruf und Darstellung Ergebniss Klasse
 //http://developer.android.com/guide/faq/commontasks.html#opennewscreen
 
-public class OverviewRouting extends android.support.v4.app.FragmentActivity implements android.location.LocationListener {
+public class DisplayOverviewRouting extends android.support.v4.app.FragmentActivity implements android.location.LocationListener {
 	private TextView latituteField;
 	  private TextView longitudeField;
 	  private LocationManager locationManager;
@@ -32,7 +32,7 @@ public class OverviewRouting extends android.support.v4.app.FragmentActivity imp
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.overview_routing);
+	    setContentView(R.layout.activity_display_overview_routing);
 	    latituteField = (TextView) findViewById(R.id.TextView02);
 	    longitudeField = (TextView) findViewById(R.id.TextView04);	    
 	    // Get the location manager
@@ -98,7 +98,7 @@ public class OverviewRouting extends android.support.v4.app.FragmentActivity imp
 	 */ 
 	  public void showMapRouting(View view){
 		    Toast.makeText(getApplicationContext(), "showMapRouting", Toast.LENGTH_LONG).show();
-	         Intent i = new Intent(OverviewRouting.this, DisplayMap.class);
+	         Intent i = new Intent(DisplayOverviewRouting.this, DisplayMap.class);
 	         startActivity(i);
 	  }
 	  

@@ -315,7 +315,7 @@ public class DisplayMeetingsActivity extends Activity implements
 	}
 	
 	public void openMeetingMap(View view) {
-        Intent i = new Intent(DisplayMeetingsActivity.this, OverviewRouting.class);
+        Intent i = new Intent(DisplayMeetingsActivity.this, DisplayOverviewRouting.class);
         startActivity(i);
 	}
 }

@@ -71,7 +71,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	   {
 		System.out.println("OnCreate in DisplayMap.java");
 	      super.onCreate(savedInstanceState);
-	      setContentView(R.layout.routingmap);
+	      setContentView(R.layout.activity_display_routingmap);
 		    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		    // Define the criteria how to select the location provider -> use
@@ -825,7 +825,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 
 	  public void showViewbefore(View view){
 	    Toast.makeText(getApplicationContext(), "showViewBefore", Toast.LENGTH_LONG).show();
-         Intent i = new Intent(DisplayMap.this, OverviewRouting.class);
+         Intent i = new Intent(DisplayMap.this, DisplayOverviewRouting.class);
          startActivity(i);
 	  }
 
