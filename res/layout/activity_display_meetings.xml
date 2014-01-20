@@ -108,4 +108,15 @@
 	    android:textColor="@android:color/secondary_text_light"
 	    android:textStyle="italic" />
 
+	<Button
+	    android:id="@+id/meetings_OpenMeetingMap"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/meetings_sendInvitation"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="16dp"
+	    android:onClick="openMeetingMap"
+	    android:text="Quick Link Map"
+	    android:textColor="@android:color/secondary_text_light"
+	    android:textStyle="italic" />
 </RelativeLayout>

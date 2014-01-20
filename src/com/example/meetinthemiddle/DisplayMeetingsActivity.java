@@ -313,4 +313,9 @@ public class DisplayMeetingsActivity extends Activity implements
 		CreateMeetingTask createMeetingTask = new CreateMeetingTask();
 		createMeetingTask.execute();
 	}
+	
+	public void openMeetingMap(View view) {
+        Intent i = new Intent(DisplayMeetingsActivity.this, OverviewRouting.class);
+        startActivity(i);
+	}
 }
