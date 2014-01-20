@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import com.example.meetinthemiddle.meetingverwaltung.dao.MeetingDao;
 import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
+import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 
 import android.os.AsyncTask;
@@ -43,51 +44,55 @@ public class DisplayMeetingsActivity extends Activity implements
 	TextView time;
 	TextView kindofTransportation;
 	private TextView displayTime;
-    private ImageButton pickTime;
-    private MeetingDao meetingDao;
- 
-    private int pHour;
-    private int pMinute;
-    /** This integer will uniquely define the dialog to be used for displaying time picker.*/
-    static final int TIME_DIALOG_ID = 0;
+	private ImageButton pickTime;
+	private MeetingDao meetingDao;
+	private PersonDao personDao;
+
+	private int pHour;
+	private int pMinute;
+	/**
+	 * This integer will uniquely define the dialog to be used for displaying
+	 * time picker.
+	 */
+	static final int TIME_DIALOG_ID = 0;
 
 	private final static int ONE = 1;
 
 	/** Callback received when the user "picks" a time in the dialog */
-    private TimePickerDialog.OnTimeSetListener mTimeSetListener =
-        new TimePickerDialog.OnTimeSetListener() {
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                pHour = hourOfDay;
-                pMinute = minute;
-                updateDisplay();
-            }
-        };
-	
+	private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			pHour = hourOfDay;
+			pMinute = minute;
+			updateDisplay();
+		}
+	};
+
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_meetings);
 		meetingDao = new MeetingDao(this);
+		personDao = new PersonDao(this);
 		kindofString = "";
 		kindofTransportationString = "";
 		kindofId = -1L;
 		kindofTransportationId = -1L;
-		
+
 		kindof = (TextView) findViewById(R.id.meetings_kindOf_View);
 		kindofTransportation = (TextView) findViewById(R.id.meetings_kindOfTransportation_View);
 		/** Capture our View elements */
-        displayTime = (TextView) findViewById(R.id.meetings_time_view);
-        pickTime = (ImageButton) findViewById(R.id.meetings_time_button);
- 
-        /** Get the current time */
-        final Calendar cal = Calendar.getInstance(new Locale("CET"));
-        pHour = cal.get(Calendar.HOUR_OF_DAY);
-        pMinute = cal.get(Calendar.MINUTE);
- 
-        /** Display the current time in the TextView */
-        updateDisplay();
-		
+		displayTime = (TextView) findViewById(R.id.meetings_time_view);
+		pickTime = (ImageButton) findViewById(R.id.meetings_time_button);
+
+		/** Get the current time */
+		final Calendar cal = Calendar.getInstance(new Locale("CET"));
+		pHour = cal.get(Calendar.HOUR_OF_DAY);
+		pMinute = cal.get(Calendar.MINUTE);
+
+		/** Display the current time in the TextView */
+		updateDisplay();
+
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			if (extras.getBoolean("true")) {
@@ -96,8 +101,10 @@ public class DisplayMeetingsActivity extends Activity implements
 					kindof.setText(extras.getString("kindOf"));
 				}
 				if (!extras.getString("kindOfTransportation").contentEquals("")) {
-					kindofTransportationString =  extras.getString("kindOfTransportation");
-					kindofTransportation.setText(extras.getString("kindOfTransportation"));
+					kindofTransportationString = extras
+							.getString("kindOfTransportation");
+					kindofTransportation.setText(extras
+							.getString("kindOfTransportation"));
 				}
 			}
 			// if(!extras.getString("kindOf").contentEquals(null)||!extras.getString("kindOf").contentEquals(""))
@@ -110,9 +117,11 @@ public class DisplayMeetingsActivity extends Activity implements
 
 		if (extras != null) {
 			if (extras.getBoolean("true")) {
-				Person contactPerson = (Person)extras.getSerializable("Contact");
+				Person contactPerson = (Person) extras
+						.getSerializable("Contact");
 				TextView contact = (TextView) findViewById(R.id.meetings_profile_View);
-				contact.setText(contactPerson.getFirstName() + " " + contactPerson.getLastName());
+				contact.setText(contactPerson.getFirstName() + " "
+						+ contactPerson.getLastName());
 
 			}
 		}
@@ -124,34 +133,31 @@ public class DisplayMeetingsActivity extends Activity implements
 	}
 
 	/** Updates the time in the TextView */
-    private void updateDisplay() {
-        displayTime.setText(
-            new StringBuilder()
-                    .append(pad(pHour)).append(":")
-                    .append(pad(pMinute)));
-    }
-    
+	private void updateDisplay() {
+		displayTime.setText(new StringBuilder().append(pad(pHour)).append(":")
+				.append(pad(pMinute)));
+	}
 
-    /** Add padding to numbers less than ten */
-    private static String pad(int c) {
-        if (c >= 10)
-            return String.valueOf(c);
-        else
-            return "0" + String.valueOf(c);
-    }
-    
-    /** Create a new dialog for time picker */
-    
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-        case TIME_DIALOG_ID:
-            return new TimePickerDialog(this,
-                    mTimeSetListener, pHour, pMinute, true);
-        }
-        return null;
-    }
-	
+	/** Add padding to numbers less than ten */
+	private static String pad(int c) {
+		if (c >= 10)
+			return String.valueOf(c);
+		else
+			return "0" + String.valueOf(c);
+	}
+
+	/** Create a new dialog for time picker */
+
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case TIME_DIALOG_ID:
+			return new TimePickerDialog(this, mTimeSetListener, pHour, pMinute,
+					true);
+		}
+		return null;
+	}
+
 	@SuppressLint("NewApi")
 	private void createPopups() {
 		popupMenuKindOf = new PopupMenu(this,
@@ -229,7 +235,7 @@ public class DisplayMeetingsActivity extends Activity implements
 		}
 		if (getResources().getResourceEntryName(view.getId()).equals(
 				"meetings_time_button")) {
-            showDialog(TIME_DIALOG_ID);
+			showDialog(TIME_DIALOG_ID);
 		}
 		if (getResources().getResourceEntryName(view.getId()).equals(
 				"meetings_kindOfTransportation_button")) {
@@ -276,29 +282,35 @@ public class DisplayMeetingsActivity extends Activity implements
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	private class CreateMeetingTask extends AsyncTask<Void, Void, Void>{
 
+	private class CreateMeetingTask extends AsyncTask<Void, Void, Void> {
+
+		@SuppressWarnings("deprecation")
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			Bundle extras = getIntent().getExtras();
 			Person contact = (Person) extras.getSerializable("Contact");
+			Person person = personDao.findPersonById(extras.getLong("PersonId"));
 			/** Get the current time */
-	        Date date = new Date();
-	        date.setHours(pHour);
-	        date.setMinutes(pMinute);
-	        System.out.println(extras.getLong("PersonId")+ ""+ contact.getId()+""+ date);
-	        try {
-				meetingDao.create(extras.getLong("PersonId"), contact.getId(), date, kindofId, 15L, 4, kindofTransportationId, "BLubberBlubb", kindofTransportationId);
+			Date date = new Date();
+			date.setHours(pHour);
+			date.setMinutes(pMinute);
+			System.out.println(extras.getLong("PersonId") + " "
+					+ contact.getId() + " " + date);
+			try {
+				meetingDao.create(extras.getLong("PersonId"), contact.getId(),
+						date, kindofId, 15L, 4, kindofTransportationId,
+						"BLubberBlubb", kindofTransportationId, person.getAndroidId(), contact.getAndroidId(), person.getFirstName() + " möchte sich um "+ pHour + ":" + pMinute + " Uhr mit dir treffen");
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return null;
-			}
+		}
 	}
-				
-	public void sendInvitation(View view) throws ParseException{
-		CreateMeetingTask createMeetingTask = new CreateMeetingTask(); 
+
+	public void sendInvitation(View view) throws ParseException {
+		CreateMeetingTask createMeetingTask = new CreateMeetingTask();
 		createMeetingTask.execute();
 	}
 }

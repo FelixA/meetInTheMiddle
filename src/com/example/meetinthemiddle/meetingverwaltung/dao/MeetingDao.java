@@ -36,9 +36,9 @@ public class MeetingDao {
 
 	public void create(Long pers1_fk, Long pers2_fk, Date uhrzeit,
 			Long lokalitaet_fk, Long ort_fk, Integer bewertung,
-			Long verkehrsmittel_pers1_fk, String kommentar, Long verkehrsmittel_pers2_fk) throws ParseException {
+			Long verkehrsmittel_pers1_fk, String kommentar, Long verkehrsmittel_pers2_fk, String aIdSender, String aIdEmpfaenger, String message) throws ParseException {
   
-		Meeting meeting = new Meeting(pers1_fk, pers2_fk, uhrzeit, lokalitaet_fk, ort_fk, bewertung, verkehrsmittel_pers1_fk, kommentar, verkehrsmittel_pers2_fk);
+		Meeting meeting = new Meeting(pers1_fk, pers2_fk, uhrzeit, lokalitaet_fk, ort_fk, bewertung, verkehrsmittel_pers1_fk, kommentar, verkehrsmittel_pers2_fk,aIdSender,aIdEmpfaenger, message);
 		WebServiceClient.post(meeting, "/rest/meetings", context, Constants.DATE_FORMAT_JAXB);
 	}
 	public void update(Long pers1_fk, Long pers2_fk, Date uhrzeit,
