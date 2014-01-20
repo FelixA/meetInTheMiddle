@@ -232,7 +232,7 @@ public class DisplayRegistrationActivity extends Activity {
             if (regId.equals("")) {
  
                 registrationStatus = "Registering...";
- System.out.println(registrationStatus);
+                System.out.println(registrationStatus);
                 tvRegStatusResult.setText(registrationStatus);
  
                 // register this device for this project
