@@ -243,7 +243,8 @@ public class MainActivity extends Activity {
 		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		// Vibrate for 500 milliseconds
 		v.vibrate(500);
-		FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
+		FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this).setPlace("café Emaille")
+        .setCaption("trolololololo")
 		.setDescription("Felix war mit Lukas in Karlsruhe in Hindu Tempel")
         .build();
 		uiHelper.trackPendingDialogCall(shareDialog.present());
