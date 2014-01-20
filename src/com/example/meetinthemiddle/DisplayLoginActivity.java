@@ -1,11 +1,6 @@
 package com.example.meetinthemiddle;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-
-import javax.sql.DataSource;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -15,7 +10,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,9 +18,9 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
-import com.example.meetinthemiddle.util.Constants;
 import com.example.meetinthemiddle.util.ConvertToMD5;
 
 /**
@@ -35,11 +29,6 @@ import com.example.meetinthemiddle.util.ConvertToMD5;
  */
 public class DisplayLoginActivity extends Activity {
 	private PersonDao personDao;
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private List<String> DUMMY_CREDENTIALS = new ArrayList<String>();
 	/**
 	 * The default email to populate the email field with.
 	 */
@@ -259,7 +248,6 @@ public class DisplayLoginActivity extends Activity {
 						return person.get(i).getId();
 					}
 				}
-				//TODO: CHECK IF WORKS
 				mAuthTask.isCancelled();
 			}
 			return -1L;

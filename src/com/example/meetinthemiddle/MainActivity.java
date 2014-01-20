@@ -235,19 +235,18 @@ public class MainActivity extends Activity {
 		Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
 		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext())
-		     
-		        .setSound(soundUri); //This sets the sound to play
-
+		.setSound(soundUri); //This sets the sound to play
 		//Display notification
 		notificationManager.notify(0, mBuilder.build());
 		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		// Vibrate for 500 milliseconds
 		v.vibrate(500);
-		FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this).setPlace("café Emaille")
-        .setCaption("trolololololo")
-		.setDescription("Felix war mit Lukas in Karlsruhe in Hindu Tempel")
-        .build();
-		uiHelper.trackPendingDialogCall(shareDialog.present());
+		
+//		FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
+//        .setLink("https://developers.facebook.com/android")
+//		.setDescription("Felix war mit Lukas in Karlsruhe in Hindu Tempel")
+//        .build();
+//		uiHelper.trackPendingDialogCall(shareDialog.present());
 	}
 
 
