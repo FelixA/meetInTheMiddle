@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import com.google.android.gcm.GCMBaseIntentService;
  
@@ -15,7 +16,9 @@ public class GCMIntentService extends GCMBaseIntentService {
     private static final String PROJECT_ID = "355205271798";
      
     private static final String TAG = "GCMIntentService";
-     
+    
+    private NotificationManager mNotificationManager;
+    public static final int NOTIFICATION_ID = 1;
     public GCMIntentService()
     {
         super(PROJECT_ID);
@@ -36,12 +39,33 @@ public class GCMIntentService extends GCMBaseIntentService {
         Log.d(TAG, "Message Received");
          
         String message = intent.getStringExtra("message");
-         
+        sendNotification("Hallo Testerei"); 
         sendGCMIntent(ctx, message);
          
     }
  
-     
+    // Put the message into a notification and post it.
+    // This is just one simple example of what you might choose to do with
+    // a GCM message.
+    private void sendNotification(String msg) {
+        mNotificationManager = (NotificationManager)
+                this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, MainActivity.class), 0);
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+        .setSmallIcon(R.drawable.happy)
+        .setContentTitle("Meet In The Middle")
+        .setStyle(new NotificationCompat.BigTextStyle()
+        .bigText(msg))
+        .setContentText(msg);
+
+        mBuilder.setContentIntent(contentIntent);
+        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+    }
+    
     private void sendGCMIntent(Context ctx, String message) {
          
         Intent broadcastIntent = new Intent();
