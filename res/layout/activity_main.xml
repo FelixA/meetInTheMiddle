@@ -108,5 +108,30 @@
 		android:background="@null"
 		android:gravity="center_horizontal" >
 	</ListView>
-
+    <TextView
+        android:id="@+id/tv_reg_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registry_status"
+        />
+     <TextView
+        android:id="@+id/tv_reg_status_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/registry_status_result"
+        />
+ 
+         <TextView
+        android:id="@+id/tv_message_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/broadcast_label"/>
+      
+        
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/broadcast_result" />
+ 
 </LinearLayout>

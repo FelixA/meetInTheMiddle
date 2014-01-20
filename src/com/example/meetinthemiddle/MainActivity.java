@@ -6,8 +6,10 @@ import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -34,6 +36,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.widget.FacebookDialog;
+import com.google.android.gcm.GCMRegistrar;
 /**
  * 
  * @author Felix
@@ -64,6 +67,8 @@ public class MainActivity extends Activity {
 	private ShowLocationTask showLocationTask = null;
 	private UiLifecycleHelper uiHelper;
 	
+
+    
 	private Session.StatusCallback callback = new Session.StatusCallback()
 	{
 
@@ -84,7 +89,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		uiHelper = new UiLifecycleHelper(this, callback);
 	    uiHelper.onCreate(savedInstanceState);
 		meetings = new ArrayList<Meeting>();

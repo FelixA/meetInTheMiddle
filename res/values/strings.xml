@@ -55,5 +55,8 @@
 	<string name="registration_progress_spinner">Registering account&#8230;</string>
 	<string name="title_activity_display_contacts">DisplayContactsActivity</string>
 	<string name="title_activity_display_meeting_functions">DisplayMeetingFunctionsActivity</string>
-
+	<string name="registry_status">Registry Status:</string>
+	<string name="registry_status_result"></string>
+	<string name="broadcast_label"></string>
+	<string name="broadcast_result"></string>
 </resources>
