@@ -10,7 +10,11 @@ import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Root;
 
 import android.os.Parcelable;
-
+/**
+ * 
+ * @author Felix
+ *
+ */
 @Root
 @Namespace(reference = NAMESPACE_PERSONENVERWALTUNG)
 public class Person implements Serializable{
@@ -20,7 +24,7 @@ public class Person implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	public Person(String firstName, String lastName, Date birthday,
-			String phone, String email, String password, String interests) {
+			String phone, String email, String password, String interests, String androidId) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -29,6 +33,7 @@ public class Person implements Serializable{
 		this.email = email;
 		this.password = password;
 		this.interests = interests;
+		this.androidId = androidId;
 	}
 
 	public Person() {
@@ -61,6 +66,8 @@ public class Person implements Serializable{
 	private String password;
 	@Element(required = false)
 	private String interests;
+	@Element(required = false)
+	private String androidId;
 
 	public Long getId() {
 		return id;
@@ -126,10 +133,20 @@ public class Person implements Serializable{
 		this.interests = interests;
 	}
 
+	public String getAndroidId() {
+		return androidId;
+	}
+
+	public void setAndroidId(String androidId) {
+		this.androidId = androidId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((androidId == null) ? 0 : androidId.hashCode());
 		result = prime * result
 				+ ((birthday == null) ? 0 : birthday.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
@@ -155,6 +172,11 @@ public class Person implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
+		if (androidId == null) {
+			if (other.androidId != null)
+				return false;
+		} else if (!androidId.equals(other.androidId))
+			return false;
 		if (birthday == null) {
 			if (other.birthday != null)
 				return false;
@@ -203,8 +225,7 @@ public class Person implements Serializable{
 		return "Person [id=" + id + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", birthday=" + birthday + ", phone=" + phone
 				+ ", email=" + email + ", password=" + password
-				+ ", interests=" + interests + "]";
+				+ ", interests=" + interests + ", androidId=" + androidId + "]";
 	}
-
 
 }

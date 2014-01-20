@@ -41,12 +41,12 @@ public class PersonDao {
 	}
 	  
 	public void create(String firstName, String lastName,Date birthday, String phone, String email,
-			 String password, String interests) throws ParseException {
+			 String password, String interests, String androidId) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_JAXB, Locale.getDefault());
     	String format = sdf.format(birthday);
 		Date birthdaynew = sdf.parse(format);
 		Log.v(PersonDao.class.getName()," formatted bday: "+ birthdaynew);
-		Person person = new Person(firstName, lastName, birthdaynew, phone, email, password, interests);
+		Person person = new Person(firstName, lastName, birthdaynew, phone, email, password, interests, androidId);
 		WebServiceClient.post(person, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);
 	}
 	
@@ -56,9 +56,9 @@ public class PersonDao {
 		person.setId(id);
 		WebServiceClient.put(person, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);
 	}
-	public void update(Long id, String firstName, String lastName,Date birthday, String phone, String email,
-			  String password, String interests){
-		Person person = new Person(firstName,lastName,birthday, phone,email,password, interests);
+	public void update(Long id, String firstName, String lastName,Date birthday, String phone, String email, String password,
+			 String interests, String androidId){
+		Person person = new Person(firstName,lastName,birthday, phone,email,password, interests, androidId);
 		person.setId(id);
 		WebServiceClient.put(person, "/rest/persons", context, Constants.DATE_FORMAT_JAXB);
 	}
