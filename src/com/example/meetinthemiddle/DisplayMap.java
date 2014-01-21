@@ -13,13 +13,19 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
  
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -44,7 +50,16 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.view.View;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 
 public class DisplayMap extends android.support.v4.app.FragmentActivity implements android.location.LocationListener{
@@ -66,6 +81,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     public Handler updateBarHandler;
     ProgressBar bar = null;
     ProgressDialog ringProgressDialog;
+    public boolean beta = false;
 	
 	public void onCreate(Bundle savedInstanceState)
 	   {
@@ -178,7 +194,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     		
     		//funktioniert: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.016557,8.390047&rankby=prominence&radius=1000&types=movie_theater&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA
     	    
-    		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+    		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location="
     				+ middlePoint.latitude + "," + middlePoint.longitude + rankingByDistance 
     				+ "&types=" + types + "&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
     		/*
@@ -193,26 +209,92 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     	    StringBuilder sbResults = new StringBuilder();
     	    try
     	    {
-    	    	URL urlRequest = new URL(url);
-    	    	conn = (HttpURLConnection) urlRequest.openConnection();
-    	    	InputStreamReader inReader = new InputStreamReader(conn.getInputStream());
+
+    	    	//Problemzone Anfang
     	    	
+    	    	//Muss auf den Knoten navigieren
+    	        try {
+    	            HttpClient httpClient = new DefaultHttpClient();
+    	            HttpContext localContext = new BasicHttpContext();
+    	            HttpPost httpPost = new HttpPost(url);
+    	            HttpResponse response = httpClient.execute(httpPost, localContext);
+    	            InputStream in = response.getEntity().getContent();
+    	            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
+    	                    .newDocumentBuilder();
+    	            Document doc = builder.parse(in);
+    	            
+    	            NodeList nl1, nl2, nl3;
+        	        nl1 = doc.getElementsByTagName("result");
+        	        System.out.println("Länge Node Nl1 = "+nl1.getLength());
+        	        if (nl1.getLength() > 0) {
+        	            for (int i = 0; i < nl1.getLength(); i++) {
+        	                Node node1 = nl1.item(i);
+        	                nl2 = node1.getChildNodes();
+                    Node locationNode = nl2
+                            .item(getNodeIndex(nl2, "geometry"));
+                    System.out.println("Test");
+                    nl3 = locationNode.getChildNodes();
+                    Node latNode = nl3.item(getNodeIndex(nl3, "lat"));
+                    double lat = Double.parseDouble(latNode.getTextContent());
+                    Node lngNode = nl3.item(getNodeIndex(nl3, "lng"));
+                    double lng = Double.parseDouble(lngNode.getTextContent());
+                    System.out.println("+++++++++++++lat / lng "+ lat + " " + lng);
+        	            }
+        	        }
+      	        } catch (Exception e) {
+    	            e.printStackTrace();
+    	        }
+
+    	    	/*
+    	    	Document doc = null;
+    	    	System.out.println("Hier1");
+    	        try {
+    	            HttpClient httpClient = new DefaultHttpClient();
+    	            HttpContext localContext = new BasicHttpContext();
+    	            System.out.println("Hier2: "+url);
+    	            HttpPost httpPost = new HttpPost(url);
+    	            HttpResponse response = httpClient.execute(httpPost, localContext);
+    	            InputStream in = response.getEntity().getContent();
+    	            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
+    	                    .newDocumentBuilder();
+    	            doc = builder.parse(in);
+    	        } catch (Exception e) {
+    	            e.printStackTrace();
+    	            System.out.println("Verdammt");
+    	        }
+    	        
+
+    	        	Log.i("getDurationValue", "Start");
+    	        	String tagname = "location";
+    	        	NodeList nodes = doc.getElementsByTagName(tagname);
+    	            Node relevantNode = nodes.item(nodes.getLength()-1);
+    	            NodeList relevantChildNodes = relevantNode.getChildNodes();
+    	            Node durationNode = relevantChildNodes.item(1);
+    	    		Log.i("testNODE", "Value :"+durationNode.getTextContent());
+  	    	*/
+    	    	
+    	    	/*
     	    	int read;
-    	    	char[] buff = new char[1024];
+    	    	char[] buff = new char[5000];
     	    	while ((read = inReader.read(buff)) != -1) {
     	    		sbResults.append(buff, 0, read);
-    	    	}
+    	    	
+    	    	*/
+    	    	//Log.e("sbResults für Übergabe an POI:", ""+sbResults);
+    	    	
     	    	//getLocationofPOI (Point of Interest)
-    	    	poi = getLocationOfPOI(sbResults);
+    	    	//poi = getLocationOfPOI(sbResults);
     	    	
     	    	//+14, um die reference im String zu überspringen
-    	    	int index = sbResults.indexOf("reference", 1)+14;
+    	    	
+    	            int index = sbResults.indexOf("reference", 1)+14;
     	    	String reference = sbResults.substring(index, index+211);
     	    	//Mittels Reference auf Details zugreifen
     	    	String urlDetails = "https://maps.googleapis.com/maps/api/place/details/json"
     	    	+ "?reference="+reference 
     	    	+ "&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
     	    	//Log.i("urlDetails", ""+urlDetails);
+    	    	detailsArr = null;
     	    	try
     	    	{
     	    		HttpURLConnection conn2 = null;
@@ -225,7 +307,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
         	    	while ((readDetails = inDetailedReader.read(buffDetails)) != -1) {
         	    		sbDetailedResults.append(buffDetails, 0, readDetails);
         	    	}
-    	    		String[] detailsArr;
+    	    		//String[] detailsArr;
     	    		detailsArr = getDetails(sbDetailedResults);
     	    		//setIcon(detailsArr);
     	    	}
@@ -237,14 +319,12 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     				e.printStackTrace();
     			}
     	    }
-    	    catch(MalformedURLException ex)
+    	    catch(Exception ex)
     	    {
-    	    	Log.e("placesTask", ""+ex.getMessage());
-    	    } catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		return "";
+    	    	Log.e("Error", "JO");
+    	    }
+    	    return "";
+    	
     	}
     	
 		protected void onPostExecute() {		
@@ -257,6 +337,14 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
         @Override
         protected void onProgressUpdate(Void... values) {
         }
+    }
+    
+    private int getNodeIndex(NodeList nl, String nodename) {
+        for (int i = 0; i < nl.getLength(); i++) {
+            if (nl.item(i).getNodeName().equals(nodename))
+                return i;
+        }
+        return -1;
     }
     
     public LatLng getLocationOfPOI(StringBuilder sbResults)
@@ -358,14 +446,14 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	  	     * Auswahl nach Ranking am Zielort im Umkreis/radius von 200m
 	  	     * aktuelles Ziel/destPos stellt Marktplatz dar
 	  	    */
-	  	    destPos = new LatLng(49.005363,8.403747);//(47.996642,7.841449);//(49.142696 , 9.212487);Science-Center//(49.011373 , 8.364624);Philippsstraße//(48.543433,7.976418);Appenweiher//Freiburg(47.996642,7.841449);//Mannheim(49.480617,8.469086);//Baden-Baden//Heilbronn//Durlach(48.999197,8.47445);//Kriegstraße(49.005363,8.403747);//(49.009239, 8.403974);
+	  	    destPos = new LatLng(49.142696,9.212487);//Kriegstraße(49.005363,8.403747);//(47.996642,7.841449);//(49.142696 , 9.212487);Science-Center//(49.011373 , 8.364624);Philippsstraße//(48.543433,7.976418);Appenweiher//Freiburg(47.996642,7.841449);//Mannheim(49.480617,8.469086);//Baden-Baden//Heilbronn//Durlach(48.999197,8.47445);//Kriegstraße(49.005363,8.403747);//(49.009239, 8.403974);
 		    GMapV2Direction md = new GMapV2Direction();		    
 		    /*
 	  	     * Parameter-Übergabe laufen, Auto oder öffentliche Verkehrsmittel
 	  	     * String mode wird übergeben von vorangegangener Methode
 	  	     */
 	  	    Document doc = null;
-	  	    String mode = "driving";
+	  	    String mode = "transit";
 	  	    if (checkWay==false)
 			{
 		  	    if(mode == "walking")
@@ -378,8 +466,26 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		  	    }
 		  	    else if (mode == "transit")
 		  	    { 
+		  	    	doc = md.getDocument(aktPos, destPos,GMapV2Direction.MODE_WALKING);
+		  	    	String durationWalking = md.getDurationValue(doc);		  	    	
 		  	    	doc = md.getDocument(aktPos, destPos, GMapV2Direction.MODE_TRANSIT);
+		  	    	String durationTransit = md.getDurationValue(doc);
+		  	    	double durationWalkingDbl = calculateDuration(durationWalking);
+		  	    	double durationTransitDbl = calculateDuration(durationTransit);
+		  	    	if (durationWalkingDbl<=durationTransitDbl)
+		  	    	{
+		  	    		Log.i("Transit vs. Walking", "WALKING: durationWalkingDbl<durationTransitDbl"+durationWalkingDbl + " / "+durationTransitDbl);
+		  	    		mode = "walking";
+		  	    		beta = true;
+		  	    		
+		  			    //Toast.makeText(getApplicationContext(), "Schneller und flexibler zu Fuß auf der Strecke :)", Toast.LENGTH_LONG).show();
+		  	    	}
+		  	    	else
+		  	    	{
+		  	    		Log.i("Transit vs. Walking", "TRANSIT: durationWalkingDbl<durationTransitDbl"+durationWalkingDbl + " / "+durationTransitDbl);
+		  	    	}
 		  	    }
+		  	    Log.i("Transit vs. Walking", "Neuer Mode = "+mode);
 		  	    distance = md.getDistanceValue(doc);
 				
 				/*
@@ -464,7 +570,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 								//System.out.println("Mittelpunktstrecke kleiner als Hälfte komplette Strecke, Erhöhung der Koordinaten");
 								//Wenn Dauer Teilstrecke von StartPos zu median kleiner als durationCpl, dann median inkrementieren
 								median++;
-								median = median + 10;
+								median = median + 5;
 								if(mode == "walking")
 								{
 									doc = md.getDocument(aktPos, directionPoint.get(median),GMapV2Direction.MODE_WALKING);
@@ -491,7 +597,8 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 							{
 								//System.out.println("Mittelpunktstrecke größer als Hälfte komplette Strecke, Verkleinerung der Koordinaten");
 								//median--;
-								median = median-10;
+								int test = median;
+								median = median-5;
 								if (mode == "walking")
 								{
 									doc = md.getDocument(aktPos, directionPoint.get(median),GMapV2Direction.MODE_WALKING);
@@ -504,6 +611,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 								{
 									doc = md.getDocument(aktPos, directionPoint.get(median),GMapV2Direction.MODE_TRANSIT);
 								}
+								Log.i("ERROR: ", "halbeStrecke<durationPartDbl: doc: "+doc + aktPos + " : "+directionPoint.get(median)+"nach -10, vor -10"+directionPoint.get(test));
 								durationPart = String.valueOf(md.getDurationValue(doc));
 								Log.i("DurationPart4", ""+durationPart);
 								durationPartDbl = 0;
@@ -513,11 +621,17 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 							else
 							{
 								System.out.println("Weder kleiner noch größer -> =");
+								searchPoint = directionPoint.get(median);
+								Log.i("searchPoint1", ""+searchPoint);
 								break;
 							}
+							System.out.println("SearchPoint2");
 							searchPoint = directionPoint.get(median);
 							Log.i("searchPoint", ""+searchPoint);
 						}
+						System.out.println("SearchPoint3");
+						searchPoint = directionPoint.get(median);
+						Log.i("searchPoint", ""+searchPoint);
 					}
 				}
 				middlePoint = searchPoint;
@@ -602,6 +716,11 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		    System.out.println("MapFragment/");
 		    TextView txtDuration = (TextView) findViewById(R.id.TextViewTime);
 		    txtDuration.setText(duration);
+		    if (beta == true)
+		    {
+		    	TextView txtBeta = (TextView) findViewById(R.id.txtBetaHint);
+		    	txtBeta.setText("Laufen ist schneller als Bahnfahren :)");
+		    }
 		    TextView txtDistance = (TextView) findViewById(R.id.TextView02);
 		    txtDistance.setText(distance+" m"); // txt.setText(result);
 		    System.out.println("Setzen der Marker");
@@ -764,15 +883,12 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 				min = 0;
 			}									
 			value = (hour * 60) + min;
-			System.out.println("Hour/min/durationPart: "+hour+"/"+min+"/"+value );
 		}
 		else
 		{
 			String durationStr = duration.substring(0, duration.indexOf(" min", 0));
 			value = Double.parseDouble(durationStr);
-			System.out.println("Min==durationPart: "+value);
 		}
-		System.out.println("Ende calculateDuration");
 		return value;
     }
     
@@ -825,7 +941,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 
 	  public void showViewbefore(View view){
 	    Toast.makeText(getApplicationContext(), "showViewBefore", Toast.LENGTH_LONG).show();
-         Intent i = new Intent(DisplayMap.this, DisplayOverviewRouting.class);
+         Intent i = new Intent(DisplayMap.this, OverviewRouting.class);
          startActivity(i);
 	  }
 
