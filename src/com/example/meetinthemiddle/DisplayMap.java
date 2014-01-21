@@ -718,8 +718,8 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		    txtDuration.setText(duration);
 		    if (beta == true)
 		    {
-		    	TextView txtBeta = (TextView) findViewById(R.id.txtBetaHint);
-		    	txtBeta.setText("Laufen ist schneller als Bahnfahren :)");
+		    	//TextView txtBeta = (TextView) findViewById(R.id.);
+		    	//txtBeta.setText("Laufen ist schneller als Bahnfahren :)");
 		    }
 		    TextView txtDistance = (TextView) findViewById(R.id.TextView02);
 		    txtDistance.setText(distance+" m"); // txt.setText(result);
@@ -941,7 +941,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 
 	  public void showViewbefore(View view){
 	    Toast.makeText(getApplicationContext(), "showViewBefore", Toast.LENGTH_LONG).show();
-         Intent i = new Intent(DisplayMap.this, OverviewRouting.class);
+         Intent i = new Intent(DisplayMap.this, DisplayOverviewRouting.class);
          startActivity(i);
 	  }
 
