@@ -285,14 +285,15 @@ public class DisplayContactsActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View viewClicked,
 					int position, long id) {
-				
+				final ListView contactsList = (ListView) findViewById(R.id.contacts_List);
+
 				System.out.println("bin in ListListener");
 
 				Bundle extras = getIntent().getExtras();
 				if (extras.getBoolean("goToMeeting")) {
 					TextView textView = (TextView) viewClicked.findViewById(R.id.contacts_firstName);
 
-					String text = possibleContactsList.getItemAtPosition(position).toString();
+					String text = contactsList.getItemAtPosition(position).toString();
 					System.out.println(text);
 					String[] parts = text.split("=");
 					for (String part : parts) {

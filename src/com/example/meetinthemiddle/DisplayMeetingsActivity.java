@@ -283,14 +283,15 @@ public class DisplayMeetingsActivity extends Activity implements
 		return super.onOptionsItemSelected(item);
 	}
 
-	private class CreateMeetingTask extends AsyncTask<Void, Void, Void> {
+	private class CreateMeetingTask extends AsyncTask<Void, Void, Long> {
 
 		@SuppressWarnings("deprecation")
 		@Override
-		protected Void doInBackground(Void... arg0) {
+		protected Long doInBackground(Void... arg0) {
 			Bundle extras = getIntent().getExtras();
 			Person contact = (Person) extras.getSerializable("Contact");
-			Person person = personDao.findPersonById(extras.getLong("PersonId"));
+			Person person = personDao
+					.findPersonById(extras.getLong("PersonId"));
 			/** Get the current time */
 			Date date = new Date();
 			date.setHours(pHour);
@@ -298,14 +299,30 @@ public class DisplayMeetingsActivity extends Activity implements
 			System.out.println(extras.getLong("PersonId") + " "
 					+ contact.getId() + " " + date);
 			try {
+				// TODO: Location pers1, Location pers2
 				meetingDao.create(extras.getLong("PersonId"), contact.getId(),
 						date, kindofId, 15L, 4, kindofTransportationId,
-						"BLubberBlubb", kindofTransportationId, person.getAndroidId(), contact.getAndroidId(), person.getFirstName() + " möchte sich um "+ pHour + ":" + pMinute + " Uhr mit dir treffen");
+						"BLubberBlubb", kindofTransportationId,
+						person.getAndroidId(), contact.getAndroidId(),
+						person.getAndroidId() + ";" + person.getFirstName() + " möchte sich um " + pHour
+								+ ":" + pMinute + " Uhr mit dir treffen",
+								"HIER BITTE LOCATION_PERS1","HIER BITTE LOCATION_PERS2");
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return null;
+			return 1L;
+		}
+		@Override 
+		protected void onPostExecute(Long id) {
+			Bundle extras = getIntent().getExtras();
+			Intent intent = new Intent(DisplayMeetingsActivity.this, MainActivity.class);
+			if(extras != null){
+				Long personId =extras.getLong("PersonId");
+				intent.putExtra("PersonId", personId);
+				System.out.println(id);
+				startActivity(intent);
+			}
 		}
 	}
 
@@ -313,9 +330,10 @@ public class DisplayMeetingsActivity extends Activity implements
 		CreateMeetingTask createMeetingTask = new CreateMeetingTask();
 		createMeetingTask.execute();
 	}
-	
+
 	public void openMeetingMap(View view) {
-        Intent i = new Intent(DisplayMeetingsActivity.this, DisplayOverviewRouting.class);
-        startActivity(i);
+		Intent i = new Intent(DisplayMeetingsActivity.this,
+				DisplayOverviewRouting.class);
+		startActivity(i);
 	}
 }

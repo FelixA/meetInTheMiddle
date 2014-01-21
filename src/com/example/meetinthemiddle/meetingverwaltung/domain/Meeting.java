@@ -29,7 +29,7 @@ public class Meeting {
 	public Meeting(Long pers1_fk, Long pers2_fk, Date uhrzeit,
 			Long lokalitaet_fk, Long ort_fk, Integer bewertung,
 			Long verkehrsmittel_pers1_fk, String kommentar,
-			Long verkehrsmittel_pers2_fk, String aIdSender, String aIdEmpfaenger, String message) {
+			Long verkehrsmittel_pers2_fk, String aIdSender, String aIdEmpfaenger, String message, String locationPers1, String locationPers2) {
 		super();
 		this.pers1_fk = pers1_fk;
 		this.pers2_fk = pers2_fk;
@@ -43,6 +43,8 @@ public class Meeting {
 		this.aIdSender = aIdSender;
 		this.aIdEmpfaenger = aIdEmpfaenger;
 		this.message = message;
+		this.locationPers1 = locationPers1;
+		this.locationPers2 = locationPers2;
 	}
 	public Meeting() {}
 	@Element
@@ -69,6 +71,10 @@ public class Meeting {
 	private String aIdEmpfaenger;
 	@Element(required = false)
 	private String message;
+	@Element(required = false)
+	private String locationPers1;
+	@Element(required = false)
+	private String locationPers2;
 	public Long getPers1_fk() {
 		return pers1_fk;
 	}
@@ -141,6 +147,18 @@ public class Meeting {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	public String getLocationPers1() {
+		return locationPers1;
+	}
+	public void setLocationPers1(String locationPers1) {
+		this.locationPers1 = locationPers1;
+	}
+	public String getLocationPers2() {
+		return locationPers2;
+	}
+	public void setLocationPers2(String locationPers2) {
+		this.locationPers2 = locationPers2;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -153,6 +171,10 @@ public class Meeting {
 				+ ((bewertung == null) ? 0 : bewertung.hashCode());
 		result = prime * result
 				+ ((kommentar == null) ? 0 : kommentar.hashCode());
+		result = prime * result
+				+ ((locationPers1 == null) ? 0 : locationPers1.hashCode());
+		result = prime * result
+				+ ((locationPers2 == null) ? 0 : locationPers2.hashCode());
 		result = prime * result
 				+ ((lokalitaet_fk == null) ? 0 : lokalitaet_fk.hashCode());
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
@@ -200,6 +222,16 @@ public class Meeting {
 			if (other.kommentar != null)
 				return false;
 		} else if (!kommentar.equals(other.kommentar))
+			return false;
+		if (locationPers1 == null) {
+			if (other.locationPers1 != null)
+				return false;
+		} else if (!locationPers1.equals(other.locationPers1))
+			return false;
+		if (locationPers2 == null) {
+			if (other.locationPers2 != null)
+				return false;
+		} else if (!locationPers2.equals(other.locationPers2))
 			return false;
 		if (lokalitaet_fk == null) {
 			if (other.lokalitaet_fk != null)
@@ -254,7 +286,8 @@ public class Meeting {
 				+ ", kommentar=" + kommentar + ", verkehrsmittel_pers2_fk="
 				+ verkehrsmittel_pers2_fk + ", aIdSender=" + aIdSender
 				+ ", aIdEmpfaenger=" + aIdEmpfaenger + ", message=" + message
-				+ "]";
+				+ ", locationPers1=" + locationPers1 + ", locationPers2="
+				+ locationPers2 + "]";
 	}
 	
 }

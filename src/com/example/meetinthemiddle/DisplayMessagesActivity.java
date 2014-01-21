@@ -1,54 +1,87 @@
 package com.example.meetinthemiddle;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.meetinthemiddle.DisplayContactsActivity.ShowPersonFirstNameTask;
+import com.example.meetinthemiddle.locationverwaltung.dao.LocationDao;
+import com.example.meetinthemiddle.locationverwaltung.domain.Location;
+import com.example.meetinthemiddle.meetingverwaltung.dao.MeetingDao;
+import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
 
 public class DisplayMessagesActivity extends Activity {
 
+	private List<String> personFirstNames;
+	private List<String> lokalitaeten;
+	private List<Meeting> meetings;
+
+	private ShowPersonFirstNameTask showPersonFirstNameTask;
+	private ShowLocationTask showLocationTask;
+	private ShowMeetingTask showMeetingTask;
+
+	private MeetingDao meetingDao;
+	private LocationDao locationDao;
+
+	private ListView messages;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_messages);
-		// Show the Up button in the action bar.
-	}
 
-//	/**
-//	 * Set up the {@link android.app.ActionBar}, if the API is available.
-//	 */
-//	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-//	private void setupActionBar() {
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//			getActionBar().setDisplayHomeAsUpEnabled(true);
-//		}
-//	}
+		personFirstNames = new ArrayList<String>();
+		lokalitaeten = new ArrayList<String>();
+		meetings = new ArrayList<Meeting>();
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.display_messages, menu);
-		return true;
-	}
+		messages = (ListView) findViewById(R.id.messages_list);
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-			NavUtils.navigateUpFromSameTask(this);
-			return true;
+		meetingDao = new MeetingDao(this);
+		locationDao = new LocationDao(this);
+
+		showPersonFirstNameTask = new ShowPersonFirstNameTask();
+		showLocationTask = new ShowLocationTask();
+		showMeetingTask = new ShowMeetingTask();
+
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			Long id = extras.getLong("PersonId");
+
+//			personFirstNames.add(arg0);
+//			lokalitaeten.add(object);
+//			meetings.add(object);
 		}
-		return super.onOptionsItemSelected(item);
+
 	}
 
+	public class ShowLocationTask extends AsyncTask<Long, Void, Location> {
+		@Override
+		protected Location doInBackground(Long... locationId) {
+			return null;
+			
+		}
+	}
+	public class ShowPersonFirstNameTask extends AsyncTask<Long, Void, Location> {
+		@Override
+		protected Location doInBackground(Long... locationId) {
+			return null;
+			
+		}
+	}
+	public class ShowMeetingTask extends AsyncTask<Long, Void, Location> {
+		@Override
+		protected Location doInBackground(Long... locationId) {
+			return null;
+			
+		}
+	}
 }
