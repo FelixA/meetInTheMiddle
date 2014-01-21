@@ -27,7 +27,8 @@ public class DisplayMessagesActivity extends Activity {
 
 	private ShowPersonFirstNameTask showPersonFirstNameTask;
 	private ShowLocationTask showLocationTask;
-	private ShowMeetingTask showMeetingTask;
+	private ShowMeetingEinladungenTask showMeetingEinladungenTask;
+	private ShowMeetingAnfragenTask showMeetingAnfragenTask;
 
 	private MeetingDao meetingDao;
 	private LocationDao locationDao;
@@ -50,8 +51,9 @@ public class DisplayMessagesActivity extends Activity {
 
 		showPersonFirstNameTask = new ShowPersonFirstNameTask();
 		showLocationTask = new ShowLocationTask();
-		showMeetingTask = new ShowMeetingTask();
-
+		showMeetingEinladungenTask = new ShowMeetingEinladungenTask();
+		showMeetingAnfragenTask = new ShowMeetingAnfragenTask();
+		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			Long id = extras.getLong("PersonId");
@@ -77,11 +79,16 @@ public class DisplayMessagesActivity extends Activity {
 			
 		}
 	}
-	public class ShowMeetingTask extends AsyncTask<Long, Void, Location> {
+	public class ShowMeetingEinladungenTask extends AsyncTask<Long, Void, List<Meeting>> {
 		@Override
-		protected Location doInBackground(Long... locationId) {
-			return null;
-			
+		protected List<Meeting> doInBackground(Long... person1_FK) {
+			return meetingDao.findMeetingByPers1_fk(person1_FK[0]);	
+		}
+	}
+	public class ShowMeetingAnfragenTask extends AsyncTask<Long, Void, List<Meeting>> {
+		@Override
+		protected List<Meeting> doInBackground(Long... person2_FK) {
+			return meetingDao.findMeetingByPers2_fk(person2_FK[0]);	
 		}
 	}
 }
