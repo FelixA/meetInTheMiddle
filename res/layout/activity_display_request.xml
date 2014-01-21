@@ -1,0 +1,155 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingBottom="@dimen/activity_vertical_margin"
+	android:paddingLeft="@dimen/activity_horizontal_margin"
+	android:paddingRight="@dimen/activity_horizontal_margin"
+	android:paddingTop="@dimen/activity_vertical_margin"
+	tools:context=".DisplayRequestActivity"
+	android:background="@drawable/background" >
+	
+	<TextView
+	    android:id="@+id/Anfrageerhalten"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:text="Du hast eine Anfrage erhalten"
+	    android:textAppearance="?android:attr/textAppearanceLarge"
+	    android:textSize="21sp" />
+
+	<TextView
+		android:id="@+id/meetings_profile_View"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/meetings_profile_Button"
+		android:layout_toRightOf="@+id/meetings_profile_Button"
+		android:text="Mit wem?"
+		android:textSize="25sp"
+		android:textColor="@android:color/secondary_text_light"
+		android:textStyle="italic">
+	</TextView>
+
+	<TextView
+		android:id="@+id/meetings_kindOf_View"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/meetings_time_button"
+		android:layout_toRightOf="@+id/meetings_kindOf_button"
+		android:ems="10"
+		android:text="Art des Treffens"
+		android:textSize="25sp" 
+		android:textColor="@android:color/secondary_text_light"
+		android:textStyle="italic"/>
+
+	<TextView
+		android:id="@+id/meetings_kindOfTransportation_View"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/meetings_kindOfTransportation_button"
+		android:layout_alignLeft="@+id/meetings_time_view"
+		android:layout_alignParentRight="true"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="Verkehrsmittel"
+		android:textSize="25sp" 
+		android:textColor="@android:color/secondary_text_light"
+		android:textStyle="italic"/>
+
+	<TextView
+		android:id="@+id/meetings_time_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/meetings_time_button"
+		android:layout_alignLeft="@+id/meetings_kindOf_View"
+		android:ems="10"
+		android:inputType="textPersonName"
+		android:text="Wann?"
+		android:textSize="25sp" 
+		android:textColor="@android:color/secondary_text_light"
+		android:textStyle="italic"/>
+
+	<TextView
+	    android:id="@+id/Verkehrsart"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/meetings_kindOfTransportation_button"
+	    android:layout_below="@+id/meetings_time_view"
+	    android:layout_marginTop="24dp"
+	    android:text="Gib deine Art der Mobilität an"
+	    android:textAppearance="?android:attr/textAppearanceLarge"
+	    android:textSize="21sp" />
+
+	<ImageButton
+	    android:id="@+id/meetings_kindOfTransportation_button"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:layout_below="@+id/Verkehrsart"
+	    android:layout_marginTop="14dp"
+	    android:layout_toLeftOf="@+id/meetings_kindOfTransportation_View"
+	    android:background="@null"
+	    android:scaleType="fitCenter"
+	    android:src="@drawable/truck" />
+
+	<ImageButton
+	    android:id="@+id/meetings_profile_Button"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:layout_below="@+id/Anfrageerhalten"
+	    android:layout_marginTop="14dp"
+	    android:layout_toLeftOf="@+id/meetings_kindOf_View"
+	    android:background="@null"
+	    android:scaleType="fitCenter"
+	    android:src="@drawable/person" />
+
+	<ImageButton
+	    android:id="@+id/meetings_kindOf_button"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:layout_alignLeft="@+id/meetings_time_button"
+	    android:layout_below="@+id/meetings_profile_Button"
+	    android:layout_marginTop="16dp"
+	    android:background="@null"
+	    android:scaleType="fitCenter"
+	    android:src="@drawable/home" />
+
+	<ImageButton
+	    android:id="@+id/meetings_time_button"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:layout_alignLeft="@+id/Anfrageerhalten"
+	    android:layout_below="@+id/meetings_kindOf_button"
+	    android:layout_marginTop="24dp"
+	    android:background="@null"
+	    android:scaleType="fitCenter"
+	    android:src="@drawable/clock" />
+
+	<Button
+	    android:id="@+id/meetings_sendAbsagen"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignLeft="@+id/meetings_kindOfTransportation_button"
+	    android:layout_below="@+id/meetings_kindOfTransportation_View"
+	    android:minHeight="36dp"
+	    android:minWidth="48dp"
+	    android:onClick="sendAbsagen"
+	    android:text="Absagen"
+	    android:textColor="@android:color/secondary_text_light"
+	    android:textStyle="italic" />
+
+	<Button
+	    android:id="@+id/meetings_sendBestaetigung"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBaseline="@+id/meetings_sendAbsagen"
+	    android:layout_alignBottom="@+id/meetings_sendAbsagen"
+	    android:layout_toRightOf="@+id/meetings_profile_View"
+	    android:minHeight="36dp"
+	    android:minWidth="48dp"
+	    android:onClick="sendBestaetigung"
+	    android:text="Bestätigen"
+	    android:textColor="@android:color/secondary_text_light"
+	    android:textStyle="italic" />
+
+</RelativeLayout>
