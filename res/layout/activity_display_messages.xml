@@ -21,7 +21,7 @@
 		android:textStyle="italic" />
 
 	<ListView
-		android:id="@+id/messages_list"
+		android:id="@+id/messagesInvitations_list"
 		android:layout_width="fill_parent"
 		android:layout_height="0dp"
 		android:layout_marginBottom="8dip"
@@ -41,7 +41,7 @@
 		android:textStyle="italic" />
 
 	<ListView
-		android:id="@+id/inquiries"
+		android:id="@+id/messages_anfragenlist"
 		android:layout_width="fill_parent"
 		android:layout_height="0dp"
 		android:layout_marginLeft="8dip"

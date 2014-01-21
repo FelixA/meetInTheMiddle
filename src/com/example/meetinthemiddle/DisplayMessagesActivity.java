@@ -2,6 +2,7 @@ package com.example.meetinthemiddle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import com.example.meetinthemiddle.DisplayContactsActivity.ShowPersonFirstNameTask;
 import com.example.meetinthemiddle.locationverwaltung.dao.LocationDao;
@@ -23,7 +24,9 @@ public class DisplayMessagesActivity extends Activity {
 
 	private List<String> personFirstNames;
 	private List<String> lokalitaeten;
-	private List<Meeting> meetings;
+	private List<Meeting> meetingEinladungen;
+	private List<Meeting> meetingAnfragen;
+
 
 	private ShowPersonFirstNameTask showPersonFirstNameTask;
 	private ShowLocationTask showLocationTask;
@@ -42,9 +45,9 @@ public class DisplayMessagesActivity extends Activity {
 
 		personFirstNames = new ArrayList<String>();
 		lokalitaeten = new ArrayList<String>();
-		meetings = new ArrayList<Meeting>();
-
-		messages = (ListView) findViewById(R.id.messages_list);
+		meetingEinladungen = new ArrayList<Meeting>();
+		meetingAnfragen = new ArrayList<Meeting>();
+		messages = (ListView) findViewById(R.id.messagesInvitations_list);
 
 		meetingDao = new MeetingDao(this);
 		locationDao = new LocationDao(this);
@@ -58,9 +61,16 @@ public class DisplayMessagesActivity extends Activity {
 		if (extras != null) {
 			Long id = extras.getLong("PersonId");
 
-//			personFirstNames.add(arg0);
-//			lokalitaeten.add(object);
-//			meetings.add(object);
+			try {
+				meetingAnfragen = showMeetingAnfragenTask.execute(id).get();
+				meetingEinladungen = showMeetingAnfragenTask.execute(id).get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}

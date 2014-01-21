@@ -45,4 +45,16 @@ public class MeetingDao {
 		WebServiceClient.put(meeting, "/rest/meetings", context, Constants.DATE_FORMAT_JAXB);
 
 	}
+	public List<Meeting> findMeetingByPers1_fk(Long id) {
+		MeetingList meeting = WebServiceClient.get(MeetingList.class, url + "pers1_fk/"
+				+ id, context, Constants.DATE_FORMAT_JAXB);
+		return meeting.getMeetings();
+	}
+	
+	public List<Meeting> findMeetingByPers2_fk(Long id) {
+		MeetingList meeting = WebServiceClient.get(MeetingList.class, url + "pers2_fk/"
+				+ id, context, Constants.DATE_FORMAT_JAXB);
+		return meeting.getMeetings();
+	}
+	
 }
