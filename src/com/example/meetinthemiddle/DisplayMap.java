@@ -183,35 +183,27 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     public class placesTask extends AsyncTask<Void, Void, String>{
     	@Override
     	protected String doInBackground(Void... params) {
-    		Log.i("placesTask", "REQUEST");
+    		Log.i("############placesTask", "REQUEST");
     		int radius = 200;
     		//Weitere Suchmöglichkeiten "name"/"types"        opennow
     		String keyword = "cafe"; // Alternativ/Zusätzlich Suche über Name / Treffer auch wenn Suchwort nicht ausgeschrieben ist,  ?types=cafe|bakery
-    		String types = "bar|restaurant"; //Parameter in URL anpassen
+    		String types = "bar"; //Parameter in URL anpassen
     		String rankingByDistance = "&rankby=distance"; //Parameter radius hierzu deaktivieren, Ergebnisse werden nach distanz geordnet
     		String rankingByProminence = "&rankby=prominence";
-    		//String destPos = "49.005363,8.403747";//"49.009239,8.403974";
     		
     		//funktioniert: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.016557,8.390047&rankby=prominence&radius=1000&types=movie_theater&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA
     	    
     		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location="
     				+ middlePoint.latitude + "," + middlePoint.longitude + rankingByDistance 
     				+ "&types=" + types + "&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
-    		/*
-    		String url = "https://maps.googleapis.com/maps/api/place/search/json?keyword=" + keyword
-    		+ "&location=" + middlePoint.latitude+","+middlePoint.longitude + rankingByProminence//"&radius="+radius //middlepoint anstelle destPos
-    		+ "&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
-    		*/
+
     	    Log.i("meetingPoint", url);    	    
-    	    //Test
-    	    //Deklaration
+
     	    HttpURLConnection conn = null;
     	    StringBuilder sbResults = new StringBuilder();
+    	    String reference = "";
     	    try
     	    {
-
-    	    	//Problemzone Anfang
-    	    	
     	    	//Muss auf den Knoten navigieren
     	        try {
     	            HttpClient httpClient = new DefaultHttpClient();
@@ -222,94 +214,64 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     	            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
     	                    .newDocumentBuilder();
     	            Document doc = builder.parse(in);
-    	            
+    	            System.out.println("Doc ist gefüllt");
     	            NodeList nl1, nl2, nl3;
-        	        nl1 = doc.getElementsByTagName("result");
+        	        nl1 = doc.getElementsByTagName("location");
         	        System.out.println("Länge Node Nl1 = "+nl1.getLength());
-        	        if (nl1.getLength() > 0) {
-        	            for (int i = 0; i < nl1.getLength(); i++) {
-        	                Node node1 = nl1.item(i);
-        	                nl2 = node1.getChildNodes();
-                    Node locationNode = nl2
-                            .item(getNodeIndex(nl2, "geometry"));
-                    System.out.println("Test");
-                    nl3 = locationNode.getChildNodes();
-                    Node latNode = nl3.item(getNodeIndex(nl3, "lat"));
-                    double lat = Double.parseDouble(latNode.getTextContent());
-                    Node lngNode = nl3.item(getNodeIndex(nl3, "lng"));
-                    double lng = Double.parseDouble(lngNode.getTextContent());
-                    System.out.println("+++++++++++++lat / lng "+ lat + " " + lng);
-        	            }
-        	        }
+        	        Node locationNode = nl1.item(0);
+        	        nl2 = locationNode.getChildNodes();
+        	        Node latNode = nl2.item(getNodeIndex(nl2, "lat"));
+        	        double lat = Double.parseDouble(latNode.getTextContent());
+        	        Node lngNode = nl2.item(getNodeIndex(nl2, "lng"));
+        	        double lng = Double.parseDouble(lngNode.getTextContent());
+        	        System.out.println("lat/lng:"+lat+"/"+lng);
+        	        nl3 = doc.getElementsByTagName("reference");
+        	        System.out.println("Anzahl Elemente reference: "+nl3.getLength());
+        	        Node referenceNode = nl3.item(0);
+        	        reference = referenceNode.getTextContent();
+
       	        } catch (Exception e) {
     	            e.printStackTrace();
     	        }
 
-    	    	/*
-    	    	Document doc = null;
-    	    	System.out.println("Hier1");
-    	        try {
-    	            HttpClient httpClient = new DefaultHttpClient();
-    	            HttpContext localContext = new BasicHttpContext();
-    	            System.out.println("Hier2: "+url);
-    	            HttpPost httpPost = new HttpPost(url);
-    	            HttpResponse response = httpClient.execute(httpPost, localContext);
-    	            InputStream in = response.getEntity().getContent();
-    	            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
-    	                    .newDocumentBuilder();
-    	            doc = builder.parse(in);
-    	        } catch (Exception e) {
-    	            e.printStackTrace();
-    	            System.out.println("Verdammt");
-    	        }
-    	        
-
-    	        	Log.i("getDurationValue", "Start");
-    	        	String tagname = "location";
-    	        	NodeList nodes = doc.getElementsByTagName(tagname);
-    	            Node relevantNode = nodes.item(nodes.getLength()-1);
-    	            NodeList relevantChildNodes = relevantNode.getChildNodes();
-    	            Node durationNode = relevantChildNodes.item(1);
-    	    		Log.i("testNODE", "Value :"+durationNode.getTextContent());
-  	    	*/
-    	    	
-    	    	/*
-    	    	int read;
-    	    	char[] buff = new char[5000];
-    	    	while ((read = inReader.read(buff)) != -1) {
-    	    		sbResults.append(buff, 0, read);
-    	    	
-    	    	*/
-    	    	//Log.e("sbResults für Übergabe an POI:", ""+sbResults);
-    	    	
-    	    	//getLocationofPOI (Point of Interest)
-    	    	//poi = getLocationOfPOI(sbResults);
-    	    	
-    	    	//+14, um die reference im String zu überspringen
-    	    	
-    	            int index = sbResults.indexOf("reference", 1)+14;
-    	    	String reference = sbResults.substring(index, index+211);
     	    	//Mittels Reference auf Details zugreifen
-    	    	String urlDetails = "https://maps.googleapis.com/maps/api/place/details/json"
+    	    	String urlDetails = "https://maps.googleapis.com/maps/api/place/details/xml"
     	    	+ "?reference="+reference 
     	    	+ "&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
     	    	//Log.i("urlDetails", ""+urlDetails);
     	    	detailsArr = null;
     	    	try
     	    	{
-    	    		HttpURLConnection conn2 = null;
-    	    		StringBuilder sbDetailedResults = new StringBuilder();
-    	    		URL urlDetailedRequest = new URL(urlDetails);
-    	    		conn2 = (HttpURLConnection) urlDetailedRequest.openConnection();
-    	    		InputStreamReader inDetailedReader = new InputStreamReader(conn2.getInputStream());
-    	    		int readDetails;
-        	    	char[] buffDetails = new char[1024];
-        	    	while ((readDetails = inDetailedReader.read(buffDetails)) != -1) {
-        	    		sbDetailedResults.append(buffDetails, 0, readDetails);
-        	    	}
-    	    		//String[] detailsArr;
-    	    		detailsArr = getDetails(sbDetailedResults);
-    	    		//setIcon(detailsArr);
+    	    		//Adresse
+    	    		//Telefonnummer
+    	    		//Name
+    	    		
+    	    		System.out.println("GetDetails: "+urlDetails);
+    	    		HttpClient httpClient = new DefaultHttpClient();
+    	            HttpContext localContext = new BasicHttpContext();
+    	            HttpPost httpPost = new HttpPost(urlDetails);
+    	            HttpResponse response = httpClient.execute(httpPost, localContext);
+    	            InputStream in = response.getEntity().getContent();
+    	            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
+    	                    .newDocumentBuilder();
+    	            Document doc = builder.parse(in);
+    	            System.out.println("Doc2 ist gefüllt");
+    	            NodeList nl1, nl2, nl3;
+        	        nl1 = doc.getElementsByTagName("result");
+        	        System.out.println("Länge Node Nl1 = "+nl1.getLength());
+        	        Node resultNode = nl1.item(0);
+        	        nl2 = resultNode.getChildNodes();
+        	        Node nameNode = nl2.item(getNodeIndex(nl2, "name"));
+        	        String namePoint= nameNode.getTextContent();
+        	        Node telNode = nl2.item(getNodeIndex(nl2, "formatted_phone_number"));
+        	        String telNumber = telNode.getTextContent();
+        	        Node addNode = nl2.item(getNodeIndex(nl2, "formatted_address"));
+        	        String address = addNode.getTextContent();
+        	        detailsArr[0] = namePoint;
+        	        detailsArr[1] = telNumber;
+        	        detailsArr[2] = address;
+        	        System.out.println("Name/Tel/Address: " +namePoint + "  " + telNumber + " " + address);
+        	        //Müssen noch übergeben werden
     	    	}
     	    	catch(MalformedURLException ex)
     	    	{
@@ -374,6 +336,10 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     
     public String[] getDetails(StringBuilder sbDetailedResults)
     {
+    	
+	
+    	
+    	
     	//String[] detailsArr = new String[10];
     	Log.i("++++GETDETAILS+++++", ""+sbDetailedResults);
     	try
@@ -446,14 +412,14 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	  	     * Auswahl nach Ranking am Zielort im Umkreis/radius von 200m
 	  	     * aktuelles Ziel/destPos stellt Marktplatz dar
 	  	    */
-	  	    destPos = new LatLng(49.142696,9.212487);//Kriegstraße(49.005363,8.403747);//(47.996642,7.841449);//(49.142696 , 9.212487);Science-Center//(49.011373 , 8.364624);Philippsstraße//(48.543433,7.976418);Appenweiher//Freiburg(47.996642,7.841449);//Mannheim(49.480617,8.469086);//Baden-Baden//Heilbronn//Durlach(48.999197,8.47445);//Kriegstraße(49.005363,8.403747);//(49.009239, 8.403974);
+	  	    destPos = new LatLng(49.005363,8.403747);//Heilbronn(49.142696,9.212487);//Kriegstraße(49.005363,8.403747);//(47.996642,7.841449);//(49.142696 , 9.212487);Science-Center//(49.011373 , 8.364624);Philippsstraße//(48.543433,7.976418);Appenweiher//Freiburg(47.996642,7.841449);//Mannheim(49.480617,8.469086);//Baden-Baden//Heilbronn//Durlach(48.999197,8.47445);//Kriegstraße(49.005363,8.403747);//(49.009239, 8.403974);
 		    GMapV2Direction md = new GMapV2Direction();		    
 		    /*
 	  	     * Parameter-Übergabe laufen, Auto oder öffentliche Verkehrsmittel
 	  	     * String mode wird übergeben von vorangegangener Methode
 	  	     */
 	  	    Document doc = null;
-	  	    String mode = "transit";
+	  	    String mode = "driving";
 	  	    if (checkWay==false)
 			{
 		  	    if(mode == "walking")
@@ -740,7 +706,13 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		 // Move the camera instantly to aktPos with a zoom of 15.		    
 		    //map.moveCamera(CameraUpdateFactory.newLatLngZoom(aktPos, 12));
 		    CameraPosition cameraPosition = null;
-		    if (distance < 1500)
+		    if (distance < 1000)
+		    {
+		    	 cameraPosition = new CameraPosition.Builder().target(
+				    		aktPos).zoom(15).build();
+				    Log.i("cameraPosition", "Zoom (15)");
+		    }
+		    else if (distance < 1500)
 		    {
 			    cameraPosition = new CameraPosition.Builder().target(
 			    		aktPos).zoom(14).build();
