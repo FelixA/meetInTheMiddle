@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical" 
-	android:background="@drawable/background">
+	android:background="@drawable/background"
+	android:orientation="vertical" >
 
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -13,13 +13,13 @@
 		android:padding="20dp" >
 
 		<TextView
-		    android:id="@+id/textView8"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_marginBottom="20dp"
-		    android:text="@string/user_information"
-		    android:textAppearance="?android:attr/textAppearanceLarge"
-		    android:textColor="@android:color/secondary_text_light"/>
+			android:id="@+id/textView8"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="20dp"
+			android:text="@string/user_information"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textColor="@android:color/secondary_text_light" />
 
 		<TableLayout
 			android:layout_width="match_parent"
@@ -39,21 +39,21 @@
 				android:layout_height="wrap_content" >
 
 				<TextView
-				    android:id="@+id/textView2"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:layout_marginRight="10dp"
-				    android:text="Vorname"
-				    android:textColor="@android:color/secondary_text_light" 
-				    android:textStyle="italic"/>
+					android:id="@+id/textView2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginRight="10dp"
+					android:text="Vorname"
+					android:textColor="@android:color/secondary_text_light"
+					android:textStyle="italic" />
 
 				<EditText
 					android:id="@+id/profile_first_name"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:ems="10"
-					android:inputType="textPersonName" 
-					android:textColor="@android:color/secondary_text_light"/>
+					android:inputType="textPersonName"
+					android:textColor="@android:color/secondary_text_light" />
 			</TableRow>
 
 			<TableRow
@@ -65,7 +65,7 @@
 					android:id="@+id/textView3"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Nachname" 
+					android:text="Nachname"
 					android:textColor="@android:color/secondary_text_light"
 					android:textStyle="italic" />
 
@@ -74,8 +74,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:ems="10"
-					android:inputType="textEmailAddress" 
-					android:textColor="@android:color/secondary_text_light"/>
+					android:inputType="textEmailAddress"
+					android:textColor="@android:color/secondary_text_light" />
 			</TableRow>
 
 			<TableRow
@@ -87,7 +87,7 @@
 					android:id="@+id/TextView01"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Alter" 
+					android:text="Alter"
 					android:textColor="@android:color/secondary_text_light"
 					android:textStyle="italic" />
 
@@ -109,16 +109,16 @@
 					android:id="@+id/TextView02"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Telefon" 
-					android:textColor="@android:color/secondary_text_light" 
-					android:textStyle="italic"/>
+					android:text="Telefon"
+					android:textColor="@android:color/secondary_text_light"
+					android:textStyle="italic" />
 
 				<EditText
 					android:id="@+id/profile_phone"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:ems="10"
-					android:inputType="textEmailAddress" 
+					android:inputType="phone"
 					android:textColor="@android:color/secondary_text_light" />
 			</TableRow>
 
@@ -131,16 +131,16 @@
 					android:id="@+id/TextView03"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="E-Mail" 
-					android:textColor="@android:color/secondary_text_light" 
-					android:textStyle="italic"/>
+					android:text="E-Mail"
+					android:textColor="@android:color/secondary_text_light"
+					android:textStyle="italic" />
 
 				<EditText
 					android:id="@+id/profile_mail"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:ems="10"
-					android:inputType="textEmailAddress" 
+					android:inputType="textEmailAddress"
 					android:textColor="@android:color/secondary_text_light" />
 			</TableRow>
 
@@ -153,9 +153,9 @@
 					android:id="@+id/TextView04"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="Interessen" 
-					android:textColor="@android:color/secondary_text_light" 
-					android:textStyle="italic"/>
+					android:text="Interessen"
+					android:textColor="@android:color/secondary_text_light"
+					android:textStyle="italic" />
 
 				<EditText
 					android:id="@+id/profile_interests"
@@ -163,7 +163,7 @@
 					android:layout_height="wrap_content"
 					android:ems="10"
 					android:inputType="textEmailAddress"
-					android:textColor="@android:color/secondary_text_light"  />
+					android:textColor="@android:color/secondary_text_light" />
 			</TableRow>
 		</TableLayout>
 

@@ -1,6 +1,7 @@
 package com.example.meetinthemiddle;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -116,6 +117,21 @@ public class DisplayContactsActivity extends Activity {
 
 		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		List<Map<String, String>> possibleContacts = new ArrayList<Map<String, String>>();
+		List<String> realPossibleContactFirstNames = new ArrayList<String>();
+		List<String> realPossibleContactLastNames = new ArrayList<String>();
+
+
+	        for(String firstName : possibleContactFirstNames) {
+	            if(!contactFirstNames.contains(firstName)) {
+	            	realPossibleContactFirstNames.add(firstName);
+	            }
+	        }
+	        for(String lastName : possibleContactLastNames) {
+	            if(!contactLastNames.contains(lastName)) {
+	            	realPossibleContactLastNames.add(lastName);
+	            }
+	        }
+
 
 		for (int i = 0; i < contactFirstNames.size(); i++) {
 			Map<String, String> personName = new HashMap<String, String>(2);
@@ -123,11 +139,12 @@ public class DisplayContactsActivity extends Activity {
 			personName.put("lastName", contactLastNames.get(i));
 			data.add(personName);
 		}
-		for (int i = 0; i < possibleContactFirstNames.size(); i++) {
+		
+		for (int i = 0; i < realPossibleContactFirstNames.size(); i++) {
 			Map<String, String> personName = new HashMap<String, String>(2);
-			personName.put("firstName", possibleContactFirstNames.get(i));
-			personName.put("lastName", possibleContactLastNames.get(i));
-			possibleContacts.add(personName);
+			personName.put("firstName", realPossibleContactFirstNames.get(i));
+			personName.put("lastName", realPossibleContactLastNames.get(i));
+			possibleContacts.add(personName);	
 		}
 
 		simpleAdapter = new SimpleAdapter(DisplayContactsActivity.this, data,
@@ -246,7 +263,7 @@ public class DisplayContactsActivity extends Activity {
 										personId,
 										getContactIdTask.execute(firstName,
 												lastName).get());
-								Toast.makeText(getApplicationContext(), "Kontakt " + firstName + " " + lastName + " wurde angelegt. Bitte aktualisiere die Ansicht", Toast.LENGTH_LONG).show();
+								Toast.makeText(getApplicationContext(), "Kontakt " + firstName + " " + lastName + " wurde angelegt.", Toast.LENGTH_LONG).show();
 
 							} catch (InterruptedException e) {
 								// TODO Auto-generated catch block
@@ -256,7 +273,10 @@ public class DisplayContactsActivity extends Activity {
 								e.printStackTrace();
 							}
 						}
+						finish();
+						startActivity(getIntent());
 					}
+					
 				});
 
 		ListView list = (ListView) findViewById(R.id.contacts_List);

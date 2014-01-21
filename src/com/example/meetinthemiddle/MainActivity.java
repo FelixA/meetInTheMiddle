@@ -1,8 +1,13 @@
 package com.example.meetinthemiddle;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -22,7 +27,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetinthemiddle.locationverwaltung.dao.LocationDao;
 import com.example.meetinthemiddle.locationverwaltung.domain.Location;
@@ -32,9 +39,17 @@ import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
 import com.example.meetinthemiddle.placesverwaltung.dao.PlaceDao;
 import com.example.meetinthemiddle.placesverwaltung.domain.Place;
+import com.facebook.FacebookRequestError;
+import com.facebook.HttpMethod;
+import com.facebook.Request;
+import com.facebook.RequestAsyncTask;
+import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphObject;
+import com.facebook.model.OpenGraphAction;
+import com.facebook.model.OpenGraphObject;
 import com.facebook.widget.FacebookDialog;
 import com.google.android.gcm.GCMRegistrar;
 /**
@@ -49,10 +64,10 @@ public class MainActivity extends Activity {
 
 	MeetingDao meetingDao;
 	private List<Meeting> meetings;
-	private List<Person> firstPersons;
-	private List<Person> secondPersons;
-	private List<Place> places;
-	private List<Location> locations;
+	private List<String> firstPersons;
+	private List<String> secondPersons;
+	private List<String> places;
+	private List<String> locations;
 	private Place place;
 	private Person person;
 	private Location location;
@@ -66,19 +81,17 @@ public class MainActivity extends Activity {
 	private ShowPlaceTask showPlaceTask = null;
 	private ShowLocationTask showLocationTask = null;
 	private UiLifecycleHelper uiHelper;
+//	private MyListTask myListTask;
 	
 
     
 	private Session.StatusCallback callback = new Session.StatusCallback()
 	{
-
 		@Override
 		public void call(Session session, SessionState state,
 				Exception exception) {
-			// TODO Auto-generated method stub
-			
+			// TODO Auto-generated method stub	
 		}
-       
     };
 
      
@@ -93,10 +106,10 @@ public class MainActivity extends Activity {
 		uiHelper = new UiLifecycleHelper(this, callback);
 	    uiHelper.onCreate(savedInstanceState);
 		meetings = new ArrayList<Meeting>();
-		firstPersons = new ArrayList<Person>();
-		secondPersons = new ArrayList<Person>();
-		locations = new ArrayList<Location>();
-		places = new ArrayList<Place>();
+		firstPersons = new ArrayList<String>();
+		secondPersons = new ArrayList<String>();
+		locations = new ArrayList<String>();
+		places = new ArrayList<String>();
 		place = new Place();
 		person = new Person();
 		location = new Location();
@@ -113,13 +126,13 @@ public class MainActivity extends Activity {
 			meetings = showMeetingsTask.execute((Void) null).get();
 			for(int i = 0; i<meetings.size();++i){
 				showFirstPersonTask = new ShowFirstPersonTask();
-				firstPersons.add(showFirstPersonTask.execute(meetings.get(i).getPers1_fk()).get());
+				firstPersons.add(showFirstPersonTask.execute(meetings.get(i).getPers1_fk()).get().getFirstName());
 				showSecondPersonTask = new ShowSecondPersonTask();
-				secondPersons.add(showSecondPersonTask.execute(meetings.get(i).getPers2_fk()).get());
+				secondPersons.add(showSecondPersonTask.execute(meetings.get(i).getPers2_fk()).get().getFirstName());
 				showPlaceTask = new ShowPlaceTask();
-				places.add(showPlaceTask.execute(meetings.get(i).getOrt_fk()).get());
+				places.add(showPlaceTask.execute(meetings.get(i).getOrt_fk()).get().getStadtname());
 				showLocationTask = new ShowLocationTask();
-				locations.add(showLocationTask.execute(meetings.get(i).getLokalitaet_fk()).get());
+				locations.add(showLocationTask.execute(meetings.get(i).getLokalitaet_fk()).get().getBeschreibung());
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -128,15 +141,21 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+//		myListTask = new MyListTask();
+		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 
-		populateListView();
+//		myListTask.execute(firstPersons, secondPersons, places, locations);
+//		populateListView();
+
+	     SimpleAdapter adapter = new SimpleAdapter(this, data,android.R.layout.list_content, null, null);
+
 	}
 
-	private void populateListView() {
-		ArrayAdapter<Meeting> adapter = new MyListAdapter();
-		ListView list = (ListView) findViewById(R.id.pastMeetingsView);
-		list.setAdapter(adapter);
-	}
+//	private void populateListView() {
+//		ArrayAdapter<Meeting> adapter = new MyListAdapter();
+//		ListView list = (ListView) findViewById(R.id.pastMeetingsView);
+//		list.setAdapter(adapter);
+//	}
 	
 	
 	@Override
@@ -202,16 +221,16 @@ public class MainActivity extends Activity {
 			// imageView.setImageResource(currentPerson.getIconID());
 
 			TextView meetingFirstPersonView = (TextView) meetings_view.findViewById(R.id.meeting_firstPersonName);
-			meetingFirstPersonView.setText(firstPersons.get(position).getFirstName());
+			meetingFirstPersonView.setText(firstPersons.get(position));
 
 			TextView meetingSecondPersonView = (TextView) meetings_view.findViewById(R.id.meeting_secondPersonName);
-			meetingSecondPersonView.setText(secondPersons.get(position).getFirstName());
+			meetingSecondPersonView.setText(secondPersons.get(position));
 			
 			TextView meetingLocationView = (TextView) meetings_view.findViewById(R.id.meeting_locationName);
-			meetingLocationView.setText(locations.get(position).getBeschreibung());
+			meetingLocationView.setText(locations.get(position));
 			
 			TextView meetingPlaceView = (TextView) meetings_view.findViewById(R.id.meeting_placeName);
-			meetingPlaceView.setText(places.get(position).getStadtname().toString());
+			meetingPlaceView.setText(places.get(position).toString());
 			
 			TextView meetingCommentView = (TextView) meetings_view.findViewById(R.id.meeting_comment);
 			meetingCommentView.setText(currentMeeting.getKommentar().toString());
@@ -241,12 +260,13 @@ public class MainActivity extends Activity {
 		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		// Vibrate for 500 milliseconds
 		v.vibrate(500);
-		
-//		FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
-//        .setLink("https://developers.facebook.com/android")
-//		.setDescription("Felix war mit Lukas in Karlsruhe in Hindu Tempel")
-//        .build();
-//		uiHelper.trackPendingDialogCall(shareDialog.present());
+
+
+		FacebookDialog shareDialog = new FacebookDialog.ShareDialogBuilder(this)
+        .setLink("https://developers.facebook.com/android")
+		.setDescription("Felix war mit Lukas in Karlsruhe in Hindu Tempel")
+        .build();
+		uiHelper.trackPendingDialogCall(shareDialog.present());
 	}
 
 
@@ -376,4 +396,21 @@ public class MainActivity extends Activity {
 		}
 		
 	}
+//	public class MyListTask extends AsyncTask<List<String>, Integer, List<String>>{
+//		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
+//
+//		@Override
+//		protected List<String> doInBackground(List<String>... arg0) {
+//			// TODO Auto-generated method stub
+//			return mylist;
+//		}
+//		 @Override
+//		    protected void onPostExecute(List<String> result) {
+//			 ArrayAdapter<Meeting> adapter = new MyListAdapter();
+//				ListView list = (ListView) findViewById(R.id.pastMeetingsView);
+//				list.setAdapter(adapter);
+//		        list.setTextFilterEnabled(true);
+//		    }
+//		
+//	}
 }
