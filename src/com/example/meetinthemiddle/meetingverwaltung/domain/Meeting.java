@@ -26,6 +26,17 @@ public class Meeting {
 		this.kommentar = kommentar;
 		this.verkehrsmittel_pers2_fk = verkehrsmittel_pers2_fk;
 	}
+	
+	public Meeting(Long id, Integer bewertung,String kommentar,
+			Long verkehrsmittel_pers2_fk, String locationPers2) {
+		super();
+		this.id = id;
+		this.bewertung = bewertung;
+		this.kommentar = kommentar;
+		this.verkehrsmittel_pers2_fk = verkehrsmittel_pers2_fk;
+		this.locationPers2 = locationPers2;
+	}
+	
 	public Meeting(Long pers1_fk, Long pers2_fk, Date uhrzeit,
 			Long lokalitaet_fk, Long ort_fk, Integer bewertung,
 			Long verkehrsmittel_pers1_fk, String kommentar,
@@ -48,6 +59,8 @@ public class Meeting {
 	}
 	public Meeting() {}
 	@Element
+	private Long id;
+	@Element
 	private Long pers1_fk;
 	@Element
 	private Long pers2_fk;
@@ -69,6 +82,13 @@ public class Meeting {
 	private String aIdSender;
 	@Element(required = false)
 	private String aIdEmpfaenger;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	@Element(required = false)
 	private String message;
 	@Element(required = false)
@@ -169,6 +189,7 @@ public class Meeting {
 				+ ((aIdSender == null) ? 0 : aIdSender.hashCode());
 		result = prime * result
 				+ ((bewertung == null) ? 0 : bewertung.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((kommentar == null) ? 0 : kommentar.hashCode());
 		result = prime * result
@@ -217,6 +238,11 @@ public class Meeting {
 			if (other.bewertung != null)
 				return false;
 		} else if (!bewertung.equals(other.bewertung))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (kommentar == null) {
 			if (other.kommentar != null)
@@ -279,15 +305,15 @@ public class Meeting {
 	}
 	@Override
 	public String toString() {
-		return "Meeting [pers1_fk=" + pers1_fk + ", pers2_fk=" + pers2_fk
-				+ ", uhrzeit=" + uhrzeit + ", lokalitaet_fk=" + lokalitaet_fk
-				+ ", ort_fk=" + ort_fk + ", bewertung=" + bewertung
-				+ ", verkehrsmittel_pers1_fk=" + verkehrsmittel_pers1_fk
-				+ ", kommentar=" + kommentar + ", verkehrsmittel_pers2_fk="
-				+ verkehrsmittel_pers2_fk + ", aIdSender=" + aIdSender
-				+ ", aIdEmpfaenger=" + aIdEmpfaenger + ", message=" + message
-				+ ", locationPers1=" + locationPers1 + ", locationPers2="
-				+ locationPers2 + "]";
+		return "Meeting [id=" + id + ", pers1_fk=" + pers1_fk + ", pers2_fk="
+				+ pers2_fk + ", uhrzeit=" + uhrzeit + ", lokalitaet_fk="
+				+ lokalitaet_fk + ", ort_fk=" + ort_fk + ", bewertung="
+				+ bewertung + ", verkehrsmittel_pers1_fk="
+				+ verkehrsmittel_pers1_fk + ", kommentar=" + kommentar
+				+ ", verkehrsmittel_pers2_fk=" + verkehrsmittel_pers2_fk
+				+ ", aIdSender=" + aIdSender + ", aIdEmpfaenger="
+				+ aIdEmpfaenger + ", message=" + message + ", locationPers1="
+				+ locationPers1 + ", locationPers2=" + locationPers2 + "]";
 	}
 	
 }
