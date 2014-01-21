@@ -2,6 +2,6 @@
 /bin
 .jar
 .class
-#.classpath
-#.project
+.classpath
+.project
 /gen
