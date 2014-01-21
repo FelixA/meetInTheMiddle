@@ -19,8 +19,8 @@
 		android:gravity="center"
 		android:text="Meet in the Middle"
 		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="@android:color/white"
-		android:textColorLink="@android:color/white" />
+		android:textColor="@android:color/secondary_text_light"
+		android:textColorLink="@android:color/secondary_text_light" />
 
 	<RelativeLayout
 		android:layout_width="match_parent"
