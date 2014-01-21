@@ -40,10 +40,8 @@ public class MeetingDao {
 		Meeting meeting = new Meeting(pers1_fk, pers2_fk, uhrzeit, lokalitaet_fk, ort_fk, bewertung, verkehrsmittel_pers1_fk, kommentar, verkehrsmittel_pers2_fk,aIdSender,aIdEmpfaenger, message, locationPers1, locationPers2);
 		WebServiceClient.post(meeting, "/rest/meetings", context, Constants.DATE_FORMAT_JAXB);
 	}
-	public void update(Long pers1_fk, Long pers2_fk, Date uhrzeit,
-			Long lokalitaet_fk, Long ort_fk, int bewertung,
-			Long verkehrsmittel_pers1_fk, String kommentar, Long verkehrsmittel_pers2_fk){
-		Meeting meeting = new Meeting(pers1_fk, pers2_fk, uhrzeit, lokalitaet_fk, ort_fk, bewertung, verkehrsmittel_pers1_fk, kommentar, verkehrsmittel_pers2_fk);
+	public void update(Long id, int bewertung, String kommentar, Long verkehrsmittel_pers2_fk, String locationPers2){
+		Meeting meeting = new Meeting(id,bewertung, kommentar, verkehrsmittel_pers2_fk, locationPers2);
 		WebServiceClient.put(meeting, "/rest/meetings", context, Constants.DATE_FORMAT_JAXB);
 
 	}
