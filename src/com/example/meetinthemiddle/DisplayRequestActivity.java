@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import com.example.meetinthemiddle.locationverwaltung.dao.LocationDao;
+import com.example.meetinthemiddle.locationverwaltung.domain.Location;
 import com.example.meetinthemiddle.meetingverwaltung.dao.MeetingDao;
 import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
@@ -36,15 +38,14 @@ import android.os.Build;
 public class DisplayRequestActivity extends Activity implements
 		OnClickListener, OnMenuItemClickListener {
 	private PopupMenu popupMenuKindOfTransportation;
-	private String kindofString;
 	private String kindofTransportationString;
-	private Long kindofId;
 	private Long kindofTransportationId;
 	TextView kindof;
 	TextView time;
 	TextView kindofTransportation;
 	private TextView displayTime;
 	private MeetingDao meetingDao;
+	private LocationDao locationDao;
 	private PersonDao personDao;
 	private Meeting meeting;
 	private Person person;
@@ -52,6 +53,8 @@ public class DisplayRequestActivity extends Activity implements
 	private int pMinute;
 	private FindMeetingTask findMeetingTask;
 	private FindPersonTask findPersonTask;
+	private FindLocationTask findLocationTask;
+	private Location location;
 	/**
 	 * This integer will uniquely define the dialog to be used for displaying
 	 * time picker.
@@ -67,46 +70,49 @@ public class DisplayRequestActivity extends Activity implements
 		setContentView(R.layout.activity_display_request);
 		meetingDao = new MeetingDao(this);
 		personDao = new PersonDao(this);
-		kindofString = "";
+		locationDao = new LocationDao(this);
 		kindofTransportationString = "";
-		kindofId = -1L;
 		kindofTransportationId = -1L;
 		findMeetingTask = new FindMeetingTask();
 		findPersonTask = new FindPersonTask();
-		
-		//Meeting ID holen
+		findLocationTask = new FindLocationTask();
+		location = new Location();
+
+		// Meeting ID holen
 		Bundle extras = getIntent().getExtras();
-	    Long id = extras.getLong("MeetingId");
-	    try {
+		Long id = extras.getLong("MeetingId");
+		try {
 			meeting = findMeetingTask.execute(id).get();
 			person = findPersonTask.execute(meeting.getPers1_fk()).get();
+			location = findLocationTask.execute(meeting.getLokalitaet_fk())
+					.get();
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
-	    
 		kindof = (TextView) findViewById(R.id.request_kindOf_View);
 		kindofTransportation = (TextView) findViewById(R.id.request_kindOfTransportation_View);
 		displayTime = (TextView) findViewById(R.id.request_time_view);
 		TextView contact = (TextView) findViewById(R.id.request_profile_View);
 		contact.setText(person.getFirstName());
-		
+		kindof.setText(location.getBeschreibung());
+
 		displayTime.setText(meeting.getUhrzeit().toString());
-		kindof.setText(meeting.getLokalitaet_fk().toString());
 		contact.setText(person.getFirstName() + " " + person.getLastName());
 		/** Get the current time */
 		final Calendar cal = Calendar.getInstance(new Locale("CET"));
-		pHour = cal.get(Calendar.HOUR_OF_DAY);
-		pMinute = cal.get(Calendar.MINUTE);
-
+		Date time = meeting.getUhrzeit();
+		pHour = time.getHours();
+		pMinute = time.getMinutes();
 		/** Display the current time in the TextView */
 		updateDisplay();
 
 		createPopups();
 
-		findViewById(R.id.request_kindOfTransportation_button).setOnClickListener(this);
+		findViewById(R.id.request_kindOfTransportation_button)
+				.setOnClickListener(this);
 	}
 
 	/** Updates the time in the TextView */
@@ -158,9 +164,15 @@ public class DisplayRequestActivity extends Activity implements
 	@Override
 	public void onClick(View view) {
 		if (getResources().getResourceEntryName(view.getId()).equals(
-				"meetings_kindOfTransportation_button")) {
+				"request_kindOfTransportation_button")) {
 			popupMenuKindOfTransportation.show();
 		}
+	}
+	
+	public void sendBestaetigung(View view){
+		UpdateMeetingTask updateMeetingTask = new UpdateMeetingTask();
+		updateMeetingTask.execute();
+		//TODO: ROUTENFUEHRUNG STARTEN
 	}
 
 	@Override
@@ -187,7 +199,7 @@ public class DisplayRequestActivity extends Activity implements
 		return super.onOptionsItemSelected(item);
 	}
 
-	private class FindMeetingTask extends AsyncTask<Long,Void,Meeting>{
+	private class FindMeetingTask extends AsyncTask<Long, Void, Meeting> {
 
 		@Override
 		protected Meeting doInBackground(Long... id) {
@@ -195,17 +207,19 @@ public class DisplayRequestActivity extends Activity implements
 			meeting = meetingDao.findMeetingById(id[0]);
 			return meeting;
 		}
-		
+
 	}
-	private class CreateMeetingTask extends AsyncTask<Void, Void, Void> {
+
+	private class UpdateMeetingTask extends AsyncTask<Void, Void, Void> {
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			Bundle extras = getIntent().getExtras();
-		    Long id = extras.getLong("MeetingId");
-			meetingDao.update(id, 5, "abc", 234L, + pHour + ":" + pMinute + " Uhr mit dir treffen");
+			Long id = extras.getLong("MeetingId");
+			meetingDao.update(id, -1, "", "Das Treffen wurde bestätigt",kindofTransportationId,"HIER LOCATION VON PERSON 2EINFUEGEN");
 			return null;
 		}
 	}
+
 	private class FindPersonTask extends AsyncTask<Long, Void, Person> {
 
 		@Override
@@ -214,12 +228,21 @@ public class DisplayRequestActivity extends Activity implements
 			person = personDao.findPersonById(params[0]);
 			return person;
 		}
-		
+
+	}
+
+	private class FindLocationTask extends AsyncTask<Long, Void, Location> {
+
+		@Override
+		protected Location doInBackground(Long... params) {
+			return locationDao.findLocationById(params[0]);
+		}
+
 	}
 
 	public void sendInvitation(View view) throws ParseException {
-		CreateMeetingTask createMeetingTask = new CreateMeetingTask();
+		UpdateMeetingTask createMeetingTask = new UpdateMeetingTask();
 		createMeetingTask.execute();
 	}
-	
+
 }

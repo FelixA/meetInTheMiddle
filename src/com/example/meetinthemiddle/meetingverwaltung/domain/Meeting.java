@@ -28,13 +28,14 @@ public class Meeting {
 	}
 	
 	public Meeting(Long id, Integer bewertung,String kommentar,
-			Long verkehrsmittel_pers2_fk, String locationPers2) {
+			Long verkehrsmittel_pers2_fk, String locationPers2, String message) {
 		super();
 		this.id = id;
 		this.bewertung = bewertung;
 		this.kommentar = kommentar;
 		this.verkehrsmittel_pers2_fk = verkehrsmittel_pers2_fk;
 		this.locationPers2 = locationPers2;
+		this.message = message;
 	}
 	
 	public Meeting(Long pers1_fk, Long pers2_fk, Date uhrzeit,
@@ -60,11 +61,11 @@ public class Meeting {
 	public Meeting() {}
 	@Element(required = false)
 	private Long id;
-	@Element
+	@Element(required = false)
 	private Long pers1_fk;
-	@Element
+	@Element(required = false)
 	private Long pers2_fk;
-	@Element
+	@Element(required = false)
 	private Date uhrzeit;
 	@Element(required = false)
 	private Long lokalitaet_fk;

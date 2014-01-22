@@ -31,7 +31,7 @@
 		android:textSize="21sp" />
 
 	<Button
-		android:id="@+id/meetings_sendBestaetigung"
+		android:id="@+id/request_sendBestaetigung"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
@@ -44,10 +44,10 @@
 		android:textStyle="italic" />
 
 	<Button
-		android:id="@+id/meetings_sendAbsagen"
+		android:id="@+id/request_sendAbsagen"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignBottom="@+id/meetings_sendBestaetigung"
+		android:layout_alignBottom="@+id/request_sendBestaetigung"
 		android:layout_alignLeft="@+id/Verkehrsart"
 		android:minHeight="36dp"
 		android:minWidth="48dp"
@@ -61,7 +61,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_above="@+id/meetings_kindOf_button"
-		android:layout_toLeftOf="@+id/meetings_sendBestaetigung"
+		android:layout_toLeftOf="@+id/request_sendBestaetigung"
 		android:text="Mit wem?"
 		android:textColor="@android:color/secondary_text_light"
 		android:textSize="25sp"
