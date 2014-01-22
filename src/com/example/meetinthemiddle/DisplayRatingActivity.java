@@ -21,6 +21,11 @@ public class DisplayRatingActivity extends Activity {
 		
 		addListenerOnRatingBar();
 		addListenerOnButton();
+		
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		    Long id = extras.getLong("MeetingId");;
+		}
 	}
 
 	  public void addListenerOnRatingBar() {
@@ -51,7 +56,7 @@ public class DisplayRatingActivity extends Activity {
 					Toast.makeText(DisplayRatingActivity.this,
 						String.valueOf(ratingBar.getRating()),
 							Toast.LENGTH_SHORT).show();
-		 
+					//In DB Schreiben
 				}
 		 
 			});
