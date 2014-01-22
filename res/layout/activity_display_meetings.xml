@@ -1,117 +1,114 @@
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/balkenoben" />
+	<ImageView
+		android:id="@+id/imageView1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:adjustViewBounds="true"
+		android:scaleType="centerCrop"
+		android:src="@drawable/balkenoben" />
 
-    <TextView
-        android:id="@+id/meetings_profile_View"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="100dp"
-        android:text="Mit wem?"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+	<TextView
+		android:id="@+id/meetings_profile_View"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="140dp"
+		android:layout_marginTop="100dp"
+		android:text="Mit wem?"
+		android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ImageButton
-        android:id="@+id/meetings_profile_Button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="31dp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logo_freunde_hinzufuegen" />
+	<ImageButton
+		android:id="@+id/meetings_profile_Button"
+		android:layout_width="60dp"
+		android:layout_height="60dp"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/imageView1"
+		android:layout_marginLeft="40dp"
+		android:layout_marginTop="31dp"
+		android:background="@null"
+		android:scaleType="fitCenter"
+		android:src="@drawable/logo_freunde_hinzufuegen" />
 
-    <TextView
-        android:id="@+id/meetings_kindOf_View"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-                android:layout_marginLeft="140dp"
-        android:layout_marginTop="189dp"
-        android:text="Was tun?"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+	<TextView
+		android:id="@+id/meetings_kindOf_View"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="140dp"
+		android:layout_marginTop="189dp"
+		android:text="Was tun?"
+		android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ImageButton        
-        android:id="@+id/meetings_kindOf_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="120dp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logo_aktion_hinzufuegen" />
+	<ImageButton
+		android:id="@+id/meetings_kindOf_button"
+		android:layout_width="60dp"
+		android:layout_height="60dp"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/imageView1"
+		android:layout_marginLeft="40dp"
+		android:layout_marginTop="120dp"
+		android:background="@null"
+		android:scaleType="fitCenter"
+		android:src="@drawable/logo_aktion_hinzufuegen" />
 
-    <TextView
-        android:id="@+id/meetings_time_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        
-        android:layout_marginLeft="140dp"
-        android:layout_marginTop="278dp"
-        android:text="Wann?"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+	<TextView
+		android:id="@+id/meetings_time_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="140dp"
+		android:layout_marginTop="278dp"
+		android:text="Wann?"
+		android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ImageButton
-        android:id="@+id/meetings_time_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="209dp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logo_uhrzeit_hinzufuegen" />
+	<ImageButton
+		android:id="@+id/meetings_time_button"
+		android:layout_width="60dp"
+		android:layout_height="60dp"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/imageView1"
+		android:layout_marginLeft="40dp"
+		android:layout_marginTop="209dp"
+		android:background="@null"
+		android:scaleType="fitCenter"
+		android:src="@drawable/logo_uhrzeit_hinzufuegen" />
 
-    <ImageButton
-        android:id="@+id/meetings_kindOfTransportation_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="298dp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logo_anfahrt_hinzufuegen" />
+	<ImageButton
+		android:id="@+id/meetings_kindOfTransportation_button"
+		android:layout_width="60dp"
+		android:layout_height="60dp"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/imageView1"
+		android:layout_marginLeft="40dp"
+		android:layout_marginTop="298dp"
+		android:background="@null"
+		android:scaleType="fitCenter"
+		android:src="@drawable/logo_anfahrt_hinzufuegen" />
 
-    <ImageButton
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:adjustViewBounds="true"
-        android:cropToPadding="true"
-        android:paddingBottom="0dp"
-        android:paddingRight="0dp"
-        android:paddingLeft="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/balkenuntenverabredung" />
+	<ImageButton
+		android:id="@+id/imageView2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:adjustViewBounds="true"
+		android:cropToPadding="true"
+		android:paddingBottom="0dp"
+		android:paddingLeft="0dp"
+		android:paddingRight="0dp"
+		android:scaleType="centerCrop"
+		android:src="@drawable/balkenuntenverabredung" />
 
-    <TextView
-        android:id="@+id/request_kindOfTransportation_View"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/meetings_time_view"
-        android:layout_alignTop="@+id/meetings_kindOfTransportation_button"
-        android:layout_marginTop="15dp"
-        android:text="Anfahrt?"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+	<TextView
+		android:id="@+id/meetings_kindOfTransportation_View"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignLeft="@+id/meetings_time_view"
+		android:layout_alignTop="@+id/meetings_kindOfTransportation_button"
+		android:layout_marginTop="15dp"
+		android:text="Anfahrt?"
+		android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

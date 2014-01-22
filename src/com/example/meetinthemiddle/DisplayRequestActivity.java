@@ -215,7 +215,8 @@ public class DisplayRequestActivity extends Activity implements
 		protected Void doInBackground(Void... arg0) {
 			Bundle extras = getIntent().getExtras();
 			Long id = extras.getLong("MeetingId");
-			meetingDao.update(id, -1, "", "Das Treffen wurde bestätigt",kindofTransportationId,"HIER LOCATION VON PERSON 2EINFUEGEN");
+			System.out.println(kindofTransportationId);
+			meetingDao.update(id, -1, " ", "Das Treffen wurde bestaetigt",kindofTransportationId,"HIER LOCATION VON PERSON 2EINFUEGEN");
 			return null;
 		}
 	}
