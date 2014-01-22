@@ -63,7 +63,6 @@ public class DisplayRequestActivity extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//TODO: Über MeetingId kannst du ausm bundle extras die meetingid holen
 		setContentView(R.layout.activity_display_request);
 		meetingDao = new MeetingDao(this);
 		personDao = new PersonDao(this);

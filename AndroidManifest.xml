@@ -85,6 +85,14 @@
 				android:value="com.example.meetinthemiddle.MainActivity" />
 		</activity>
 		<activity
+			android:name="com.example.meetinthemiddle.DisplayRequestActivity"
+			android:label="@string/title_activity_display_request"
+			android:parentActivityName="com.example.meetinthemiddle.DisplayMessagesActivity" >
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="com.example.meetinthemiddle.DisplayMessagesActivity" />
+		</activity>		
+		<activity
 			android:name="com.example.meetinthemiddle.DisplayMeetingsActivity"
 			android:label="@string/title_activity_display_meetings"
 			android:parentActivityName="com.example.meetinthemiddle.MainActivity" >
