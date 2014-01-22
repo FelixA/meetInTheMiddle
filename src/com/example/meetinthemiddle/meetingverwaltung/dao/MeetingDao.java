@@ -56,5 +56,12 @@ public class MeetingDao {
 				+ id, context, Constants.DATE_FORMAT_JAXB);
 		return meeting.getMeetings();
 	}
+
+	public Meeting findMeetingByPers2_FK_Uhrzeit(String id, String hour,
+			String minute) {
+		Meeting meeting = WebServiceClient.get(Meeting.class, url
+				+ "pers2_fk/" +  id +"/" + hour + "/" + minute, context, Constants.DATE_FORMAT_JAXB);
+		return meeting;
+	}
 	
 }
