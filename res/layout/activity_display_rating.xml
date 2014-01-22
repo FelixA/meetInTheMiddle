@@ -57,4 +57,13 @@
         android:text="Bewertung"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/RatingBar02"
+        android:layout_below="@+id/RatingBar02"
+        android:layout_marginTop="32dp"
+        android:text="Bestätigen" />
+
 </RelativeLayout>
