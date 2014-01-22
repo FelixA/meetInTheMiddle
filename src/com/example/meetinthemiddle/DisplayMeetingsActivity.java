@@ -304,7 +304,7 @@ public class DisplayMeetingsActivity extends Activity implements
 						date, kindofId, 15L, 4, kindofTransportationId,
 						"BLubberBlubb", kindofTransportationId,
 						person.getAndroidId(), contact.getAndroidId(),
-						person.getAndroidId() + ";" + person.getFirstName() + " möchte sich um " + pHour
+						person.getFirstName() + " möchte sich um " + pHour
 								+ ":" + pMinute + " Uhr mit dir treffen",
 								"HIER BITTE LOCATION_PERS1","HIER BITTE LOCATION_PERS2");
 			} catch (ParseException e) {

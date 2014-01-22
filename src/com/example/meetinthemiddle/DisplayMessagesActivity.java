@@ -113,9 +113,9 @@ public class DisplayMessagesActivity extends Activity {
 			Map<String, String> personName = new HashMap<String, String>(2);
 			Person person = new Person();
 			try {
+				showPersonFirstNameTask = new ShowPersonFirstNameTask();
 				person = showPersonFirstNameTask.execute(
 						meetingAnfragen.get(i).getPers2_fk()).get();
-				showPersonFirstNameTask = new ShowPersonFirstNameTask();
 				showLocationTask = new ShowLocationTask();
 				personName.put("zeile1","Angefragt bei " + person.getFirstName() + " "+ person.getLastName() + " um " + meetingAnfragen.get(i).getUhrzeit().getHours() + ":" + meetingAnfragen.get(i).getUhrzeit().getMinutes());
 				personName.put("zeile2","in folgender Lokalitaet: "+ showLocationTask.execute(meetingAnfragen.get(i).getLokalitaet_fk())
@@ -218,7 +218,7 @@ public class DisplayMessagesActivity extends Activity {
 				GetMeetingByPers1_FK_UhrzeitTask getMeetingByPers1_FK_UhrzeitTask = new GetMeetingByPers1_FK_UhrzeitTask();
 				try {
 					Long meeting_id = getMeetingByPers1_FK_UhrzeitTask.execute(pers_id.toString(), uhrzeit[0] , minute).get().getId();
-					//TODO: INTENT MIT MEETING_ID ZU NEUER ACTIVITY
+					//TODO: INTENT MIT MEETING_ID ZU REQUESTACTIVITY
 					System.out.println(meeting_id);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
