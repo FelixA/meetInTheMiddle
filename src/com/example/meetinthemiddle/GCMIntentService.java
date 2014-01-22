@@ -51,10 +51,9 @@ public class GCMIntentService extends GCMBaseIntentService {
     private void sendNotification(String msg) {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
-        String personId="185";
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, DisplayMessagesActivity.class).putExtra("personId", personId), 0);
+                new Intent(this, DisplayLoginActivity.class), 0);
        
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
