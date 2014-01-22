@@ -40,8 +40,8 @@ public class DisplayLoginActivity extends Activity {
 	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
-	private String mEmail;
-	private String mPassword;
+	private String mEmail ="";
+	private String mPassword = "";
 	private List<Person> person;
 
 //	private String dbEmail;
@@ -57,13 +57,10 @@ public class DisplayLoginActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
 		super.onCreate(savedInstanceState);
-		personDao = new PersonDao(this);
-		
-		
-		////ende test
 		setContentView(R.layout.activity_display_login);
+
+		personDao = new PersonDao(this);
 
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);

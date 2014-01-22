@@ -56,7 +56,6 @@ public class DisplayContactsActivity extends Activity {
 	private ShowPossibleContactsLastNameTask showPossibleContactsLastNameTask;
 
 	private ListView contactPersons;
-
 	private ListView possibleContactPersons;
 	public SimpleAdapter simpleAdapter;
 	public SimpleAdapter possible_contacts_adapter;
