@@ -70,6 +70,8 @@ public SimpleAdapter einladungenAdapter;
 		showMeetingAnfragenTask = new ShowMeetingAnfragenTask();
 		
 		List<Map<String, String>> anfragenListe = new ArrayList<Map<String, String>>();
+		List<Map<String, String>> einladungenListe = new ArrayList<Map<String, String>>();
+
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -77,7 +79,7 @@ public SimpleAdapter einladungenAdapter;
 
 			try {
 				meetingAnfragen = showMeetingAnfragenTask.execute(id).get();
-				meetingEinladungen = showMeetingAnfragenTask.execute(id).get();
+				meetingEinladungen = showMeetingEinladungenTask.execute(id).get();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -86,18 +88,56 @@ public SimpleAdapter einladungenAdapter;
 				e.printStackTrace();
 			}
 		}
+		for(Meeting te : meetingAnfragen){
+			System.out.println(te.toString());
+		}
+		
+		try{
+			for (int i = 0; i < meetingEinladungen.size(); i++) {
+				Map<String, String> personName = new HashMap<String, String>(2);
+				Person person = new Person();
+				showPersonFirstNameTask = new ShowPersonFirstNameTask();
+				showLocationTask = new ShowLocationTask();
+				person = showPersonFirstNameTask.execute(meetingEinladungen.get(i).getPers1_fk()).get();
+				personName.put("zeile1", "Anfrage von " + person.getFirstName() + " " + person.getLastName());
+				personName.put("zeile2", "in folgender Lokalitaet: " + showLocationTask.execute(meetingEinladungen.get(i).getLokalitaet_fk()).get().getBeschreibung());
+				einladungenListe.add(personName);
+			}}catch(Exception e){}
+		
+	
 		for (int i = 0; i < meetingAnfragen.size(); i++) {
 			Map<String, String> personName = new HashMap<String, String>(2);
-			personName.put("zeile1", "Anfrage von " + showPersonFirstNameTask.execute(meetingAnfragen.get(i).getPers1_fk()));
-			personName.put("zeile2", "in folgender Lokalitaet: " + showLocationTask.execute(meetingAnfragen.get(i).getLokalitaet_fk()));
-			anfragenListe.add(personName);
+			Person person = new Person();
+			try {
+				person = showPersonFirstNameTask.execute(meetingAnfragen.get(i).getPers2_fk()).get();
+				showPersonFirstNameTask = new ShowPersonFirstNameTask();
+				showLocationTask = new ShowLocationTask();
+				personName.put("zeile1", "Angefragt bei " + person.getFirstName() + " " + person.getLastName());
+				personName.put("zeile2", "in folgender Lokalitaet: " + showLocationTask.execute(meetingAnfragen.get(i).getLokalitaet_fk()).get().getBeschreibung());
+				anfragenListe.add(personName);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
+		
+		
 		
 		anfragenAdapter = new SimpleAdapter(DisplayMessagesActivity.this, anfragenListe,
 				android.R.layout.two_line_list_item, new String[] {
 						"zeile1", "zeile2" }, new int[] {
 						android.R.id.text1, android.R.id.text2 });
 		anfragenList.setAdapter(anfragenAdapter);
+		
+		einladungenAdapter = new SimpleAdapter(DisplayMessagesActivity.this, einladungenListe,
+				android.R.layout.two_line_list_item, new String[] {
+						"zeile1", "zeile2" }, new int[] {
+						android.R.id.text1, android.R.id.text2 });
+		einladungenList.setAdapter(einladungenAdapter);
 	}
 
 	public class ShowLocationTask extends AsyncTask<Long, Void, Location> {
@@ -114,14 +154,20 @@ public SimpleAdapter einladungenAdapter;
 	}
 	public class ShowMeetingEinladungenTask extends AsyncTask<Long, Void, List<Meeting>> {
 		@Override
-		protected List<Meeting> doInBackground(Long... person1_FK) {
-			return meetingDao.findMeetingByPers1_fk(person1_FK[0]);	
+		protected List<Meeting> doInBackground(Long... person2_FK) {
+			return meetingDao.findMeetingByPers2_fk(person2_FK[0]);	
 		}
 	}
 	public class ShowMeetingAnfragenTask extends AsyncTask<Long, Void, List<Meeting>> {
 		@Override
-		protected List<Meeting> doInBackground(Long... person2_FK) {
-			return meetingDao.findMeetingByPers2_fk(person2_FK[0]);	
+		protected List<Meeting> doInBackground(Long... person1_FK) {
+			try{
+				return meetingDao.findMeetingByPers1_fk(person1_FK[0]);
+
+				}
+			catch(Exception e){
+				return null;
+			}
 		}
 	}
 }

@@ -35,7 +35,7 @@
 		android:id="@+id/contacts_possibleContacts_view"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Anfragen"
+		android:text="gesendete Anfragen"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:textColor="@android:color/secondary_text_light"
 		android:textStyle="italic" />
