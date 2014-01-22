@@ -96,12 +96,13 @@
 		android:layout_alignParentRight="true"
 		android:adjustViewBounds="true"
 		android:cropToPadding="true"
-		android:onClick="sendInvitation"
+		android:onClick="openMeetingMap"
 		android:paddingBottom="0dp"
 		android:paddingLeft="0dp"
 		android:paddingRight="0dp"
 		android:scaleType="centerCrop"
 		android:src="@drawable/balkenuntenverabredung" />
+	<!-- android:onClick="sendInvitation" -->
 
 	<TextView
 		android:id="@+id/meetings_kindOfTransportation_View"
