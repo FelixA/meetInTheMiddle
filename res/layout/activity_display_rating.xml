@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background" >
+    android:layout_height="match_parent" >
+    
+    <ImageView
+			android:id="@+id/imageView1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentTop="true"
+			android:adjustViewBounds="true"
+			android:scaleType="centerCrop"
+			android:src="@drawable/balkenoben" />
 
     <TableLayout
         android:id="@+id/tableLayout1"
@@ -30,13 +40,45 @@
         android:layout_marginTop="21dp" >
     </TableRow>
 
+    <RatingBar
+        android:id="@+id/RatingBar02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp" />
+    
+    <ImageView
+			android:id="@+id/imageView2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentRight="true"
+			android:adjustViewBounds="true"
+			android:cropToPadding="true"
+			android:paddingBottom="0dp"
+			android:paddingRight="0dp"
+			android:scaleType="centerCrop"
+			android:src="@drawable/balkenunten" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tableRow3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp"
+        android:text="Diese Seite dient dazu, das Treffen allgemein zu beurteilen. Dabei werden die Location, die Person und das Treffen allgemein betrachtet" />
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_alignLeft="@+id/RatingBar02"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginLeft="53dp"
+        android:layout_marginTop="20dp"
         android:text="Bewertung"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -44,33 +86,16 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/RatingBar02"
-        android:layout_below="@+id/RatingBar02"
-        android:layout_marginTop="32dp"
-        android:text="Bestätigen" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/tableRow3"
+        android:layout_above="@+id/imageView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="34dp"
-        android:text="Wie fandest du dein Treffen mit" />
-
-    <TextView
-        android:id="@+id/Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/tableRow3"
-        android:layout_centerHorizontal="true"
-        android:text="Name Person" />
-
-    <RatingBar
-        android:id="@+id/RatingBar02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tableRow3"
-        android:layout_centerHorizontal="true" />
+        android:background="#29235C"
+        android:gravity="center"
+        android:onClick="attemptLogin"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:text="Bestätigen"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="italic" />
 
 </RelativeLayout>

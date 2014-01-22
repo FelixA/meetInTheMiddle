@@ -9,7 +9,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
-		android:background="@drawable/background"
 		android:gravity="center_horizontal"
 		android:orientation="vertical"
 		android:visibility="gone" >
@@ -36,154 +35,201 @@
 		android:fillViewport="true" >
 
 		<RelativeLayout
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:background="@drawable/background" >
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content" >
 
-			<!-- Header  Starts -->
+		    <!-- Header  Starts -->
 
-			<LinearLayout
-				android:id="@+id/header"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				android:paddingBottom="5dip"
-				android:paddingTop="5dip" >
+		    <LinearLayout
+		        android:id="@+id/header"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal"
+		        android:paddingBottom="5dip"
+		        android:paddingTop="5dip" >
 
-				<!-- Logo Start -->
-			</LinearLayout>
-			<!-- Header Ends -->
-			<!-- Footer Start -->
+		        <!-- Logo Start -->
 
-			<LinearLayout
-				android:id="@+id/footer"
-				android:layout_width="fill_parent"
-				android:layout_height="90dip"
-				android:layout_alignParentBottom="true"
-				android:orientation="horizontal" >
-			</LinearLayout>
-			<!-- Footer Ends -->
+		    </LinearLayout>
+		    <!-- Header Ends -->
+		    <!-- Footer Start -->
+
+		    <LinearLayout
+		        android:id="@+id/footer"
+		        android:layout_width="fill_parent"
+		        android:layout_height="90dip"
+		        android:layout_alignParentBottom="true"
+		        android:orientation="horizontal" >
+
+		        <Button
+		            android:id="@+id/btnRegister"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:background="#29235C"
+		            android:gravity="center"
+		            android:onClick="attemptLogin"
+		            android:paddingLeft="32dp"
+		            android:paddingRight="32dp"
+		            android:paddingBottom="0dp"
+		            android:text="@string/string_register"
+		            android:textColor="@android:color/white"
+		            android:textSize="20sp"
+		            android:textStyle="italic" />
+
+		    </LinearLayout>
+		    <!-- Footer Ends -->
 
 
-			<!-- Registration Form -->
+		    <!-- Registration Form -->
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@id/header"
-				android:orientation="vertical"
-				android:padding="10dip" >
+		    <LinearLayout
+		        android:id="@+id/linearLayout1"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@id/header"
+		        android:orientation="vertical"
+		        android:padding="10dip" >
 
-				<!-- Full Name Label -->
+		        <!-- Full Name Label -->
+		        <!-- Email Label -->
+		        <!-- Telefonnummer Label -->
 
-				<EditText
-					android:id="@+id/firstName"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/prompt_firstname_register"
-					android:maxLines="1"
-					android:singleLine="true" />
+		        <!-- Register Button -->
+		        <!-- android:textColor="#025f7c" -->
+		        <!-- Link to Login Screen -->
 
-				<EditText
-					android:id="@+id/lastName"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/prompt_lastname_register"
-					android:maxLines="1"
-					android:singleLine="true" />
+		    </LinearLayout>
+		    <!-- Registration Form Ends -->
 
-				<EditText
-					android:id="@+id/email"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/prompt_email_register"
-					android:inputType="textEmailAddress"
-					android:maxLines="1"
-					android:singleLine="true" />
-				<!-- Email Label -->
+		    <DatePicker
+		        android:id="@+id/birthday"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@+id/footer"
+		        android:layout_alignParentLeft="true"
+		        android:layout_marginBottom="18dp"
+		        android:layout_marginLeft="17dp"
+		        android:calendarViewShown="false"
+		        android:gravity="right" />
 
-				<EditText
-					android:id="@+id/password"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/prompt_password_register"
-					android:inputType="textPassword"
-					android:maxLines="1"
-					android:singleLine="true" />
-				<!-- Telefonnummer Label -->
+		    <TextView
+		        android:id="@+id/show_birthday"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@+id/birthday"
+		        android:layout_centerHorizontal="true"
+		        android:layout_marginBottom="22dp"
+		        android:text="@string/string_birthday"
+		        android:textSize="16dip" />
 
-				<EditText
-					android:id="@+id/phone"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/prompt_phone_register"
-					android:inputType="phone"
-					android:maxLines="1"
-					android:singleLine="true" />
+		    <EditText
+		        android:id="@+id/interests"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@+id/show_birthday"
+		        android:layout_alignParentLeft="true"
+		        android:ems="10"
+		        android:hint="@string/prompt_interests_register"
+		        android:lines="2"
+		        android:maxLines="3"
+		        android:singleLine="true" />
 
-				<EditText
-					android:id="@+id/interests"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/prompt_interests_register"
-					android:lines="2"
-					android:maxLines="3"
-					android:singleLine="true" />
+		    <EditText
+		        android:id="@+id/phone"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_centerHorizontal="true"
+		        android:layout_centerVertical="true"
+		        android:ems="10"
+		        android:hint="@string/prompt_phone_register"
+		        android:inputType="phone"
+		        android:maxLines="1"
+		        android:singleLine="true" >
 
-				<!-- Register Button -->
+		        <requestFocus />
+		    </EditText>
 
-				<TextView
-					android:id="@+id/show_birthday"
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					android:text="@string/string_birthday"
-					android:textSize="16dip" />
-				<!-- android:textColor="#025f7c" -->
+		    <EditText
+		        android:id="@+id/password"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@+id/phone"
+		        android:layout_centerHorizontal="true"
+		        android:ems="10"
+		        android:hint="@string/prompt_password_register"
+		        android:inputType="textPassword"
+		        android:maxLines="1"
+		        android:singleLine="true" />
 
-				<DatePicker
-					android:id="@+id/birthday"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:calendarViewShown="false"
-					android:gravity="right" />
+		    <EditText
+		        android:id="@+id/email"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@+id/password"
+		        android:layout_alignParentLeft="true"
+		        android:ems="10"
+		        android:hint="@string/prompt_email_register"
+		        android:inputType="textEmailAddress"
+		        android:maxLines="1"
+		        android:singleLine="true" />
 
-				<Button
-					android:id="@+id/btnRegister"
-					android:layout_width="fill_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="10dip"
-					android:onClick="attemptRegistration"
-					android:text="@string/string_register"
-					android:textStyle="italic" />
-				<!-- Link to Login Screen -->
+		    <EditText
+		        android:id="@+id/lastName"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@+id/email"
+		        android:layout_centerHorizontal="true"
+		        android:ems="10"
+		        android:hint="@string/prompt_lastname_register"
+		        android:maxLines="1"
+		        android:singleLine="true" />
 
-			</LinearLayout>
-			<!-- Registration Form Ends -->
+		    <EditText
+		        android:id="@+id/firstName"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@+id/lastName"
+		        android:layout_alignParentLeft="true"
+		        android:ems="10"
+		        android:hint="@string/prompt_firstname_register"
+		        android:maxLines="1"
+		        android:singleLine="true" />
 
-			<TextView
-				android:id="@+id/tv_reg_status"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="@string/registry_status" />
+		    <TextView
+		        android:id="@+id/tv_message"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@+id/firstName"
+		        android:layout_alignParentLeft="true"
+		        android:text="@string/broadcast_result" />
 
-			<TextView
-				android:id="@+id/tv_reg_status_result"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="@string/registry_status_result" />
+		    <TextView
+		        android:id="@+id/tv_message_label"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_alignBaseline="@+id/tv_message"
+		        android:layout_alignBottom="@+id/tv_message"
+		        android:layout_alignParentLeft="true"
+		        android:text="@string/broadcast_label" />
 
-			<TextView
-				android:id="@+id/tv_message_label"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="@string/broadcast_label" />
+		    <TextView
+		        android:id="@+id/tv_reg_status"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_above="@+id/firstName"
+		        android:layout_alignParentLeft="true"
+		        android:text="@string/registry_status" />
 
-			<TextView
-				android:id="@+id/tv_message"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="@string/broadcast_result" />
 		</RelativeLayout>
+
 	</ScrollView>
+
+	<ImageView
+	    android:id="@+id/imageView1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="46dp"
+	    android:adjustViewBounds="true"
+	    android:scaleType="centerCrop"
+	    android:src="@drawable/balkenoben" />
 
 </merge>

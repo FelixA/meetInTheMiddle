@@ -5,8 +5,7 @@
 	android:paddingBottom="10dp"
 	android:paddingTop="10dp"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:background="@drawable/background">
+	android:layout_height="fill_parent">
 
     <TableRow
         android:id="@+id/tableRow1"

@@ -2,8 +2,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:shrinkColumns="*"
-    android:stretchColumns="*"
-    android:background="@drawable/background" >
+    android:stretchColumns="*">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/balkenoben" />
 
     <TextView
         android:id="@+id/textView1"

@@ -1,17 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/background" >
-
-    <fragment
-        android:id="@+id/map"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginLeft="35dp"
-        class="com.google.android.gms.maps.MapFragment" />
+    android:layout_height="fill_parent" >
 
     <TextView
         android:id="@+id/textView1"
@@ -38,7 +27,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/Name"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView2"
@@ -54,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/editText1"
         android:layout_alignBottom="@+id/editText1"
-        android:layout_alignLeft="@+id/Name"
+        android:layout_alignLeft="@+id/textView3"
         android:ems="10"
         android:inputType="textPostalAddress"
         android:text="Adresse" >
@@ -97,5 +86,24 @@
         android:ems="10"
         android:inputType="time"
         android:text="Wann los?" />
+
+    <ImageView			android:id="@+id/imageView1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentTop="true"
+			android:adjustViewBounds="true"
+			android:scaleType="centerCrop"
+			android:src="@drawable/balkenoben"/>
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/editText3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="76dp"
+        class="com.google.android.gms.maps.MapFragment" />
 
 </RelativeLayout>
