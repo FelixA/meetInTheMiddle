@@ -32,5 +32,17 @@ public class DisplayMeetingFunctionsActivity extends Activity {
 			}
 			startActivity(intent);
 		}
+		
+		public void meetingHistory(View view) {
+			Intent intent = new Intent(this, DisplayRatingActivity.class);
+//			Bundle extras = getIntent().getExtras();
+//			if (extras != null) {
+//			    Long id = extras.getLong("PersonId");
+//			    System.out.println(id);
+//				intent.putExtra("PersonId", id);
+//			}
+			startActivity(intent);
+		}
+
 
 }

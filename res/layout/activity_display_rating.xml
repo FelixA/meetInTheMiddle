@@ -30,23 +30,6 @@
         android:layout_marginTop="21dp" >
     </TableRow>
 
-    <RatingBar
-        android:id="@+id/RatingBar02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tableLayout1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/RatingBar02"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="24dp"
-        android:text="Diese Seite dient dazu, das Treffen allgemein zu beurteilen. Dabei werden die Location, die Person und das Treffen allgemein betrachtet" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -65,5 +48,29 @@
         android:layout_below="@+id/RatingBar02"
         android:layout_marginTop="32dp"
         android:text="Bestätigen" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tableRow3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="34dp"
+        android:text="Wie fandest du dein Treffen mit" />
+
+    <TextView
+        android:id="@+id/Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tableRow3"
+        android:layout_centerHorizontal="true"
+        android:text="Name Person" />
+
+    <RatingBar
+        android:id="@+id/RatingBar02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableRow3"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
