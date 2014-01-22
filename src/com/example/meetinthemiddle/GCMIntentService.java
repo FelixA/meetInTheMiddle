@@ -58,7 +58,7 @@ public class GCMIntentService extends GCMBaseIntentService {
        
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
-        .setSmallIcon(R.drawable.happy)
+        .setSmallIcon(R.drawable.meetinthemiddle)
         .setContentTitle("Meet In The Middle")
         .setStyle(new NotificationCompat.BigTextStyle()
         .bigText(msg))
