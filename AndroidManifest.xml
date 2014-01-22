@@ -101,6 +101,14 @@
 				android:value="com.example.meetinthemiddle.MainActivity" />
 		</activity>
 		<activity
+			android:name="com.example.meetinthemiddle.DisplayRatingActivity"
+			android:label="@string/title_activity_display_rating"
+			android:parentActivityName="com.example.meetinthemiddle.MainActivity" >
+			<meta-data
+				android:name="android.support.PARENT_ACTIVITY"
+				android:value="com.example.meetinthemiddle.MainActivity" />
+		</activity>
+		<activity
 			android:name="com.example.meetinthemiddle.DisplayProfileActivity"
 			android:label="@string/title_activity_display_profile"
 			android:parentActivityName="com.example.meetinthemiddle.MainActivity" >
