@@ -58,7 +58,7 @@ public class Meeting {
 		this.locationPers2 = locationPers2;
 	}
 	public Meeting() {}
-	@Element
+	@Element(required = false)
 	private Long id;
 	@Element
 	private Long pers1_fk;

@@ -128,15 +128,6 @@ public class DisplayMessagesActivity extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			// einladungenList.setOnItemClickListener(new OnItemClickListener()
-			// {
-			// @Override
-			// public void onItemClick(AdapterView<?> parent, View v,
-			// int position, long id) {
-			// TextView text1 = (TextView) v.findViewById(android.R.id.text1);
-			// TextView text2 = (TextView) v.findViewById(android.R.id.text2);
-			// }
-			// });
 			registerClickCallback();
 		}
 
@@ -197,7 +188,47 @@ public class DisplayMessagesActivity extends Activity {
 					}
 					
 				});
-
+		final ListView einladungenList = (ListView) findViewById(R.id.messagesInvitations_list);
+		einladungenList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent,
+					View viewClicked, int position, long id) {
+				System.out.println("bin in einladungenListListener");
+				String text = einladungenList.getItemAtPosition(position).toString();
+				String[] parts = text.split("=");
+				
+				String[] relevant = parts[2].split(" ");
+				System.out.println(relevant[2]+ relevant[3]);
+				String[] uhrzeit = relevant[5].split(":");
+				System.out.println(uhrzeit[0] + uhrzeit[1]);
+				String minute = uhrzeit[1].substring(0,
+						uhrzeit[1].length() - 1);
+				GetPersonByNameTask getPersonByNameTask= new GetPersonByNameTask();
+				Long pers_id = -1L;
+				try {
+				pers_id = getPersonByNameTask.execute(relevant[2], relevant[3]).get().getId();
+				System.out.println(pers_id);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				GetMeetingByPers1_FK_UhrzeitTask getMeetingByPers1_FK_UhrzeitTask = new GetMeetingByPers1_FK_UhrzeitTask();
+				try {
+					Long meeting_id = getMeetingByPers1_FK_UhrzeitTask.execute(pers_id.toString(), uhrzeit[0] , minute).get().getId();
+					//TODO: INTENT MIT MEETING_ID ZU NEUER ACTIVITY
+					System.out.println(meeting_id);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	public class GetMeetingByPers2_FK_UhrzeitTask extends AsyncTask<String, Void, Meeting> {
 
@@ -213,6 +244,7 @@ public class DisplayMessagesActivity extends Activity {
 		@Override
 		protected Meeting doInBackground(String... params) {
 			Meeting meeting = new Meeting();
+			meeting = meetingDao.findMeetingByPers1_FK_Uhrzeit(params[0],params[1],params[2]);
 			return meeting;
 		}
 	}
