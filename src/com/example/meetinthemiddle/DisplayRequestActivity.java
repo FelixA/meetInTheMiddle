@@ -35,7 +35,6 @@ import android.os.Build;
 
 public class DisplayRequestActivity extends Activity implements
 		OnClickListener, OnMenuItemClickListener {
-	private PopupMenu popupMenuKindOf;
 	private PopupMenu popupMenuKindOfTransportation;
 	private String kindofString;
 	private String kindofTransportationString;
@@ -45,7 +44,6 @@ public class DisplayRequestActivity extends Activity implements
 	TextView time;
 	TextView kindofTransportation;
 	private TextView displayTime;
-	private ImageButton pickTime;
 	private MeetingDao meetingDao;
 	private PersonDao personDao;
 	private Meeting meeting;
@@ -53,6 +51,7 @@ public class DisplayRequestActivity extends Activity implements
 	private int pHour;
 	private int pMinute;
 	private FindMeetingTask findMeetingTask;
+	private FindPersonTask findPersonTask;
 	/**
 	 * This integer will uniquely define the dialog to be used for displaying
 	 * time picker.
@@ -73,12 +72,15 @@ public class DisplayRequestActivity extends Activity implements
 		kindofId = -1L;
 		kindofTransportationId = -1L;
 		findMeetingTask = new FindMeetingTask();
+		findPersonTask = new FindPersonTask();
 		
 		//Meeting ID holen
 		Bundle extras = getIntent().getExtras();
 	    Long id = extras.getLong("MeetingId");
 	    try {
 			meeting = findMeetingTask.execute(id).get();
+			person = findPersonTask.execute(meeting.getPers1_fk()).get();
+
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
@@ -87,13 +89,12 @@ public class DisplayRequestActivity extends Activity implements
 	    
 		kindof = (TextView) findViewById(R.id.request_kindOf_View);
 		kindofTransportation = (TextView) findViewById(R.id.request_kindOfTransportation_View);
-		/** Capture our View elements */
 		displayTime = (TextView) findViewById(R.id.request_time_view);
 		TextView contact = (TextView) findViewById(R.id.request_profile_View);
+		contact.setText(person.getFirstName());
 		
 		displayTime.setText(meeting.getUhrzeit().toString());
 		kindof.setText(meeting.getLokalitaet_fk().toString());
-		person = personDao.findPersonById(meeting.getPers1_fk());
 		contact.setText(person.getFirstName() + " " + person.getLastName());
 		/** Get the current time */
 		final Calendar cal = Calendar.getInstance(new Locale("CET"));
@@ -124,11 +125,6 @@ public class DisplayRequestActivity extends Activity implements
 
 	@SuppressLint("NewApi")
 	private void createPopups() {
-//		popupMenuKindOf = new PopupMenu(this,
-//				findViewById(R.id.meetings_kindOf_button));
-//		popupMenuKindOf.inflate(R.layout.menu_kindof);
-//		popupMenuKindOf.setOnMenuItemClickListener(this);
-
 		popupMenuKindOfTransportation = new PopupMenu(this,
 				findViewById(R.id.request_kindOfTransportation_button));
 		popupMenuKindOfTransportation
@@ -195,8 +191,8 @@ public class DisplayRequestActivity extends Activity implements
 
 		@Override
 		protected Meeting doInBackground(Long... id) {
-			meeting = meetingDao.findMeetingById(id[0]);	    
-
+			Meeting meeting = new Meeting();
+			meeting = meetingDao.findMeetingById(id[0]);
 			return meeting;
 		}
 		
@@ -209,6 +205,16 @@ public class DisplayRequestActivity extends Activity implements
 			meetingDao.update(id, 5, "abc", 234L, + pHour + ":" + pMinute + " Uhr mit dir treffen");
 			return null;
 		}
+	}
+	private class FindPersonTask extends AsyncTask<Long, Void, Person> {
+
+		@Override
+		protected Person doInBackground(Long... params) {
+			Person person = new Person();
+			person = personDao.findPersonById(params[0]);
+			return person;
+		}
+		
 	}
 
 	public void sendInvitation(View view) throws ParseException {
