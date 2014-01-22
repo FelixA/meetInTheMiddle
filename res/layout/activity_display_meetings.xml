@@ -30,6 +30,7 @@
 		android:layout_marginLeft="40dp"
 		android:layout_marginTop="31dp"
 		android:background="@null"
+		android:onClick="displayContacts"
 		android:scaleType="fitCenter"
 		android:src="@drawable/logo_freunde_hinzufuegen" />
 
@@ -95,6 +96,7 @@
 		android:layout_alignParentRight="true"
 		android:adjustViewBounds="true"
 		android:cropToPadding="true"
+		android:onClick="sendInvitation"
 		android:paddingBottom="0dp"
 		android:paddingLeft="0dp"
 		android:paddingRight="0dp"
