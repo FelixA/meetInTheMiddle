@@ -6,7 +6,7 @@
     <fragment
         android:id="@+id/map"
         android:layout_width="250dp"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="24dp"
@@ -21,9 +21,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="55dp"
         android:layout_marginTop="18dp"
-        android:text="Detaills Meeting"
+        android:text="Details Meeting"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    
+    
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
