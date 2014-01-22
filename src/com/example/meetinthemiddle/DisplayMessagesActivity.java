@@ -207,10 +207,8 @@ public class DisplayMessagesActivity extends Activity {
 				pers_id = getPersonByNameTask.execute(relevant[2], relevant[3]).get().getId();
 				System.out.println(pers_id);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				GetMeetingByPers1_FK_UhrzeitTask getMeetingByPers1_FK_UhrzeitTask = new GetMeetingByPers1_FK_UhrzeitTask();
@@ -221,10 +219,8 @@ public class DisplayMessagesActivity extends Activity {
 					startActivity(intent);
 					System.out.println(meeting_id);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

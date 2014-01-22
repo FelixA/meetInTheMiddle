@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import com.example.meetinthemiddle.meetingverwaltung.dao.MeetingDao;
 import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
@@ -51,6 +52,7 @@ public class DisplayRequestActivity extends Activity implements
 	private Person person;
 	private int pHour;
 	private int pMinute;
+	private FindMeetingTask findMeetingTask;
 	/**
 	 * This integer will uniquely define the dialog to be used for displaying
 	 * time picker.
@@ -70,18 +72,24 @@ public class DisplayRequestActivity extends Activity implements
 		kindofTransportationString = "";
 		kindofId = -1L;
 		kindofTransportationId = -1L;
+		findMeetingTask = new FindMeetingTask();
 		
 		//Meeting ID holen
 		Bundle extras = getIntent().getExtras();
 	    Long id = extras.getLong("MeetingId");
-		meeting = meetingDao.findMeetingById(id);	    
+	    try {
+			meeting = findMeetingTask.execute(id).get();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
 	    
-		kindof = (TextView) findViewById(R.id.meetings_kindOf_View);
-		kindofTransportation = (TextView) findViewById(R.id.meetings_kindOfTransportation_View);
+		kindof = (TextView) findViewById(R.id.request_kindOf_View);
+		kindofTransportation = (TextView) findViewById(R.id.request_kindOfTransportation_View);
 		/** Capture our View elements */
-		displayTime = (TextView) findViewById(R.id.meetings_time_view);
-		pickTime = (ImageButton) findViewById(R.id.meetings_time_button);
-		TextView contact = (TextView) findViewById(R.id.meetings_profile_View);
+		displayTime = (TextView) findViewById(R.id.request_time_view);
+		TextView contact = (TextView) findViewById(R.id.request_profile_View);
 		
 		displayTime.setText(meeting.getUhrzeit().toString());
 		kindof.setText(meeting.getLokalitaet_fk().toString());
@@ -97,7 +105,7 @@ public class DisplayRequestActivity extends Activity implements
 
 		createPopups();
 
-		findViewById(R.id.meetings_kindOfTransportation_button).setOnClickListener(this);
+		findViewById(R.id.request_kindOfTransportation_button).setOnClickListener(this);
 	}
 
 	/** Updates the time in the TextView */
@@ -116,13 +124,13 @@ public class DisplayRequestActivity extends Activity implements
 
 	@SuppressLint("NewApi")
 	private void createPopups() {
-		popupMenuKindOf = new PopupMenu(this,
-				findViewById(R.id.meetings_kindOf_button));
-		popupMenuKindOf.inflate(R.layout.menu_kindof);
-		popupMenuKindOf.setOnMenuItemClickListener(this);
+//		popupMenuKindOf = new PopupMenu(this,
+//				findViewById(R.id.meetings_kindOf_button));
+//		popupMenuKindOf.inflate(R.layout.menu_kindof);
+//		popupMenuKindOf.setOnMenuItemClickListener(this);
 
 		popupMenuKindOfTransportation = new PopupMenu(this,
-				findViewById(R.id.meetings_kindOfTransportation_button));
+				findViewById(R.id.request_kindOfTransportation_button));
 		popupMenuKindOfTransportation
 				.inflate(R.layout.menu_kindoftransportation);
 		popupMenuKindOfTransportation.setOnMenuItemClickListener(this);
@@ -183,9 +191,17 @@ public class DisplayRequestActivity extends Activity implements
 		return super.onOptionsItemSelected(item);
 	}
 
-	private class CreateMeetingTask extends AsyncTask<Void, Void, Void> {
+	private class FindMeetingTask extends AsyncTask<Long,Void,Meeting>{
 
-		@SuppressWarnings("deprecation")
+		@Override
+		protected Meeting doInBackground(Long... id) {
+			meeting = meetingDao.findMeetingById(id[0]);	    
+
+			return meeting;
+		}
+		
+	}
+	private class CreateMeetingTask extends AsyncTask<Void, Void, Void> {
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			Bundle extras = getIntent().getExtras();

@@ -58,7 +58,6 @@ import com.google.android.gcm.GCMRegistrar;
  *
  */
 public class MainActivity extends Activity {
-	//TODO: Treffen = 0 error
 	@SuppressWarnings("unused")
 	private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -81,7 +80,6 @@ public class MainActivity extends Activity {
 	private ShowPlaceTask showPlaceTask = null;
 	private ShowLocationTask showLocationTask = null;
 	private UiLifecycleHelper uiHelper;
-//	private MyListTask myListTask;
 	
 
     
@@ -407,7 +405,6 @@ public class MainActivity extends Activity {
 //
 //		@Override
 //		protected List<String> doInBackground(List<String>... arg0) {
-//			// TODO Auto-generated method stub
 //			return mylist;
 //		}
 //		 @Override
