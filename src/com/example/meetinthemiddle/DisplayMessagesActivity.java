@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class DisplayMessagesActivity extends Activity {
@@ -167,10 +168,9 @@ public class DisplayMessagesActivity extends Activity {
 						pers_id = getPersonByNameTask.execute(relevant[2], relevant[3]).get().getId();
 						System.out.println(pers_id);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
+						
 							e.printStackTrace();
 						} catch (ExecutionException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						GetMeetingByPers2_FK_UhrzeitTask getMeetingByPers2_FK_UhrzeitTask = new GetMeetingByPers2_FK_UhrzeitTask();
@@ -179,10 +179,8 @@ public class DisplayMessagesActivity extends Activity {
 							//TODO: INTENT MIT MEETING_ID ZU NEUER ACTIVITY
 							System.out.println(meeting_id);
 						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (ExecutionException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}
@@ -218,7 +216,9 @@ public class DisplayMessagesActivity extends Activity {
 				GetMeetingByPers1_FK_UhrzeitTask getMeetingByPers1_FK_UhrzeitTask = new GetMeetingByPers1_FK_UhrzeitTask();
 				try {
 					Long meeting_id = getMeetingByPers1_FK_UhrzeitTask.execute(pers_id.toString(), uhrzeit[0] , minute).get().getId();
-					//TODO: INTENT MIT MEETING_ID ZU REQUESTACTIVITY
+					Intent intent = new Intent(DisplayMessagesActivity.this, DisplayRequestActivity.class);
+					intent.putExtra("MeetingId", meeting_id);
+					startActivity(intent);
 					System.out.println(meeting_id);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
