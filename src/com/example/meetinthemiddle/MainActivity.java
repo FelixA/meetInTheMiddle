@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} catch(Exception e){}
 //		myListTask = new MyListTask();
 		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 

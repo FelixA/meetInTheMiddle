@@ -109,7 +109,7 @@ public class DisplayMessagesActivity extends Activity {
 			}
 		} catch (Exception e) {
 		}
-
+try{
 		for (int i = 0; i < meetingAnfragen.size(); i++) {
 			Map<String, String> personName = new HashMap<String, String>(2);
 			Person person = new Person();
@@ -128,9 +128,9 @@ public class DisplayMessagesActivity extends Activity {
 			} catch (ExecutionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			} catch (Exception e){}
 			registerClickCallback();
-		}
+		}}catch(Exception e){}
 
 		anfragenAdapter = new SimpleAdapter(DisplayMessagesActivity.this,
 				anfragenListe, android.R.layout.two_line_list_item,
