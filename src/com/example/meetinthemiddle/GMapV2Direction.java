@@ -31,37 +31,30 @@ public GMapV2Direction() {
 
 public Document getDocument(LatLng start, LatLng end, String mode) {
 	String url = "";
-	System.out.println("" + mode);
 	if (mode == "driving" || mode == "walking")
 	{
-		Log.i("GMapDirection 1a", ""+mode + ": "+start+","+end+ "url: ");
 		url = "http://maps.googleapis.com/maps/api/directions/xml?"
             + "origin=" + start.latitude + "," + start.longitude
             + "&destination=" + end.latitude + "," + end.longitude
             + "&sensor=false&units=metric&mode="+mode;
-		Log.i("GMapDirection 1b", ""+mode + ": "+start+","+end+ "url: ");
 	}
 	else if (mode == "MODE_DRIVING" || mode == "MODE_WALKING")
 	{
-		Log.i("GMapDirection 1a", ""+mode + ": "+start+","+end+ "url: ");
 		url = "http://maps.googleapis.com/maps/api/directions/xml?"
             + "origin=" + start.latitude + "," + start.longitude
             + "&destination=" + end.latitude + "," + end.longitude
             + "&sensor=false&units=metric&mode="+mode;
-		Log.i("GMapDirection 1b", ""+mode + ": "+start+","+end+ "url: ");
 	}
 	else if (mode == "transit")
 	{
 		//1390046044492 -- Should: 1343605500
 		long timeInMillis = System.currentTimeMillis();
-		Log.i("GMapDirection 2", ""+mode+ ": "+timeInMillis);
 		//Works: http://maps.googleapis.com/maps/api/directions/json?origin=49.01642889,8.38976915&destination=49.142696,9.212487&sensor=false&arrival_time=2321&mode=transit
 		Log.i("Argumente: ", ""+start + " : " + end + " : " + mode);
 		url = "http://maps.googleapis.com/maps/api/directions/xml?"
 	            + "origin=" + start.latitude + "," + start.longitude
 	            + "&destination=" + end.latitude + "," + end.longitude
 	            + "&sensor=false&arrival_time=1390046044&mode="+mode;
-		Log.i("GMapDirection 2: URL", ""+url);
 	}
 	else if (mode == "MODE_TRANSIT")
 	{
@@ -163,17 +156,6 @@ public String getDistanceText(Document doc) {
     } catch (Exception e) {
         return "-1";
     }
-
-    /*
-     * NodeList nl1; if(doc.getElementsByTagName("distance")!=null){ nl1=
-     * doc.getElementsByTagName("distance");
-     * 
-     * Node node1 = nl1.item(nl1.getLength() - 1); NodeList nl2 = null; if
-     * (node1.getChildNodes() != null) { nl2 = node1.getChildNodes(); Node
-     * node2 = nl2.item(getNodeIndex(nl2, "value")); Log.d("DistanceText",
-     * node2.getTextContent()); return node2.getTextContent(); } else return
-     * "-1";} else return "-1";
-     */
 }
 
 public int getDistanceValue(Document doc) {
@@ -188,14 +170,7 @@ public int getDistanceValue(Document doc) {
     } catch (Exception e) {
         return -1;
     }
-    /*
-     * NodeList nl1 = doc.getElementsByTagName("distance"); Node node1 =
-     * null; if (nl1.getLength() > 0) node1 = nl1.item(nl1.getLength() - 1);
-     * if (node1 != null) { NodeList nl2 = node1.getChildNodes(); Node node2
-     * = nl2.item(getNodeIndex(nl2, "value")); Log.i("DistanceValue",
-     * node2.getTextContent()); return
-     * Integer.parseInt(node2.getTextContent()); } else return 0;
-     */
+
 }
 
 public String getStartAddress(Document doc) {
