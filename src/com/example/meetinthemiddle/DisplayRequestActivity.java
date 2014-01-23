@@ -180,12 +180,12 @@ public class DisplayRequestActivity extends Activity implements
 		}
 	}
 	
-	public void sendBestaetigung(View view){
+	public void sendBestaetigung(View view) throws InterruptedException, ExecutionException{
 		UpdateMeetingTask updateMeetingTask = new UpdateMeetingTask();
 		updateMeetingTask.execute();
 		//TODO: ROUTENFUEHRUNG STARTEN
 		// Benötige Positionsdaten von Person 1, bereits ausgelesen?
-		
+		locationPers1 = new FindLocation1IDTask().execute().get();
 		
 		Intent rating = new Intent(DisplayRequestActivity.this, DisplayRatingActivity.class);
 		Bundle extras = getIntent().getExtras();
@@ -287,14 +287,16 @@ public class DisplayRequestActivity extends Activity implements
 
 	}
 	
-	private class findLocation1IDTask extends AsyncTask<Void, Void, String>
+	private class FindLocation1IDTask extends AsyncTask<Void, Void, String>
 	//TODO - getLocation from Pers1, als Variable kannst du die public String locationPers1 verwenden, die ist bereits oben definiert
 	{
 
 		@Override
 		protected String doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-			return null;
+			Bundle extras = getIntent().getExtras();
+			Long id = extras.getLong("MeetingId");
+			Meeting meeting = meetingDao.findMeetingById(id);
+					return meeting.getLocationPers1();
 		}
 		
 	}

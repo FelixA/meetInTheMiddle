@@ -32,7 +32,7 @@ public class DisplayRatingActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_rating);
-		ShowMeetingTask showMeetingTask = new ShowMeetingTask();
+		ShowMeetingAndUpdateTask showMeetingAndCreateTask = new ShowMeetingAndUpdateTask();
 		meetingDao = new MeetingDao(this);
 		personDao = new PersonDao(this);
 		locationDao = new LocationDao(this);
@@ -47,7 +47,7 @@ public class DisplayRatingActivity extends Activity {
 	}
 
 	public void acceptAndShare(View view) throws InterruptedException, ExecutionException {
-		ShowMeetingTask showMeetingTask = new ShowMeetingTask();
+		ShowMeetingAndUpdateTask showMeetingTask = new ShowMeetingAndUpdateTask();
 		String textToShare = showMeetingTask.execute().get();
 		Intent share = new Intent(Intent.ACTION_SEND);
 		share.setType("text/plain");
@@ -95,7 +95,7 @@ public class DisplayRatingActivity extends Activity {
 
 	}
 
-	private class ShowMeetingTask extends AsyncTask<String, Void, String> {
+	private class ShowMeetingAndUpdateTask extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
@@ -104,7 +104,8 @@ public class DisplayRatingActivity extends Activity {
 			System.out.println(id);
 			Meeting meeting = meetingDao.findMeetingById(id);
 			Person p = personDao.findPersonById(meeting.getPers2_fk());
-			
+			meeting.setBewertung(ratingInt);
+			meetingDao.update(meeting.getId(), meeting.getBewertung(), meeting.getKommentar(), "nicht zum gcm", meeting.getVerkehrsmittel_pers2_fk(), meeting.getLocationPers2());
 			return "war mit " + p.getFirstName() + " in " + locationDao.findLocationById(meeting.getLokalitaet_fk()).getBeschreibung() + " und gibt dafür " + ratingInt;
 		}
 	}
