@@ -1,6 +1,9 @@
 package com.example.meetinthemiddle;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -91,6 +94,20 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		System.out.println("OnCreate in DisplayMap.java");
 	      super.onCreate(savedInstanceState);
 	      setContentView(R.layout.activity_display_routingmap);
+	      
+	      /*
+	       * Übergebene Parameter aus DisplayRequestActivity
+	       */			
+
+			Bundle extras = getIntent().getExtras();
+			String locationPers1 = extras.getString("PositionPerson1");
+			String locationPers2 = extras.getString("PositionPerson2");
+			long modePers1 = extras.getLong("ModusPerson1");
+			long modePers2 = extras.getLong("ModusPerson2");
+			long lokalitaet = extras.getLong("lokalitaet");
+			String uhrzeit = extras.getString("Uhrzeit");
+			Log.e("DisplayMap/Übergabeparameter: ", ""+locationPers1+", "+locationPers2+", "+modePers1+", "+modePers2+", "+lokalitaet+", "+uhrzeit);
+			
 		    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		    loadActivity();

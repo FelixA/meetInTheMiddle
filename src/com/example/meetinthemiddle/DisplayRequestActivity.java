@@ -202,7 +202,8 @@ public class DisplayRequestActivity extends Activity implements
 		intentRouting.putExtra("ModusPers1", modePers1);
 		intentRouting.putExtra("ModusPers2", modePers2);
 		intentRouting.putExtra("lokalitaet", lokalitaet);
-		intentRouting.putExtra("Uhrzeit", uhrzeit);
+		String date = String.valueOf(uhrzeit);
+		intentRouting.putExtra("Uhrzeit", date);
 		startActivity(intentRouting);
 		
 		Intent rating = new Intent(DisplayRequestActivity.this, DisplayRatingActivity.class);
