@@ -111,6 +111,10 @@ public class DisplayMessagesActivity extends Activity {
 		}
 try{
 		for (int i = 0; i < meetingAnfragen.size(); i++) {
+			//TODO: WAS IS LOS???
+			//INtent map
+			//inten rating
+			System.out.println(meetingAnfragen.get(i).getLocationPers2());
 			if(meetingAnfragen.get(i).getLocationPers2()!= "HIER BITTE LOCATION_PERS2"){
 				Map<String, String> personName = new HashMap<String, String>(2);
 				Person person = new Person();
