@@ -183,8 +183,15 @@ try{
 						GetMeetingByPers2_FK_UhrzeitTask getMeetingByPers2_FK_UhrzeitTask = new GetMeetingByPers2_FK_UhrzeitTask();
 						try {
 							Meeting meeting_arne = getMeetingByPers2_FK_UhrzeitTask.execute(pers_id.toString(), uhrzeit[0] , minute).get();
-							//TODO: (ARNE) INTENT MIT MEETING_ID ZU NEUER ACTIVITY du kannst das meeting eine zeile drüber benutzen
-						} catch (InterruptedException e) {
+							Intent intentRouting = new Intent(DisplayMessagesActivity.this, DisplayMap.class);
+							intentRouting.putExtra("PositionPerson1", meeting_arne.getLocationPers1());
+							intentRouting.putExtra("PositionPerson2", meeting_arne.getLocationPers2());
+							intentRouting.putExtra("ModusPers1", meeting_arne.getVerkehrsmittel_pers1_fk());
+							intentRouting.putExtra("ModusPers2", meeting_arne.getVerkehrsmittel_pers2_fk());
+							intentRouting.putExtra("lokalitaet", meeting_arne.getLokalitaet_fk());
+							String date = String.valueOf(uhrzeit);
+							intentRouting.putExtra("Uhrzeit", date);
+							startActivity(intentRouting);						} catch (InterruptedException e) {
 							e.printStackTrace();
 						} catch (ExecutionException e) {
 							e.printStackTrace();
