@@ -173,6 +173,11 @@ public class DisplayRequestActivity extends Activity implements
 		UpdateMeetingTask updateMeetingTask = new UpdateMeetingTask();
 		updateMeetingTask.execute();
 		//TODO: ROUTENFUEHRUNG STARTEN
+		Intent rating = new Intent(DisplayRequestActivity.this, DisplayRatingActivity.class);
+		Bundle extras = getIntent().getExtras();
+		Long id = extras.getLong("MeetingId");
+		rating.putExtra("MeetingId", id);
+		startActivity(rating);
 	}
 
 	@Override
@@ -240,11 +245,6 @@ public class DisplayRequestActivity extends Activity implements
 			return locationDao.findLocationById(params[0]);
 		}
 
-	}
-
-	public void sendInvitation(View view) throws ParseException {
-		UpdateMeetingTask createMeetingTask = new UpdateMeetingTask();
-		createMeetingTask.execute();
 	}
 
 }

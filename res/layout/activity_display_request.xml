@@ -107,7 +107,7 @@
 		android:layout_alignParentRight="true"
 		android:background="#29235C"
 		android:gravity="center"
-		android:onClick="sendInvitation"
+		android:onClick="sendBestaetigung"
 		android:paddingLeft="32dp"
 		android:paddingRight="32dp"
 		android:text="Bestätigen"

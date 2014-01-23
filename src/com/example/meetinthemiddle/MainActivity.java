@@ -11,8 +11,11 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.RingtoneManager;
@@ -27,10 +30,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.meetinthemiddle.DisplayMessagesActivity.ShowLocationTask;
+import com.example.meetinthemiddle.DisplayMessagesActivity.ShowPersonFirstNameTask;
 import com.example.meetinthemiddle.locationverwaltung.dao.LocationDao;
 import com.example.meetinthemiddle.locationverwaltung.domain.Location;
 import com.example.meetinthemiddle.meetingverwaltung.dao.MeetingDao;
@@ -73,12 +79,10 @@ public class MainActivity extends Activity {
 	PersonDao personDao;
 	PlaceDao placeDao;
 	LocationDao locationDao;
+	ListView treffenListe;
+	ProgressDialog dialog;
+
 	
-	private ShowMeetingsTask showMeetingsTask = null;
-	private ShowFirstPersonTask showFirstPersonTask = null;
-	private ShowSecondPersonTask showSecondPersonTask = null;
-	private ShowPlaceTask showPlaceTask = null;
-	private ShowLocationTask showLocationTask = null;
 	private UiLifecycleHelper uiHelper;
 	
 
@@ -116,44 +120,16 @@ public class MainActivity extends Activity {
 		personDao = new PersonDao(this);
 		placeDao = new PlaceDao(this);
 		locationDao = new LocationDao(this);
+		treffenListe = (ListView) findViewById(R.id.pastMeetingsView);
 		
 		
 		
-		showMeetingsTask = new ShowMeetingsTask();
-		try {
-			meetings = showMeetingsTask.execute((Void) null).get();
-			for(int i = 0; i<meetings.size();++i){
-				showFirstPersonTask = new ShowFirstPersonTask();
-				firstPersons.add(showFirstPersonTask.execute(meetings.get(i).getPers1_fk()).get().getFirstName());
-				showSecondPersonTask = new ShowSecondPersonTask();
-				secondPersons.add(showSecondPersonTask.execute(meetings.get(i).getPers2_fk()).get().getFirstName());
-				showPlaceTask = new ShowPlaceTask();
-				places.add(showPlaceTask.execute(meetings.get(i).getOrt_fk()).get().getStadtname());
-				showLocationTask = new ShowLocationTask();
-				locations.add(showLocationTask.execute(meetings.get(i).getLokalitaet_fk()).get().getBeschreibung());
-			}
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch(Exception e){}
-//		myListTask = new MyListTask();
-		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
+		List<Map<String, String>> treffenList = new ArrayList<Map<String, String>>();
 
-//		myListTask.execute(firstPersons, secondPersons, places, locations);
-//		populateListView();
-
-	     SimpleAdapter adapter = new SimpleAdapter(this, data,android.R.layout.list_content, null, null);
-
+		MyListTask myListTask = new MyListTask(this);
+		myListTask.execute();
 	}
 
-//	private void populateListView() {
-//		ArrayAdapter<Meeting> adapter = new MyListAdapter();
-//		ListView list = (ListView) findViewById(R.id.pastMeetingsView);
-//		list.setAdapter(adapter);
-//	}
 	
 	
 	@Override
@@ -364,56 +340,77 @@ public class MainActivity extends Activity {
 			// return false;
 		}
 	}
-	public class ShowFirstPersonTask extends AsyncTask<Long, Void, Person>{
-		@Override
-		protected Person doInBackground(Long... firstPersonId) {
-			person = new Person();
-			person = personDao.findPersonById(firstPersonId[0]);
-			return person;
-		}
-	}
-	public class ShowSecondPersonTask extends AsyncTask<Long, Void, Person>{
-		@Override
-		protected Person doInBackground(Long... secondPersonId) {
-			person = new Person();
-			person = personDao.findPersonById(secondPersonId[0]);
-			return person;
-		}
-	}
-	
-	public class ShowPlaceTask extends AsyncTask<Long, Void, Place>{
-		@Override
-		protected Place doInBackground(Long... placeId) {
-			place = new Place();
-			place = placeDao.findPlaceById(placeId[0]);
-			return place;
-		}
-	}
-	
-	public class ShowLocationTask extends AsyncTask<Long, Void, Location>{
 
+	
+	
+	
+	public class MyListTask extends AsyncTask<String, Integer, List<Map<String,String>>>{
+		ArrayList<Map<String, String>> mylist = new ArrayList<Map<String, String>>();
+	    ProgressBar progress;
+
+		    Context context;
+		    public MyListTask(Context c) {
+		        context = c;
+		    }
+		    @ Override
+		    protected void onPreExecute ( ) {
+	            progress=(ProgressBar)findViewById(R.id.progressbar_loading);
+
+		       progress.setVisibility(View.VISIBLE);
+		        //.progress.setvisibility(View.Visible);
+
+//		        dialog = ProgressDialog.show (context, "Loading", "Wait", true);
+//		        dialog.setOnCancelListener(new OnCancelListener() {
+//
+//		            @Override
+//		            public void onCancel(DialogInterface dialog) {
+//		                finish();
+//		            }
+//		        });
+		    }
 		@Override
-		protected Location doInBackground(Long... locationId) {
-			location = new Location();
-			location = locationDao.findLocationById(locationId[0]);
-			return location;
+		protected List<Map<String, String>> doInBackground(String... params)  {
+			System.out.println("hallo");
+			meetings = meetingDao.selectAll();
+
+			try{
+				for (int i = 0; i < meetings.size(); i++) {
+					System.out.println(meetings.size());
+					Map<String, String> treffen = new HashMap<String, String>(2);
+					Person person = new Person();
+
+					Person person1 = personDao.findPersonById(meetings.get(i).getPers1_fk());
+					Location location = locationDao.findLocationById(meetings.get(i).getLokalitaet_fk());
+//					showSecondPersonTask = new ShowSecondPersonTask();
+//					showLocationTask = new ShowLocationTask();
+					System.out.println(person1);
+					Person person2 = personDao.findPersonById(meetings.get(i).getPers2_fk());
+					treffen.put("zeile1", person1.getFirstName() + " war mit " + person2.getFirstName() + " unterwegs!");
+					treffen.put("zeile2","in folgender Lokalitaet: "+ location.getBeschreibung() +" und hat sie mit " + meetings.get(i).getBewertung() + " Sternen bewertet");
+					mylist.add(treffen);
+				}
+			}catch(Exception e){}
+			return mylist;			
+		}
+		 @Override
+		    protected void onPostExecute(List<Map<String, String>> treffenList) {
+//			 if(dialog.isShowing()){
+//				 dialog.dismiss();
+//		    }
+//			 ProgressBar pb = (ProgressBar)findViewById(R.id.progressbar_loading);
+	            progress.setVisibility(View.GONE);  
+			 System.out.println("postpost");
+			 if(treffenList.size()==0){
+			 }else{
+			  SimpleAdapter adapter = new SimpleAdapter(MainActivity.this,
+						treffenList, android.R.layout.two_line_list_item,
+						new String[] { "zeile1", "zeile2" }, new int[] {
+								android.R.id.text1, android.R.id.text2 });
+				treffenListe.setAdapter(adapter);
+			 }
 		}
 		
+		    
+		
 	}
-//	public class MyListTask extends AsyncTask<List<String>, Integer, List<String>>{
-//		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
-//
-//		@Override
-//		protected List<String> doInBackground(List<String>... arg0) {
-//			return mylist;
-//		}
-//		 @Override
-//		    protected void onPostExecute(List<String> result) {
-//			 ArrayAdapter<Meeting> adapter = new MyListAdapter();
-//				ListView list = (ListView) findViewById(R.id.pastMeetingsView);
-//				list.setAdapter(adapter);
-//		        list.setTextFilterEnabled(true);
-//		    }
-//		
-//	}
 }
