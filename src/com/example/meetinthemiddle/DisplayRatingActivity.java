@@ -37,7 +37,7 @@ public class DisplayRatingActivity extends Activity {
 		personDao = new PersonDao(this);
 		locationDao = new LocationDao(this);
 		addListenerOnRatingBar();
-		addListenerOnButton();
+//		addListenerOnButton();
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -46,6 +46,10 @@ public class DisplayRatingActivity extends Activity {
 		}
 	}
 
+	public void accept(View view) throws InterruptedException, ExecutionException {
+		ShowMeetingAndUpdateTask showMeetingTask = new ShowMeetingAndUpdateTask();
+		finish();
+	}
 	public void acceptAndShare(View view) throws InterruptedException, ExecutionException {
 		ShowMeetingAndUpdateTask showMeetingTask = new ShowMeetingAndUpdateTask();
 		String textToShare = showMeetingTask.execute().get();
@@ -55,6 +59,7 @@ public class DisplayRatingActivity extends Activity {
 
 		startActivity(Intent.createChooser(share,
 				"Title of the dialog the system will open"));
+		finish();
 	}
 
 	public void addListenerOnRatingBar() {
@@ -74,26 +79,26 @@ public class DisplayRatingActivity extends Activity {
 		});
 	}
 
-	public void addListenerOnButton() {
-
-		ratingBar = (RatingBar) findViewById(R.id.RatingBar02);
-		button = (Button) findViewById(R.id.button);
-
-		// if click on me, then display the current rating value.
-		button.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				Toast.makeText(DisplayRatingActivity.this,
-						String.valueOf(ratingBar.getRating()),
-						Toast.LENGTH_SHORT).show();
-				// In DB Schreiben
-			}
-
-		});
-
-	}
+//	public void addListenerOnButton() {
+//
+//		ratingBar = (RatingBar) findViewById(R.id.RatingBar02);
+//		button = (Button) findViewById(R.id.button);
+//
+//		// if click on me, then display the current rating value.
+//		button.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//
+//				Toast.makeText(DisplayRatingActivity.this,
+//						String.valueOf(ratingBar.getRating()),
+//						Toast.LENGTH_SHORT).show();
+//				// In DB Schreiben
+//			}
+//
+//		});
+//
+//	}
 
 	private class ShowMeetingAndUpdateTask extends AsyncTask<String, Void, String> {
 
@@ -103,10 +108,10 @@ public class DisplayRatingActivity extends Activity {
 			Long id = extras.getLong("MeetingId");
 			System.out.println(id);
 			Meeting meeting = meetingDao.findMeetingById(id);
-			Person p = personDao.findPersonById(meeting.getPers2_fk());
+			Person p = personDao.findPersonById(meeting.getPers1_fk());
 			meeting.setBewertung(ratingInt);
-			meetingDao.update(meeting.getId(), meeting.getBewertung(), meeting.getKommentar(), "nicht zum gcm", meeting.getVerkehrsmittel_pers2_fk(), meeting.getLocationPers2());
-			return "war mit " + p.getFirstName() + " in " + locationDao.findLocationById(meeting.getLokalitaet_fk()).getBeschreibung() + " und gibt dafür " + ratingInt;
+			meetingDao.update(meeting.getId(), meeting.getBewertung(), meeting.getKommentar(), "nicht zum gcm", meeting.getVerkehrsmittel_pers1_fk(), meeting.getLocationPers2());
+			return "war mit " + p.getFirstName() + " in " + locationDao.findLocationById(meeting.getLokalitaet_fk()).getBeschreibung() + " und gibt dafür " + ratingInt +" Sterne";
 		}
 	}
 }
