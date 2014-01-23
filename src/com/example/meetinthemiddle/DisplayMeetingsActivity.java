@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
+
 import android.app.AlertDialog;
 
 
@@ -317,40 +319,44 @@ public class DisplayMeetingsActivity extends Activity implements
 			date.setMinutes(pMinute);
 			System.out.println(extras.getLong("PersonId") + " "
 					+ contact.getId() + " " + date);
+			System.out.println("CreateMeetingTask: vor dem holen der Location");
 			try {
 				// TODO: Location pers1
-				
+				System.out.println("DisplayMeetingsActivity: Fehlerquelle 0");
 				//Lokation Pers1 ermitteln, unten in String einfügen, String-Format
 				try
 				{
+					System.out.println("DisplayMeetingsActivity: Fehlerquelle1");
 					locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 				    Criteria criteria = new Criteria();
 				    provider = locationManager.getBestProvider(criteria, false);
 				    Location location = locationManager.getLastKnownLocation(provider);
-				    
+				    System.out.println("DisplayMeetingsActivity: Fehlerquelle2");
 				    if (location != null) {
-					      System.out.println("Provider " + provider + " has been selected.");
-					      System.out.println("location: "+location);
-							double lat = location.getLatitude();
-							double lng = location.getLongitude();
-							System.out.println("lat/lng: "+lat+"/"+lng);
-							locationStr = String.valueOf(lat)+","+String.valueOf(lng);
-							Log.e("Location is: ", ""+locationStr);
+					    System.out.println("Provider " + provider + " has been selected.");
+					    System.out.println("location: "+location);
+						double lat = location.getLatitude();
+						double lng = location.getLongitude();
+						System.out.println("lat/lng: "+lat+"/"+lng);
+						locationStr = String.valueOf(lat)+","+String.valueOf(lng);
+						Log.i("DisplayMeetingsActivity", ""+locationStr);
+						System.out.println("DisplayMeetingsActivity: Fehlerquelle3");
 				    }
 				    else
 				    {
 				    	System.out.println("Location = null: "+location);
-				    	Log.e("locationManager", "getPosition failed");
+				    	Log.e("locationManager", "getPosition failed, setzen einer default-Adresse");
 				    	locationStr = "49.016200 , 8.390272";
+				    	System.out.println("DisplayMeetingsActivity: Fehlerquelle 4");
 				    }
 				}
 				catch(Exception e)
 				{
-					Log.e("Error in Positionsermittlung", "DisplayMeetingsActivity");
+					Log.e("DisplayMeetingsActivity", "Fehlerquelle 5");
 				}
 				
 				
-				
+				System.out.println("DisplayMeetingsActivity: Fehlerquelle 6");
 				meetingDao.create(extras.getLong("PersonId"), contact.getId(),
 						date, kindofId, 15L, -1, kindofTransportationId,
 						"BLubberBlubb", kindofTransportationId,
@@ -379,26 +385,18 @@ public class DisplayMeetingsActivity extends Activity implements
 			}
 		}
 	}
-	
-	private class FindLocation1IDTask extends AsyncTask<Void, Void, Meeting>
-	{
-
-		@Override
-		protected Meeting doInBackground(Void... params) {
-			Bundle extras = getIntent().getExtras();
-			Long id = extras.getLong("MeetingId");
-			Meeting meeting = meetingDao.findMeetingById(id);
-					return meeting;
-		}
-		
-	}
-
 
 	public void openMeetingMap(View view) {
+		System.out.println("DisplayMeetingsActivity: Fehlerquelle 7");
 		CreateMeetingTask createMeetingTask = new CreateMeetingTask();
 		createMeetingTask.execute();
+		
 		Intent i = new Intent(DisplayMeetingsActivity.this,
-				DisplayMap.class);
+				MainActivity.class);
 		startActivity(i);
+		
+		//Intent i = new Intent(DisplayMeetingsActivity.this,
+		//		DisplayMap.class);
+		//startActivity(i);
 	}
 }

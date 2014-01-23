@@ -99,7 +99,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	       * Übergebene Parameter aus DisplayRequestActivity und DisplayMessagesActivity
 	       */			
 
-	      
+	      System.out.println("DisplayMap: Fehlerquelle 9");
 			Bundle extras = getIntent().getExtras();
 			String locationPers1 = extras.getString("PositionPerson1");
 			String locationPers2 = extras.getString("PositionPerson2");
