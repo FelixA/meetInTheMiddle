@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
@@ -109,10 +110,8 @@ public class DisplayMessagesActivity extends Activity {
 			}
 		} catch (Exception e) {
 		}
+		//TODO: LÖSCHEN
 try{for (int i = 0; i < meetingAnfragen.size(); i++) {
-			//TODO: WAS IS LOS???
-			//INtent map
-			//inten rating
 			System.out.println(meetingAnfragen.get(i).getLocationPers2());
 			if(!meetingAnfragen.get(i).getLocationPers2().contains("HIER BITTE LOCATION_PERS2")){
 				Map<String, String> personName = new HashMap<String, String>(2);
@@ -298,14 +297,71 @@ try{for (int i = 0; i < meetingAnfragen.size(); i++) {
 			}
 		}
 	}
-	public class ShowNachrichtenTask extends AsyncTask<Void,Void,Void>
+	public class ShowNachrichtenAnfragenTask extends AsyncTask<Void,Void,List<Map<String,String>>>
 	{
-
+		ArrayList<Map<String, String>> anfragenlist = new ArrayList<Map<String, String>>();
+		Context context;
+	    public ShowNachrichtenAnfragenTask(Context c) {
+	        context = c;
+	    }
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected List<Map<String, String>> doInBackground(Void... params) {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+	}
+	public class ShowNachrichtenEinladungenTask extends AsyncTask<Void,Void,List<Map<String,String>>>
+	{
+		ArrayList<Map<String, String>> anfragenlist = new ArrayList<Map<String, String>>();
+		Context context;
+	    public ShowNachrichtenEinladungenTask(Context c) {
+	        context = c;
+	    }
+		@Override
+		protected List<Map<String, String>> doInBackground(Void... params) {
+			try{for (int i = 0; i < meetingAnfragen.size(); i++) {
+				//TODO: WAS IS LOS???
+				//INtent map
+				//inten rating
+				System.out.println(meetingAnfragen.get(i).getLocationPers2());
+				if(!meetingAnfragen.get(i).getLocationPers2().contains("HIER BITTE LOCATION_PERS2")){
+					Map<String, String> personName = new HashMap<String, String>(2);
+					Person person = new Person();
+					try {
+						showPersonFirstNameTask = new ShowPersonFirstNameTask();
+						person = showPersonFirstNameTask.execute(meetingAnfragen.get(i).getPers2_fk()).get();
+						showLocationTask = new ShowLocationTask();
+						personName.put("zeile1","Angefragt bei " + person.getFirstName() + " "+ person.getLastName() + " um " + meetingAnfragen.get(i).getUhrzeit().getHours() + ":" + meetingAnfragen.get(i).getUhrzeit().getMinutes());
+						personName.put("zeile2","in folgender Lokalitaet: "+ showLocationTask.execute(meetingAnfragen.get(i).getLokalitaet_fk())
+												.get().getBeschreibung());
+						anfragenlist.add(personName);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (Exception e){}
+					registerClickCallback();
+				}else{System.out.println("anfrage ist noch nicht akzeptiert");
+					};}}catch(Exception e){}
+			return anfragenlist;
+		}
+		 @Override
+		    protected void onPostExecute(List<Map<String, String>> treffenList) {
+//			 if(dialog.isShowing()){
+//				 dialog.dismiss();
+//		    }
+//			 ProgressBar pb = (ProgressBar)findViewById(R.id.progressbar_loading);
+			 System.out.println("postpost");
+			 if(treffenList.size()==0){
+			 }else{
+			  SimpleAdapter adapter = new SimpleAdapter(DisplayMessagesActivity.this,
+						treffenList, android.R.layout.two_line_list_item,
+						new String[] { "zeile1", "zeile2" }, new int[] {
+								android.R.id.text1, android.R.id.text2 });
+				anfragenList.setAdapter(adapter);
+			 }
+		}
 	}
 }

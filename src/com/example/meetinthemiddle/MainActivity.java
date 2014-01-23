@@ -370,9 +370,7 @@ public class MainActivity extends Activity {
 		    }
 		@Override
 		protected List<Map<String, String>> doInBackground(String... params)  {
-			System.out.println("hallo");
 			meetings = meetingDao.selectAll();
-
 			try{
 				for (int i = 0; i < meetings.size(); i++) {
 					if(meetings.get(i).getBewertung()!=-1){
