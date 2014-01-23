@@ -298,7 +298,6 @@ public class DisplayRequestActivity extends Activity implements
 			person = personDao.findPersonById(params[0]);
 			return person;
 		}
-
 	}
 
 	private class FindLocationTask extends AsyncTask<Long, Void, Location> {

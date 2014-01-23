@@ -95,7 +95,7 @@
 			<LinearLayout
     		    android:id="@+id/linearLayout9"
     		    android:layout_width="match_parent"
-    		    android:layout_height="20pt"
+    		    android:layout_height="25pt"
     		    android:layout_marginTop="20dip"
     		    android:orientation="horizontal" >
     			
@@ -107,6 +107,15 @@
 		        android:layout_marginRight="15dip"
 			    android:text="Start Routenführung"
 			    android:onClick="showMapRouting" />
+    			
+    			<Button
+			    android:id="@+id/detailsBtn"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			   	android:layout_marginLeft="40dip"
+		        android:layout_marginRight="15dip"
+			    android:text="Details"
+			    android:onClick="showDetails" />
     			
 	    		<ProgressBar
 	            android:id="@+id/progressBar"

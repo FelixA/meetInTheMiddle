@@ -134,6 +134,26 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		    	//Setzen der Werte für Felder in Layout
 			    Toast.makeText(getApplicationContext(), "Lat + Lng konnten nicht ermittelt werden.", Toast.LENGTH_LONG).show();
 		    }
+		    final Button buttonDetails = (Button) findViewById(R.id.detailsBtn);
+		    buttonDetails.setOnClickListener(new View.OnClickListener() {				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Intent i = new Intent(DisplayMap.this,
+							DisplayMeetingDetails.class);
+					try
+					{
+						i.putExtra("name", namePoint);
+						i.putExtra("tel", telNumber);
+						i.putExtra("adresse", address);
+						startActivity(i);
+					}
+					catch (Exception e)
+					{
+						System.out.println("Detailsbutton");
+					}
+				}});
+		    
             final Button button = (Button) findViewById(R.id.startrouting);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -1187,6 +1207,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		
 	}
 	
+	
 	public void formatParameters()
 	{
 		if (modePers1 == 1)
@@ -1254,9 +1275,9 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 			System.out.println("lng1: "+lng1);
 			double latPers1 = Double.parseDouble(lat1);
 			double lngPers1 = Double.parseDouble(lng1);
-			String lat2 = locationPers1.substring(0, (locationPers2.indexOf(",")-1));
+			String lat2 = locationPers2.substring(0, (locationPers2.indexOf(",")-1));
 			System.out.println("lat2: "+lat2);
-			String lng2 = locationPers2.substring(locationPers1.indexOf(",")+2, locationPers2.length());
+			String lng2 = locationPers2.substring(locationPers2.indexOf(",")+2, locationPers2.length());
 			System.out.println("lng2: "+lng2);
 			double latPers2 = Double.parseDouble(lat2);
 			double lngPers2 = Double.parseDouble(lng2);	
