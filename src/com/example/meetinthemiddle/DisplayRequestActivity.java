@@ -192,6 +192,7 @@ public class DisplayRequestActivity extends Activity implements
 		Long id = extras.getLong("MeetingId");
 		rating.putExtra("MeetingId", id);
 		startActivity(rating);
+		finish();
 	}
 
 	@Override

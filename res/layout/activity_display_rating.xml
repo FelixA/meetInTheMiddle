@@ -91,7 +91,7 @@
 		android:layout_alignParentLeft="true"
 		android:background="#29235C"
 		android:gravity="center"
-		android:onClick="attemptLogin"
+		android:onClick="accept"
 		android:paddingLeft="5dp"
 		android:paddingRight="5dp"
 		android:text="Bestätigen"
