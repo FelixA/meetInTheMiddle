@@ -59,29 +59,10 @@ public class DisplayOverviewRouting extends android.support.v4.app.FragmentActiv
 	    
 	    
 	  }
-//
-//
-//	@Override
-//	public void onLocationChanged(Location location) {
-//		double lat = (location.getLatitude());
-//	    double lng = (location.getLongitude());
-//		latituteField.setText(String.valueOf(lat));
-//		longitudeField.setText(String.valueOf(lng));
-//		LatLng aktPos = new LatLng(lat, lng);
-//	    GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-//	            .getMap();
-//	        Marker aktuellePosition = map.addMarker(new MarkerOptions().position(aktPos)
-//	            .title("Aktuelle Position"));
-//	        // Move the camera instantly to aktPos with a zoom of 15.
-//	        map.moveCamera(CameraUpdateFactory.newLatLngZoom(aktPos, 12));
-//		
-//	}
-//
 
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 

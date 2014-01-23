@@ -12,12 +12,16 @@ import com.example.meetinthemiddle.meetingverwaltung.dao.MeetingDao;
 import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
+import com.google.android.gms.maps.model.LatLng;
 
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +36,7 @@ import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
@@ -55,6 +60,12 @@ public class DisplayRequestActivity extends Activity implements
 	private FindPersonTask findPersonTask;
 	private FindLocationTask findLocationTask;
 	private Location location;
+	
+	private LocationManager locationManager;
+	private String provider;
+	public LatLng aktPos;
+	public String locationStr;
+	
 	/**
 	 * This integer will uniquely define the dialog to be used for displaying
 	 * time picker.
@@ -222,7 +233,33 @@ public class DisplayRequestActivity extends Activity implements
 			Long id = extras.getLong("MeetingId");
 			System.out.println(kindofTransportationId);
 			//TODO - Positionsdaten holen
-			meetingDao.update(id, -1, " ", "Das Treffen wurde bestaetigt",kindofTransportationId,"HIER LOCATION VON PERSON 2EINFUEGEN");
+			try
+			{
+				locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			    Criteria criteria = new Criteria();
+			    provider = locationManager.getBestProvider(criteria, false);
+			    android.location.Location location = locationManager.getLastKnownLocation(provider);
+			    
+			    if (location != null) {
+				      System.out.println("Provider " + provider + " has been selected.");
+				      System.out.println("location: "+location);
+						double lat = location.getLatitude();
+						double lng = location.getLongitude();
+						System.out.println("lat/lng: "+lat+"/"+lng);
+						locationStr = String.valueOf(lat)+","+String.valueOf(lng);
+						Log.i("Location is: ", ""+locationStr);
+			    }
+			    else
+			    {
+			    	System.out.println("Location = null: "+location);
+			    	Log.i("locationManager", "getPosition failed");
+			    }
+			}
+			catch(Exception e)
+			{
+				Log.e("Error in Positionsermittlung", "DisplayMeetingsActivity");
+			}
+			meetingDao.update(id, -1, " ", "Das Treffen wurde bestaetigt",kindofTransportationId,locationStr);
 			return null;
 		}
 	}
