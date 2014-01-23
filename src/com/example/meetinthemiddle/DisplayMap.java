@@ -88,6 +88,13 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     ProgressDialog ringProgressDialog;
     public boolean beta = false;
     public String details="";
+	public final String rankingByDistance = "&rankby=distance"; //Parameter radius hierzu deaktivieren, Ergebnisse werden nach distanz geordnet
+	public final String rankingByProminence = "&rankby=prominence";
+    
+    //Offizielle Parameter aus Übergabe
+    String locationPers1, locationPers2, uhrzeit, mode, mode2, types;
+    long modePers1, modePers2, lokalitaet;
+    
 	
 	public void onCreate(Bundle savedInstanceState)
 	   {
@@ -101,16 +108,16 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 
 	      System.out.println("DisplayMap: Fehlerquelle 9");
 			Bundle extras = getIntent().getExtras();
-			String locationPers1 = extras.getString("PositionPerson1");
-			String locationPers2 = extras.getString("PositionPerson2");
-			long modePers1 = extras.getLong("ModusPerson1");
-			long modePers2 = extras.getLong("ModusPerson2");
-			long lokalitaet = extras.getLong("lokalitaet");
-			String uhrzeit = extras.getString("Uhrzeit");
+			locationPers1 = extras.getString("PositionPerson1");
+			locationPers2 = extras.getString("PositionPerson2");
+			modePers1 = extras.getLong("ModusPerson1");
+			modePers2 = extras.getLong("ModusPerson2");
+			lokalitaet = extras.getLong("lokalitaet");
+			uhrzeit = extras.getString("Uhrzeit");
 			Log.e("DisplayMap/Übergabeparameter: ", "Parameter okay? "+locationPers1+", "+locationPers2+", "+modePers1+", "+modePers2+", "+lokalitaet+", "+uhrzeit);
-			
+			formatParameters();
+			Log.e("DisplayMap/Übergabeparameter: ", "Parameter okay nach Formatierung? "+aktPos+", "+destPos+", "+mode+", "+mode2+", "+types+", "+uhrzeit);
 		    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
 		    loadActivity();
 		    
 		    Criteria criteria = new Criteria();
@@ -127,7 +134,6 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		    	//Setzen der Werte für Felder in Layout
 			    Toast.makeText(getApplicationContext(), "Lat + Lng konnten nicht ermittelt werden.", Toast.LENGTH_LONG).show();
 		    }
-		      //setIcon(detailsArr);
             final Button button = (Button) findViewById(R.id.startrouting);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -180,14 +186,6 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     	@Override
     	protected String doInBackground(Void... params) {
     		Log.i("############placesTask", "REQUEST");
-    		int radius = 200;
-    		//Weitere Suchmöglichkeiten "name"/"types"        opennow
-    		String keyword = "cafe"; // Alternativ/Zusätzlich Suche über Name / Treffer auch wenn Suchwort nicht ausgeschrieben ist,  ?types=cafe|bakery
-    		String types = "bar"; //Parameter in URL anpassen
-    		String rankingByDistance = "&rankby=distance"; //Parameter radius hierzu deaktivieren, Ergebnisse werden nach distanz geordnet
-    		String rankingByProminence = "&rankby=prominence";
-
-    		
     		//funktioniert: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.016557,8.390047&rankby=prominence&radius=1000&types=movie_theater&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA
     	    
     		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location="
@@ -276,10 +274,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     	    	detailsArr = null;
     	    	try
     	    	{
-    	    		//Adresse
-    	    		//Telefonnummer
-    	    		//Name
-    	    		
+
     	    		System.out.println("GetDetails: "+urlDetails);
     	    		HttpClient httpClient = new DefaultHttpClient();
     	            HttpContext localContext = new BasicHttpContext();
@@ -351,22 +346,13 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     
     public String getDetailsPlace()
     {
-		Log.i("############placesTask", "REQUEST");
-		int radius = 200;
-		//Weitere Suchmöglichkeiten "name"/"types"        opennow
-		String keyword = "cafe"; // Alternativ/Zusätzlich Suche über Name / Treffer auch wenn Suchwort nicht ausgeschrieben ist,  ?types=cafe|bakery
-		String types = "bar"; //Parameter in URL anpassen
-		String rankingByDistance = "&rankby=distance"; //Parameter radius hierzu deaktivieren, Ergebnisse werden nach distanz geordnet
-		String rankingByProminence = "&rankby=prominence";
-
-		
 		//funktioniert: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.016557,8.390047&rankby=prominence&radius=1000&types=movie_theater&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA
 	    
 		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location="
 				+ middlePoint.latitude + "," + middlePoint.longitude + rankingByDistance 
 				+ "&types=" + types + "&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
 
-	    Log.i("meetingPoint", url);    	    
+		Log.i("public String getDetailsPlace", "Start: MeetingPoint: "+url);
 
 	    HttpURLConnection conn = null;
 	    StringBuilder sbResults = new StringBuilder();
@@ -500,30 +486,6 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	    return "";
     }
     
-    public LatLng getLocationOfPOI(StringBuilder sbResults)
-    {
-    	try
-    	{
-	    	LatLng locPOI = null;
-	    	int index1 = (sbResults.indexOf("<lat>", 1)+5);
-	    	int index2 = (sbResults.indexOf("<lng>", 1)+5);
-	    	String latPOIStr = sbResults.substring(index1, index1+8);
-	    	String lngPOIStr = sbResults.substring(index2, index2+8);
-	    	double latPOI = Double.parseDouble(latPOIStr);
-	    	double lngPOI = Double.parseDouble(lngPOIStr);
-	    	Log.i("LatPOI/LngPOI", ""+latPOIStr+"/"+lngPOIStr);
-	    	locPOI = new LatLng(latPOI, lngPOI);
-	    	Log.i("locPOI", ""+locPOI);
-	    	return locPOI;
-    	}
-    	catch(Exception ex)
-    	{
-    		Log.e("getLocationOfPOI", "Can't format LatLng. :(");
-    	}
-		return aktPos;
-    	
-    }
-    
     private void loadActivity() {
 	    locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -596,7 +558,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	  	     * Auswahl nach Ranking am Zielort im Umkreis/radius von 200m
 	  	     * aktuelles Ziel/destPos stellt Marktplatz dar
 	  	    */
-	  	    destPos = new LatLng(47.999008,7.842104);//Heilbronn(49.142696,9.212487);//Kriegstraße(49.005363,8.403747);//(47.996642,7.841449);//(49.142696 , 9.212487);Science-Center//(49.011373 , 8.364624);Philippsstraße//(48.543433,7.976418);Appenweiher//Freiburg(47.996642,7.841449);//Mannheim(49.480617,8.469086);//Baden-Baden//Heilbronn//Durlach(48.999197,8.47445);//Kriegstraße(49.005363,8.403747);//(49.009239, 8.403974);
+	  	    //destPos = new LatLng(47.999008,7.842104);//Heilbronn(49.142696,9.212487);//Kriegstraße(49.005363,8.403747);//(47.996642,7.841449);//(49.142696 , 9.212487);Science-Center//(49.011373 , 8.364624);Philippsstraße//(48.543433,7.976418);Appenweiher//Freiburg(47.996642,7.841449);//Mannheim(49.480617,8.469086);//Baden-Baden//Heilbronn//Durlach(48.999197,8.47445);//Kriegstraße(49.005363,8.403747);//(49.009239, 8.403974);
 		    GMapV2Direction md = new GMapV2Direction();		    
 		    /*
 	  	     * Parameter-Übergabe laufen, Auto oder öffentliche Verkehrsmittel
@@ -1223,6 +1185,86 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void formatParameters()
+	{
+		if (modePers1 == 1)
+		{
+			mode = "walking";
+		}
+		else if (modePers1 == 2)
+		{
+			mode = "transit";
+		}
+		else
+		{
+			mode = "driving";
+		}
+		if (modePers2 == 1)
+		{
+			mode2 = "walking";
+		}
+		else if (modePers2 == 2)
+		{
+			mode2 = "transit";
+		}
+		else
+		{
+			mode2 = "driving";
+		}
+		if (lokalitaet == 1)
+		{
+			types = "cafe";
+		}
+		else if (lokalitaet == 2)
+		{
+			types = "night_cafe";
+		}
+		else if (lokalitaet == 3)
+		{
+			types = "bar";
+		}
+		else if (lokalitaet == 4)
+		{
+			types = "hindu_temple";
+		}
+		else if (lokalitaet == 5)
+		{
+			types = "museum";
+		}
+		else if (lokalitaet == 6)
+		{
+			types = "park";
+		}
+		else if (lokalitaet == 7)
+		{
+			types = "restaurant";
+		}
+		else
+		{
+			types = "movie_theater";
+		}
+		
+		try
+		{
+			String lat1 = locationPers1.substring(0, (locationPers1.indexOf(",")-1));
+			String lng1 = locationPers1.substring(locationPers1.indexOf(",")+1, locationPers1.length()-1);
+			double latPers1 = Double.parseDouble(lat1);
+			double lngPers1 = Double.parseDouble(lng1);
+			String lat2 = locationPers1.substring(0, (locationPers2.indexOf(",")-1));
+			String lng2 = locationPers2.substring(locationPers1.indexOf(",")+1, locationPers2.length()-1);
+			double latPers2 = Double.parseDouble(lat2);
+			double lngPers2 = Double.parseDouble(lng2);	
+			
+			System.out.println("lat1, lng1, lat2, lng2: "+latPers1 + " " + lngPers1 + " " + latPers2 + " " + lngPers2);
+			aktPos = new LatLng(latPers1, lngPers1);
+			destPos = new LatLng(latPers2, lngPers2);
+		}
+		catch(Exception e)
+		{
+			Log.e("formatParameters"," ... failed");
+		}
 	}
 
 
