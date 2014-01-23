@@ -184,7 +184,6 @@ public class DisplayRequestActivity extends Activity implements
 	public void sendBestaetigung(View view) throws InterruptedException, ExecutionException{
 		UpdateMeetingTask updateMeetingTask = new UpdateMeetingTask();
 		updateMeetingTask.execute();
-		//TODO: ROUTENFUEHRUNG STARTEN
 		// Benötige Positionsdaten von Person 1, bereits ausgelesen?
 		
 		FindLocation1IDTask findLocation1Task = new FindLocation1IDTask();
