@@ -96,7 +96,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	      setContentView(R.layout.activity_display_routingmap);
 	      
 	      /*
-	       * Übergebene Parameter aus DisplayRequestActivity
+	       * Übergebene Parameter aus DisplayRequestActivity und DisplayMessagesActivity
 	       */			
 
 			Bundle extras = getIntent().getExtras();
@@ -106,7 +106,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 			long modePers2 = extras.getLong("ModusPerson2");
 			long lokalitaet = extras.getLong("lokalitaet");
 			String uhrzeit = extras.getString("Uhrzeit");
-			Log.e("DisplayMap/Übergabeparameter: ", ""+locationPers1+", "+locationPers2+", "+modePers1+", "+modePers2+", "+lokalitaet+", "+uhrzeit);
+			Log.e("DisplayMap/Übergabeparameter: ", "Parameter okay? "+locationPers1+", "+locationPers2+", "+modePers1+", "+modePers2+", "+lokalitaet+", "+uhrzeit);
 			
 		    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 

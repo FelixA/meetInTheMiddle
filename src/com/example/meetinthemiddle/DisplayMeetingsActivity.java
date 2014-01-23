@@ -22,6 +22,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.util.Log;
@@ -40,6 +41,7 @@ import android.support.v4.app.NavUtils;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 
@@ -359,6 +361,28 @@ public class DisplayMeetingsActivity extends Activity implements
 			}
 			return 1L;
 		}
+		
+		  
+		  private void onLocationChanged(Location location) {
+			// TODO Auto-generated method stub
+			  try
+			  {
+				  System.out.println("location: "+location);
+				  double lat = location.getLatitude();
+				  double lng = location.getLongitude();
+				  System.out.println("lat/lng: "+lat+"/"+lng);
+				  //latituteField.setText(String.valueOf(lat));
+				  //longitudeField.setText(String.valueOf(lng));
+				  System.out.println("ende");
+				  LatLng aktPos = new LatLng(lat, lng);
+			  }
+			  catch (Exception e)
+			  {
+				  Log.e("DisplayMeetingsActivity", "Error in onLocationChanged");
+			  }
+		}
+		
+		
 		@Override 
 		protected void onPostExecute(Long id) {
 			Bundle extras = getIntent().getExtras();
