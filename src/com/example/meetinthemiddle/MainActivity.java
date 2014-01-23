@@ -375,20 +375,19 @@ public class MainActivity extends Activity {
 
 			try{
 				for (int i = 0; i < meetings.size(); i++) {
+					if(meetings.get(i).getBewertung()!=-1){
 					System.out.println(meetings.size());
 					Map<String, String> treffen = new HashMap<String, String>(2);
 					Person person = new Person();
 
 					Person person1 = personDao.findPersonById(meetings.get(i).getPers1_fk());
 					Location location = locationDao.findLocationById(meetings.get(i).getLokalitaet_fk());
-//					showSecondPersonTask = new ShowSecondPersonTask();
-//					showLocationTask = new ShowLocationTask();
 					System.out.println(person1);
 					Person person2 = personDao.findPersonById(meetings.get(i).getPers2_fk());
 					treffen.put("zeile1", person1.getFirstName() + " war mit " + person2.getFirstName() + " unterwegs!");
 					treffen.put("zeile2","in folgender Lokalitaet: "+ location.getBeschreibung() +" und hat sie mit " + meetings.get(i).getBewertung() + " Sternen bewertet");
 					mylist.add(treffen);
-				}
+				}}
 			}catch(Exception e){}
 			return mylist;			
 		}

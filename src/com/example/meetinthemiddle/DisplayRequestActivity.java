@@ -153,22 +153,18 @@ public class DisplayRequestActivity extends Activity implements
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
 		int itemId = item.getItemId();
-		if (itemId == R.id.kindoftransportation_bike) {
-			kindofTransportation.setText(item.getTitle());
-			kindofTransportationString = item.getTitle().toString();
-			kindofTransportationId = 1L;
-		} else if (itemId == R.id.kindoftransportation_car) {
-			kindofTransportation.setText(item.getTitle());
-			kindofTransportationString = item.getTitle().toString();
-			kindofTransportationId = 2L;
-		} else if (itemId == R.id.kindoftransportation_foot) {
-			kindofTransportation.setText(item.getTitle());
-			kindofTransportationString = item.getTitle().toString();
-			kindofTransportationId = 3L;
-		} else if (itemId == R.id.kindoftransportation_public) {
+	if (itemId == R.id.kindoftransportation_car) {
 			kindofTransportation.setText(item.getTitle());
 			kindofTransportationString = item.getTitle().toString();
 			kindofTransportationId = 4L;
+		} else if (itemId == R.id.kindoftransportation_foot) {
+			kindofTransportation.setText(item.getTitle());
+			kindofTransportationString = item.getTitle().toString();
+			kindofTransportationId = 1L;
+		} else if (itemId == R.id.kindoftransportation_public) {
+			kindofTransportation.setText(item.getTitle());
+			kindofTransportationString = item.getTitle().toString();
+			kindofTransportationId = 2L;
 		}
 		return false;
 	}

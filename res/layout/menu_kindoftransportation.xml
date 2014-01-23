@@ -12,10 +12,6 @@
 		android:title="öffentliche"/>
 
 	<item
-		android:id="@+id/kindoftransportation_bike"
-		android:title="Fahrrad"/>
-
-	<item
 		android:id="@+id/kindoftransportation_car"
 		android:title="Auto"/>
 

@@ -211,39 +211,36 @@ public class DisplayMeetingsActivity extends Activity implements
 		} else if (itemId == R.id.kindof_museum) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
-			kindofId = 4L;
+			kindofId = 5L;
 		} else if (itemId == R.id.kindof_park) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
-			kindofId = 5L;
+			kindofId = 6L;
 		} else if (itemId == R.id.kindof_restaurant) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
-			kindofId = 6L;
+			kindofId = 7L;
 		} else if (itemId == R.id.kindof_movie_theater) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
-			kindofId = 7L;
+			kindofId = 8L;
 		} else if (itemId == R.id.kindof_hindu_temple) {
 			kindof.setText(item.getTitle());
 			kindofString = item.getTitle().toString();
-			kindofId = 8L;
-		} else if (itemId == R.id.kindoftransportation_bike) {
-			kindofTransportation.setText(item.getTitle());
-			kindofTransportationString = item.getTitle().toString();
-			kindofTransportationId = 1L;
-		} else if (itemId == R.id.kindoftransportation_car) {
-			kindofTransportation.setText(item.getTitle());
-			kindofTransportationString = item.getTitle().toString();
-			kindofTransportationId = 2L;
-		} else if (itemId == R.id.kindoftransportation_foot) {
-			kindofTransportation.setText(item.getTitle());
-			kindofTransportationString = item.getTitle().toString();
-			kindofTransportationId = 3L;
-		} else if (itemId == R.id.kindoftransportation_public) {
+			kindofId = 4L;
+		} 
+		 else if (itemId == R.id.kindoftransportation_car) {
 			kindofTransportation.setText(item.getTitle());
 			kindofTransportationString = item.getTitle().toString();
 			kindofTransportationId = 4L;
+		} else if (itemId == R.id.kindoftransportation_foot) {
+			kindofTransportation.setText(item.getTitle());
+			kindofTransportationString = item.getTitle().toString();
+			kindofTransportationId = 1L;
+		} else if (itemId == R.id.kindoftransportation_public) {
+			kindofTransportation.setText(item.getTitle());
+			kindofTransportationString = item.getTitle().toString();
+			kindofTransportationId = 2L;
 		}
 		return false;
 	}

@@ -109,13 +109,12 @@ public class DisplayMessagesActivity extends Activity {
 			}
 		} catch (Exception e) {
 		}
-try{
-		for (int i = 0; i < meetingAnfragen.size(); i++) {
+try{for (int i = 0; i < meetingAnfragen.size(); i++) {
 			//TODO: WAS IS LOS???
 			//INtent map
 			//inten rating
 			System.out.println(meetingAnfragen.get(i).getLocationPers2());
-			if(meetingAnfragen.get(i).getLocationPers2()!= "HIER BITTE LOCATION_PERS2"){
+			if(!meetingAnfragen.get(i).getLocationPers2().contains("HIER BITTE LOCATION_PERS2")){
 				Map<String, String> personName = new HashMap<String, String>(2);
 				Person person = new Person();
 				try {
@@ -134,11 +133,9 @@ try{
 					e.printStackTrace();
 				} catch (Exception e){}
 				registerClickCallback();
-			}}}catch(Exception e){}
+			}else{System.out.println("anfrage ist noch nicht akzeptiert");
+				};}}catch(Exception e){}
 			
-		
-			
-
 		anfragenAdapter = new SimpleAdapter(DisplayMessagesActivity.this,
 				anfragenListe, android.R.layout.two_line_list_item,
 				new String[] { "zeile1", "zeile2" }, new int[] {
@@ -191,7 +188,8 @@ try{
 							intentRouting.putExtra("lokalitaet", meeting_arne.getLokalitaet_fk());
 							String date = String.valueOf(uhrzeit);
 							intentRouting.putExtra("Uhrzeit", date);
-							startActivity(intentRouting);						} catch (InterruptedException e) {
+							startActivity(intentRouting);	
+							} catch (InterruptedException e) {
 							e.printStackTrace();
 						} catch (ExecutionException e) {
 							e.printStackTrace();
@@ -299,5 +297,15 @@ try{
 				return null;
 			}
 		}
+	}
+	public class ShowNachrichtenTask extends AsyncTask<Void,Void,Void>
+	{
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
 	}
 }
