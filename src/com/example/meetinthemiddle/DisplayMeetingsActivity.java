@@ -299,7 +299,9 @@ public class DisplayMeetingsActivity extends Activity implements
 			System.out.println(extras.getLong("PersonId") + " "
 					+ contact.getId() + " " + date);
 			try {
-				// TODO: Location pers1, Location pers2
+				// TODO: Location pers1
+				
+				//Lokation Pers1 ermitteln, unten in String einfügen, String-Format
 				meetingDao.create(extras.getLong("PersonId"), contact.getId(),
 						date, kindofId, 15L, 4, kindofTransportationId,
 						"BLubberBlubb", kindofTransportationId,

@@ -216,6 +216,7 @@ public class DisplayRequestActivity extends Activity implements
 			Bundle extras = getIntent().getExtras();
 			Long id = extras.getLong("MeetingId");
 			System.out.println(kindofTransportationId);
+			//TODO - Positionsdaten holen
 			meetingDao.update(id, -1, " ", "Das Treffen wurde bestaetigt",kindofTransportationId,"HIER LOCATION VON PERSON 2EINFUEGEN");
 			return null;
 		}
