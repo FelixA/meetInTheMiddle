@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.support.v4.app.NotificationCompat;
@@ -54,10 +56,11 @@ public class GCMIntentService extends GCMBaseIntentService {
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, DisplayLoginActivity.class), 0);
-       
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.logo);      
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
         .setSmallIcon(R.drawable.meetinthemiddle)
+        .setLargeIcon(bm)
         .setContentTitle("Meet In The Middle")
         .setStyle(new NotificationCompat.BigTextStyle()
         .bigText(msg))
