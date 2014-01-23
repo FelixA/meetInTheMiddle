@@ -1,6 +1,7 @@
 package com.example.meetinthemiddle;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,6 +27,14 @@ public class DisplayRatingActivity extends Activity {
 		if (extras != null) {
 		    Long id = extras.getLong("MeetingId");;
 		}
+	}
+	public void acceptAndShare(View view){
+		String message = "Text I want to share.";
+				Intent share = new Intent(Intent.ACTION_SEND);
+				share.setType("text/plain");
+				share.putExtra(Intent.EXTRA_TEXT, message);
+
+				startActivity(Intent.createChooser(share, "Title of the dialog the system will open"));
 	}
 
 	  public void addListenerOnRatingBar() {
