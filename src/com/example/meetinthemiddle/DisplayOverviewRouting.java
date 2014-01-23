@@ -119,12 +119,12 @@ public class DisplayOverviewRouting extends android.support.v4.app.FragmentActiv
 		//longitudeField.setText(String.valueOf(lng));
 		System.out.println("ende");
 		LatLng aktPos = new LatLng(lat, lng);
-	    GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-	            .getMap();
-	    Marker aktuellePosition = map.addMarker(new MarkerOptions().position(aktPos)
-	            .title("Aktuelle Position"));
+	    //GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+	    //        .getMap();
+	    //Marker aktuellePosition = map.addMarker(new MarkerOptions().position(aktPos)
+	      //      .title("Aktuelle Position"));
 		
-	    map.moveCamera(CameraUpdateFactory.newLatLngZoom(aktPos, 12));
+	    //map.moveCamera(CameraUpdateFactory.newLatLngZoom(aktPos, 12));
 		
 	}
 	  

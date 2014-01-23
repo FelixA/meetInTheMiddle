@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import android.app.AlertDialog;
+
 
 import com.example.meetinthemiddle.meetingverwaltung.dao.MeetingDao;
 import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
@@ -339,6 +341,7 @@ public class DisplayMeetingsActivity extends Activity implements
 				    {
 				    	System.out.println("Location = null: "+location);
 				    	Log.e("locationManager", "getPosition failed");
+				    	locationStr = "49.016200 , 8.390272";
 				    }
 				}
 				catch(Exception e)
@@ -361,26 +364,7 @@ public class DisplayMeetingsActivity extends Activity implements
 			}
 			return 1L;
 		}
-		
-		  
-		  private void onLocationChanged(Location location) {
-			// TODO Auto-generated method stub
-			  try
-			  {
-				  System.out.println("location: "+location);
-				  double lat = location.getLatitude();
-				  double lng = location.getLongitude();
-				  System.out.println("lat/lng: "+lat+"/"+lng);
-				  //latituteField.setText(String.valueOf(lat));
-				  //longitudeField.setText(String.valueOf(lng));
-				  System.out.println("ende");
-				  LatLng aktPos = new LatLng(lat, lng);
-			  }
-			  catch (Exception e)
-			  {
-				  Log.e("DisplayMeetingsActivity", "Error in onLocationChanged");
-			  }
-		}
+
 		
 		
 		@Override 
@@ -395,13 +379,26 @@ public class DisplayMeetingsActivity extends Activity implements
 			}
 		}
 	}
+	
+	private class FindLocation1IDTask extends AsyncTask<Void, Void, Meeting>
+	{
+
+		@Override
+		protected Meeting doInBackground(Void... params) {
+			Bundle extras = getIntent().getExtras();
+			Long id = extras.getLong("MeetingId");
+			Meeting meeting = meetingDao.findMeetingById(id);
+					return meeting;
+		}
+		
+	}
 
 
 	public void openMeetingMap(View view) {
 		CreateMeetingTask createMeetingTask = new CreateMeetingTask();
 		createMeetingTask.execute();
 		Intent i = new Intent(DisplayMeetingsActivity.this,
-				DisplayOverviewRouting.class);
+				DisplayMap.class);
 		startActivity(i);
 	}
 }
