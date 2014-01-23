@@ -565,8 +565,8 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	  	     * String mode wird übergeben von vorangegangener Methode
 	  	     */
 	  	    Document doc = null;
-	  	    String mode = "driving";
-	  	    String mode2 = "walking";
+	  	    //String mode = "driving";
+	  	    //String mode2 = "walking";
 	  	    
 	  	    if (checkWay==false)
 			{
@@ -1249,11 +1249,15 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		try
 		{
 			String lat1 = locationPers1.substring(0, (locationPers1.indexOf(",")-1));
-			String lng1 = locationPers1.substring(locationPers1.indexOf(",")+1, locationPers1.length()-1);
+			System.out.println("lat1: "+lat1);
+			String lng1 = locationPers1.substring(locationPers1.indexOf(",")+2, locationPers1.length());
+			System.out.println("lng1: "+lng1);
 			double latPers1 = Double.parseDouble(lat1);
 			double lngPers1 = Double.parseDouble(lng1);
 			String lat2 = locationPers1.substring(0, (locationPers2.indexOf(",")-1));
-			String lng2 = locationPers2.substring(locationPers1.indexOf(",")+1, locationPers2.length()-1);
+			System.out.println("lat2: "+lat2);
+			String lng2 = locationPers2.substring(locationPers1.indexOf(",")+2, locationPers2.length());
+			System.out.println("lng2: "+lng2);
 			double latPers2 = Double.parseDouble(lat2);
 			double lngPers2 = Double.parseDouble(lng2);	
 			
