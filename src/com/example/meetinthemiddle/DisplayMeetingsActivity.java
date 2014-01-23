@@ -9,12 +9,22 @@ import com.example.meetinthemiddle.meetingverwaltung.dao.MeetingDao;
 import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +39,7 @@ import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
@@ -50,6 +61,10 @@ public class DisplayMeetingsActivity extends Activity implements
 
 	private int pHour;
 	private int pMinute;
+	private LocationManager locationManager;
+	private String provider;
+	public LatLng aktPos;
+	public String locationStr;
 	/**
 	 * This integer will uniquely define the dialog to be used for displaying
 	 * time picker.
@@ -299,14 +314,45 @@ public class DisplayMeetingsActivity extends Activity implements
 			System.out.println(extras.getLong("PersonId") + " "
 					+ contact.getId() + " " + date);
 			try {
-				// TODO: Location pers1, Location pers2
+				// TODO: Location pers1
+				
+				//Lokation Pers1 ermitteln, unten in String einfügen, String-Format
+				try
+				{
+					locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+				    Criteria criteria = new Criteria();
+				    provider = locationManager.getBestProvider(criteria, false);
+				    Location location = locationManager.getLastKnownLocation(provider);
+				    
+				    if (location != null) {
+					      System.out.println("Provider " + provider + " has been selected.");
+					      System.out.println("location: "+location);
+							double lat = location.getLatitude();
+							double lng = location.getLongitude();
+							System.out.println("lat/lng: "+lat+"/"+lng);
+							locationStr = String.valueOf(lat)+","+String.valueOf(lng);
+							Log.e("Location is: ", ""+locationStr);
+				    }
+				    else
+				    {
+				    	System.out.println("Location = null: "+location);
+				    	Log.e("locationManager", "getPosition failed");
+				    }
+				}
+				catch(Exception e)
+				{
+					Log.e("Error in Positionsermittlung", "DisplayMeetingsActivity");
+				}
+				
+				
+				
 				meetingDao.create(extras.getLong("PersonId"), contact.getId(),
-						date, kindofId, 15L, 4, kindofTransportationId,
+						date, kindofId, 15L, -1, kindofTransportationId,
 						"BLubberBlubb", kindofTransportationId,
 						person.getAndroidId(), contact.getAndroidId(),
 						person.getFirstName() + " möchte sich um " + pHour
-								+ ":" + pMinute + " Uhr mit dir treffen",
-								"HIER BITTE LOCATION_PERS1","HIER BITTE LOCATION_PERS2");
+								+ ":" + pMinute + " Uhr mit dir treffen", locationStr,"HIER BITTE LOCATION_PERS2");
+				Log.e("meetingDao.create: ",""+locationStr);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -326,12 +372,10 @@ public class DisplayMeetingsActivity extends Activity implements
 		}
 	}
 
-	public void sendInvitation(View view) throws ParseException {
-		CreateMeetingTask createMeetingTask = new CreateMeetingTask();
-		createMeetingTask.execute();
-	}
 
 	public void openMeetingMap(View view) {
+		CreateMeetingTask createMeetingTask = new CreateMeetingTask();
+		createMeetingTask.execute();
 		Intent i = new Intent(DisplayMeetingsActivity.this,
 				DisplayOverviewRouting.class);
 		startActivity(i);

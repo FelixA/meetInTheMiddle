@@ -111,26 +111,29 @@ public class DisplayMessagesActivity extends Activity {
 		}
 try{
 		for (int i = 0; i < meetingAnfragen.size(); i++) {
-			Map<String, String> personName = new HashMap<String, String>(2);
-			Person person = new Person();
-			try {
-				showPersonFirstNameTask = new ShowPersonFirstNameTask();
-				person = showPersonFirstNameTask.execute(
-						meetingAnfragen.get(i).getPers2_fk()).get();
-				showLocationTask = new ShowLocationTask();
-				personName.put("zeile1","Angefragt bei " + person.getFirstName() + " "+ person.getLastName() + " um " + meetingAnfragen.get(i).getUhrzeit().getHours() + ":" + meetingAnfragen.get(i).getUhrzeit().getMinutes());
-				personName.put("zeile2","in folgender Lokalitaet: "+ showLocationTask.execute(meetingAnfragen.get(i).getLokalitaet_fk())
-										.get().getBeschreibung());
-				anfragenListe.add(personName);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (Exception e){}
-			registerClickCallback();
-		}}catch(Exception e){}
+			if(meetingAnfragen.get(i).getLocationPers2()!= "HIER BITTE LOCATION_PERS2"){
+				Map<String, String> personName = new HashMap<String, String>(2);
+				Person person = new Person();
+				try {
+					showPersonFirstNameTask = new ShowPersonFirstNameTask();
+					person = showPersonFirstNameTask.execute(meetingAnfragen.get(i).getPers2_fk()).get();
+					showLocationTask = new ShowLocationTask();
+					personName.put("zeile1","Angefragt bei " + person.getFirstName() + " "+ person.getLastName() + " um " + meetingAnfragen.get(i).getUhrzeit().getHours() + ":" + meetingAnfragen.get(i).getUhrzeit().getMinutes());
+					personName.put("zeile2","in folgender Lokalitaet: "+ showLocationTask.execute(meetingAnfragen.get(i).getLokalitaet_fk())
+											.get().getBeschreibung());
+					anfragenListe.add(personName);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (Exception e){}
+				registerClickCallback();
+			}}}catch(Exception e){}
+			
+		
+			
 
 		anfragenAdapter = new SimpleAdapter(DisplayMessagesActivity.this,
 				anfragenListe, android.R.layout.two_line_list_item,
@@ -175,9 +178,8 @@ try{
 						}
 						GetMeetingByPers2_FK_UhrzeitTask getMeetingByPers2_FK_UhrzeitTask = new GetMeetingByPers2_FK_UhrzeitTask();
 						try {
-							Long meeting_id = getMeetingByPers2_FK_UhrzeitTask.execute(pers_id.toString(), uhrzeit[0] , minute).get().getId();
-							//TODO: INTENT MIT MEETING_ID ZU NEUER ACTIVITY
-							System.out.println(meeting_id);
+							Meeting meeting_arne = getMeetingByPers2_FK_UhrzeitTask.execute(pers_id.toString(), uhrzeit[0] , minute).get();
+							//TODO: (ARNE) INTENT MIT MEETING_ID ZU NEUER ACTIVITY du kannst das meeting eine zeile drüber benutzen
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						} catch (ExecutionException e) {

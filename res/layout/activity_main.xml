@@ -7,7 +7,7 @@
 
 	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content" >
+		android:layout_height="347dp" >
 
 		<ImageView
 			android:id="@+id/imageView1"
@@ -115,6 +115,70 @@
 			android:padding="1dp"
 			android:scaleType="centerCrop"
 			android:src="@drawable/faq" />
+
+		<TextView
+			android:id="@+id/textView1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/imageButton4"
+			android:layout_alignRight="@+id/imageButton4"
+			android:layout_below="@+id/imageButton4"
+			android:gravity="center"
+			android:text="Profil"
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/textView2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/imageButton3"
+			android:layout_alignRight="@+id/imageButton3"
+			android:layout_below="@+id/imageButton3"
+			android:gravity="center"
+			android:text="Kontakte"
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/textView3"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/imageButton1"
+			android:layout_below="@+id/imageButton1"
+			android:gravity="center"
+			android:text="Nachrichten"
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/textView4"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/imageButton2"
+			android:layout_alignRight="@+id/imageButton2"
+			android:layout_below="@+id/imageButton2"
+			android:gravity="center"
+			android:text="Treffen"
+			android:textSize="15sp" />
+
+		<TextView
+			android:id="@+id/textView5"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/imageButton6"
+			android:layout_below="@+id/imageButton6"
+			android:gravity="center"
+			android:text="Einstellungen"
+			android:textSize="14sp" />
+
+		<TextView
+			android:id="@+id/textView6"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/imageButton5"
+			android:layout_alignRight="@+id/imageButton5"
+			android:layout_below="@+id/imageButton5"
+			android:gravity="center"
+			android:text="FAQ"
+			android:textSize="15sp" />
 	</RelativeLayout>
 
 	<TextView
@@ -127,6 +191,14 @@
 		android:textColor="@android:color/secondary_text_light"
 		android:textColorLink="@android:color/secondary_text_light" />
 
+	<ProgressBar
+		android:id="@+id/progressbar_loading"
+		style="?android:attr/progressBarStyle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:visibility="gone" />
+
 	<ListView
 		android:id="@+id/pastMeetingsView"
 		android:layout_width="match_parent"
@@ -136,7 +208,8 @@
 		android:layout_marginRight="15dip"
 		android:layout_marginTop="24dp"
 		android:background="@null"
-		android:gravity="center_horizontal" >
+		android:gravity="center_horizontal"
+		android:text="Neuigkeiten werden geladen" >
 	</ListView>
 
 </LinearLayout>

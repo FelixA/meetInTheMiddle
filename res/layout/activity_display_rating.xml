@@ -1,101 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-    <ImageView
-			android:id="@+id/imageView1"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<ImageView
+		android:id="@+id/imageView1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:adjustViewBounds="true"
+		android:scaleType="centerCrop"
+		android:src="@drawable/balkenoben" />
+
+	<TableLayout
+		android:id="@+id/tableLayout1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignLeft="@+id/textView1"
+		android:layout_below="@+id/textView1"
+		android:layout_marginLeft="51dp"
+		android:layout_marginTop="108dp" >
+
+		<TableRow
+			android:id="@+id/tableRow4"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentRight="true"
-			android:layout_alignParentTop="true"
-			android:adjustViewBounds="true"
-			android:scaleType="centerCrop"
-			android:src="@drawable/balkenoben" />
+			android:layout_height="wrap_content" >
+		</TableRow>
+	</TableLayout>
 
-    <TableLayout
-        android:id="@+id/tableLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginLeft="51dp"
-        android:layout_marginTop="108dp" >
+	<TableRow
+		android:id="@+id/tableRow3"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignTop="@+id/tableLayout1"
+		android:layout_marginTop="21dp" >
+	</TableRow>
 
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+	<RatingBar
+		android:id="@+id/RatingBar02"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/tableLayout1"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="80dp" />
 
-        </TableRow>
-    </TableLayout>
+	<ImageView
+		android:id="@+id/imageView2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:adjustViewBounds="true"
+		android:cropToPadding="true"
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:scaleType="centerCrop"
+		android:src="@drawable/balkenunten" />
 
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/tableLayout1"
-        android:layout_marginTop="21dp" >
-    </TableRow>
+	<TextView
+		android:id="@+id/textView2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/tableRow3"
+		android:layout_marginBottom="29dp"
+		android:paddingLeft="15dp"
+		android:paddingRight="10dp"
+		android:text="Wie hat dir das Treffen gefallen? Teile uns deine Meinung mit"
+		android:textSize="18sp" />
 
-    <RatingBar
-        android:id="@+id/RatingBar02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tableLayout1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp" />
-    
-    <ImageView
-			android:id="@+id/imageView2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true"
-			android:layout_alignParentLeft="true"
-			android:layout_alignParentRight="true"
-			android:adjustViewBounds="true"
-			android:cropToPadding="true"
-			android:paddingBottom="0dp"
-			android:paddingRight="0dp"
-			android:scaleType="centerCrop"
-			android:src="@drawable/balkenunten" />
+	<TextView
+		android:id="@+id/textView1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignLeft="@+id/RatingBar02"
+		android:layout_below="@+id/imageView1"
+		android:layout_marginLeft="53dp"
+		android:layout_marginTop="20dp"
+		android:text="Bewertung"
+		android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tableRow3"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="29dp"
-        android:text="Diese Seite dient dazu, das Treffen allgemein zu beurteilen. Dabei werden die Location, die Person und das Treffen allgemein betrachtet" />
+	<Button
+		android:id="@+id/button"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/imageView2"
+		android:layout_alignParentLeft="true"
+		android:background="#29235C"
+		android:gravity="center"
+		android:onClick="accept"
+		android:paddingLeft="5dp"
+		android:paddingRight="5dp"
+		android:text="Bestätigen"
+		android:textColor="@android:color/white"
+		android:textSize="20sp"
+		android:textStyle="italic" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/RatingBar02"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginLeft="53dp"
-        android:layout_marginTop="20dp"
-        android:text="Bewertung"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView2"
-        android:layout_centerHorizontal="true"
-        android:background="#29235C"
-        android:gravity="center"
-        android:onClick="attemptLogin"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp"
-        android:text="Bestätigen"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="italic" />
+	<Button
+		android:id="@+id/rating_share"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/button"
+		android:layout_alignBottom="@+id/button"
+		android:layout_alignParentRight="true"
+		android:background="#29235C"
+		android:gravity="center"
+		android:onClick="acceptAndShare"
+		android:paddingLeft="5dp"
+		android:paddingRight="5dp"
+		android:text="Bestätigen und Teilen"
+		android:textColor="@android:color/white"
+		android:textSize="20sp"
+		android:textStyle="italic" />
 
 </RelativeLayout>

@@ -42,8 +42,8 @@ public class GCMIntentService extends GCMBaseIntentService {
          
         String message = intent.getStringExtra("message");
         sendNotification(message);
-       
         sendGCMIntent(ctx, message);
+        
          
     }
  
@@ -53,7 +53,11 @@ public class GCMIntentService extends GCMBaseIntentService {
     private void sendNotification(String msg) {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
-
+        //TODO: CHECKEN
+        if(msg=="Das treffen wurde erstellt"){
+        	PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                    new Intent(this, DisplayMap.class), 0);
+        }
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, DisplayLoginActivity.class), 0);
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.logo);      

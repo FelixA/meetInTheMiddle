@@ -1,6 +1,9 @@
 package com.example.meetinthemiddle;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -43,8 +46,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
@@ -89,10 +94,24 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		System.out.println("OnCreate in DisplayMap.java");
 	      super.onCreate(savedInstanceState);
 	      setContentView(R.layout.activity_display_routingmap);
+	      
+	      /*
+	       * Übergebene Parameter aus DisplayRequestActivity
+	       */			
+
+			Bundle extras = getIntent().getExtras();
+			String locationPers1 = extras.getString("PositionPerson1");
+			String locationPers2 = extras.getString("PositionPerson2");
+			long modePers1 = extras.getLong("ModusPerson1");
+			long modePers2 = extras.getLong("ModusPerson2");
+			long lokalitaet = extras.getLong("lokalitaet");
+			String uhrzeit = extras.getString("Uhrzeit");
+			Log.e("DisplayMap/Übergabeparameter: ", ""+locationPers1+", "+locationPers2+", "+modePers1+", "+modePers2+", "+lokalitaet+", "+uhrzeit);
+			
 		    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-		    // Define the criteria how to select the location provider -> use
-		    // default
+		    loadActivity();
+		    
 		    Criteria criteria = new Criteria();
 		    provider = locationManager.getBestProvider(criteria, false);
 		    Location location = locationManager.getLastKnownLocation(provider);
@@ -504,6 +523,53 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     	
     }
     
+    private void loadActivity() {
+	    locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            Toast.makeText(this, "GPS ist aktiviert.", Toast.LENGTH_SHORT).show();
+            Criteria criteria = new Criteria();
+    	    provider = locationManager.getBestProvider(criteria, false);
+    	    Location location = locationManager.getLastKnownLocation(provider);
+    	    
+    	    if (location != null) {
+    		      System.out.println("Provider " + provider + " has been selected.");
+    		      onLocationChanged(location);
+    	    }
+    	    else
+    	    {
+    	    	System.out.println("Location = null: "+location);
+
+    	    }
+        }
+        else
+        {
+            showGPSDisabledAlertToUser();
+        }	
+	}
+  
+  private void showGPSDisabledAlertToUser(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("GPS ist bislang deaktiviert. Wollen Sie es aktivieren?")
+        .setCancelable(false)
+        .setPositiveButton("GPS Einstellungen",
+                new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                Intent callGPSSettingIntent = new Intent(
+                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(callGPSSettingIntent);
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Abbrechen",
+                new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id){
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+        
+    }
     
   
     //Umbenennung mapsTask in progressTask
@@ -537,7 +603,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	  	     */
 	  	    Document doc = null;
 	  	    String mode = "driving";
-	  	    String mode2 = "driving";
+	  	    String mode2 = "walking";
 	  	    
 	  	    if (checkWay==false)
 			{

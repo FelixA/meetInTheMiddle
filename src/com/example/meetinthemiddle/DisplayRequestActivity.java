@@ -12,12 +12,16 @@ import com.example.meetinthemiddle.meetingverwaltung.dao.MeetingDao;
 import com.example.meetinthemiddle.meetingverwaltung.domain.Meeting;
 import com.example.meetinthemiddle.personenverwaltung.dao.PersonDao;
 import com.example.meetinthemiddle.personenverwaltung.domain.Person;
+import com.google.android.gms.maps.model.LatLng;
 
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +36,7 @@ import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
@@ -55,6 +60,12 @@ public class DisplayRequestActivity extends Activity implements
 	private FindPersonTask findPersonTask;
 	private FindLocationTask findLocationTask;
 	private Location location;
+	
+	private LocationManager locationManager;
+	private String provider;
+	public LatLng aktPos;
+	public String locationStr, locationPers1;
+	
 	/**
 	 * This integer will uniquely define the dialog to be used for displaying
 	 * time picker.
@@ -62,6 +73,7 @@ public class DisplayRequestActivity extends Activity implements
 	static final int TIME_DIALOG_ID = 0;
 
 	private final static int ONE = 1;
+	private Long modePers2;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -169,10 +181,37 @@ public class DisplayRequestActivity extends Activity implements
 		}
 	}
 	
-	public void sendBestaetigung(View view){
+	public void sendBestaetigung(View view) throws InterruptedException, ExecutionException{
 		UpdateMeetingTask updateMeetingTask = new UpdateMeetingTask();
 		updateMeetingTask.execute();
 		//TODO: ROUTENFUEHRUNG STARTEN
+		// Benötige Positionsdaten von Person 1, bereits ausgelesen?
+		
+		FindLocation1IDTask findLocation1Task = new FindLocation1IDTask();
+		Meeting meetingausdb = findLocation1Task.execute().get();
+		String locationPers1 = meetingausdb.getLocationPers1();
+		String locationPers2 = meetingausdb.getLocationPers2();
+		long modePers1 = meetingausdb.getVerkehrsmittel_pers1_fk();
+		long modePers2 = meetingausdb.getVerkehrsmittel_pers2_fk();
+		long lokalitaet = meetingausdb.getLokalitaet_fk();
+		Date uhrzeit = meetingausdb.getUhrzeit();
+		
+		Intent intentRouting = new Intent(DisplayRequestActivity.this, DisplayMap.class);
+		intentRouting.putExtra("PositionPerson1", locationPers1);
+		intentRouting.putExtra("PositionPerson2", locationPers2);
+		intentRouting.putExtra("ModusPers1", modePers1);
+		intentRouting.putExtra("ModusPers2", modePers2);
+		intentRouting.putExtra("lokalitaet", lokalitaet);
+		String date = String.valueOf(uhrzeit);
+		intentRouting.putExtra("Uhrzeit", date);
+		startActivity(intentRouting);
+		
+		Intent rating = new Intent(DisplayRequestActivity.this, DisplayRatingActivity.class);
+		Bundle extras = getIntent().getExtras();
+		Long id = extras.getLong("MeetingId");
+		rating.putExtra("MeetingId", id);
+		startActivity(rating);
+		finish();
 	}
 
 	@Override
@@ -216,7 +255,34 @@ public class DisplayRequestActivity extends Activity implements
 			Bundle extras = getIntent().getExtras();
 			Long id = extras.getLong("MeetingId");
 			System.out.println(kindofTransportationId);
-			meetingDao.update(id, -1, " ", "Das Treffen wurde bestaetigt",kindofTransportationId,"HIER LOCATION VON PERSON 2EINFUEGEN");
+			//TODO - Positionsdaten holen
+			try
+			{
+				locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			    Criteria criteria = new Criteria();
+			    provider = locationManager.getBestProvider(criteria, false);
+			    android.location.Location location = locationManager.getLastKnownLocation(provider);
+			    
+			    if (location != null) {
+				      System.out.println("Provider " + provider + " has been selected.");
+				      System.out.println("location: "+location);
+						double lat = location.getLatitude();
+						double lng = location.getLongitude();
+						System.out.println("lat/lng: "+lat+"/"+lng);
+						locationStr = String.valueOf(lat)+","+String.valueOf(lng);
+						Log.i("Location is: ", ""+locationStr);
+			    }
+			    else
+			    {
+			    	System.out.println("Location = null: "+location);
+			    	Log.i("locationManager", "getPosition failed");
+			    }
+			}
+			catch(Exception e)
+			{
+				Log.e("Error in Positionsermittlung", "DisplayMeetingsActivity");
+			}
+			meetingDao.update(id, -1, " ", "Das Treffen wurde bestaetigt",kindofTransportationId,locationStr);
 			return null;
 		}
 	}
@@ -240,10 +306,19 @@ public class DisplayRequestActivity extends Activity implements
 		}
 
 	}
+	
+	private class FindLocation1IDTask extends AsyncTask<Void, Void, Meeting>
+	//TODO - getLocation from Pers1, als Variable kannst du die public String locationPers1 verwenden, die ist bereits oben definiert
+	{
 
-	public void sendInvitation(View view) throws ParseException {
-		UpdateMeetingTask createMeetingTask = new UpdateMeetingTask();
-		createMeetingTask.execute();
+		@Override
+		protected Meeting doInBackground(Void... params) {
+			Bundle extras = getIntent().getExtras();
+			Long id = extras.getLong("MeetingId");
+			Meeting meeting = meetingDao.findMeetingById(id);
+					return meeting;
+		}
+		
 	}
 
 }
