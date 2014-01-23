@@ -41,7 +41,7 @@ public class DisplayOverviewRouting extends android.support.v4.app.FragmentActiv
 	    Criteria criteria = new Criteria();
 	    provider = locationManager.getBestProvider(criteria, false);
 	    Location location = locationManager.getLastKnownLocation(provider);
-	    
+	    System.out.println(":::Welcome to DisplayOvervireRouting:::");
 	    
 	    if (location != null) {
 		      System.out.println("Provider " + provider + " has been selected.");

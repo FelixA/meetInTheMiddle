@@ -331,12 +331,12 @@ public class DisplayMeetingsActivity extends Activity implements
 							double lng = location.getLongitude();
 							System.out.println("lat/lng: "+lat+"/"+lng);
 							locationStr = String.valueOf(lat)+","+String.valueOf(lng);
-							Log.i("Location is: ", ""+locationStr);
+							Log.e("Location is: ", ""+locationStr);
 				    }
 				    else
 				    {
 				    	System.out.println("Location = null: "+location);
-				    	Log.i("locationManager", "getPosition failed");
+				    	Log.e("locationManager", "getPosition failed");
 				    }
 				}
 				catch(Exception e)
@@ -352,6 +352,7 @@ public class DisplayMeetingsActivity extends Activity implements
 						person.getAndroidId(), contact.getAndroidId(),
 						person.getFirstName() + " möchte sich um " + pHour
 								+ ":" + pMinute + " Uhr mit dir treffen", locationStr,"HIER BITTE LOCATION_PERS2");
+				Log.e("meetingDao.create: ",""+locationStr);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -371,13 +372,10 @@ public class DisplayMeetingsActivity extends Activity implements
 		}
 	}
 
-	public void sendInvitation(View view) throws ParseException {
-		CreateMeetingTask createMeetingTask = new CreateMeetingTask();
-		createMeetingTask.execute();
-	}
-
 
 	public void openMeetingMap(View view) {
+		CreateMeetingTask createMeetingTask = new CreateMeetingTask();
+		createMeetingTask.execute();
 		Intent i = new Intent(DisplayMeetingsActivity.this,
 				DisplayOverviewRouting.class);
 		startActivity(i);

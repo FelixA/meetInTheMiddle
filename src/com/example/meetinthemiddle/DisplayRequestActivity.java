@@ -64,7 +64,7 @@ public class DisplayRequestActivity extends Activity implements
 	private LocationManager locationManager;
 	private String provider;
 	public LatLng aktPos;
-	public String locationStr;
+	public String locationStr, locationPers1;
 	
 	/**
 	 * This integer will uniquely define the dialog to be used for displaying
@@ -184,6 +184,9 @@ public class DisplayRequestActivity extends Activity implements
 		UpdateMeetingTask updateMeetingTask = new UpdateMeetingTask();
 		updateMeetingTask.execute();
 		//TODO: ROUTENFUEHRUNG STARTEN
+		// Benötige Positionsdaten von Person 1, bereits ausgelesen?
+		
+		
 		Intent rating = new Intent(DisplayRequestActivity.this, DisplayRatingActivity.class);
 		Bundle extras = getIntent().getExtras();
 		Long id = extras.getLong("MeetingId");
@@ -282,6 +285,18 @@ public class DisplayRequestActivity extends Activity implements
 			return locationDao.findLocationById(params[0]);
 		}
 
+	}
+	
+	private class findLocation1IDTask extends AsyncTask<Void, Void, String>
+	//TODO - getLocation from Pers1, als Variable kannst du die public String locationPers1 verwenden, die ist bereits oben definiert
+	{
+
+		@Override
+		protected String doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
 	}
 
 }
