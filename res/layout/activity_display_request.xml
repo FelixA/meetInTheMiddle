@@ -76,13 +76,16 @@
 		android:src="@drawable/logo_uhrzeit_hinzufuegen" />
 
 	<TextView
-		android:id="@+id/textView1"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_below="@+id/imageView1"
-		android:layout_centerHorizontal="true"
-		android:text="Du hast eine Anfrage erhalten"
-		android:textAppearance="?android:attr/textAppearanceLarge" />
+	    android:id="@+id/textView1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:gravity="center"
+	    android:layout_alignParentRight="true"
+	    android:layout_below="@+id/imageView1"
+	    android:background="@android:color/darker_gray"
+	    android:text="Du hast eine Anfrage erhalten"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
 
 	<Button
 		android:id="@+id/meetings_sendAbsagen"
@@ -116,14 +119,17 @@
 		android:textStyle="italic" />
 
 	<TextView
-		android:id="@+id/TextView01"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignRight="@+id/textView1"
-		android:layout_below="@+id/meetings_time_button"
-		android:layout_marginTop="20dp"
-		android:text="Gib deine Art der Mobilität an"
-		android:textAppearance="?android:attr/textAppearanceLarge" />
+	    android:id="@+id/TextView01"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignRight="@+id/textView1"
+	    android:gravity="center"
+	    android:background="@android:color/darker_gray"
+	    android:layout_below="@+id/meetings_time_button"
+	    android:layout_marginTop="20dp"
+	    android:text="Gib deine Art der Mobilität an"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
 
 	<ImageButton
 		android:id="@+id/request_kindOfTransportation_button"

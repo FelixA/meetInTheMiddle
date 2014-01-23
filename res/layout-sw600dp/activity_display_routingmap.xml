@@ -5,26 +5,27 @@
     android:orientation="vertical" >
 
     <ImageButton
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
-            android:paddingTop="0dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/balkenoben"  />
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:adjustViewBounds="true"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
+        android:paddingTop="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/balkenoben" />
 
     <TextView
         android:id="@+id/headline_routing"
-        android:layout_width="wrap_content"
+        android:layout_width="606dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="5dip"
         android:text="Routenführung"
-        android:textSize="30dip" />
+        android:textSize="50dp"/>
 
     	<LinearLayout
 	    android:id="@+id/linearLayout6"
@@ -68,7 +69,7 @@
     		        android:layout_marginLeft="15dip"
     		        android:layout_marginRight="5dip"
     		        android:text="Dauer"
-    		        android:textSize="20dip" />
+    		        android:textSize="30dip" />
 
     		    <TextView
     		        android:id="@+id/TextView02"
@@ -77,7 +78,7 @@
     		        android:layout_marginLeft="25dip"
     		        android:layout_marginRight="10dip"
     		        android:text="Distanz"
-    		        android:textSize="20dip" >
+    		        android:textSize="30dip" >
     		    </TextView>
 	    
 	            
@@ -93,31 +94,38 @@
     		</LinearLayout>
 
 			<LinearLayout
-    		    android:id="@+id/linearLayout9"
-    		    android:layout_width="match_parent"
-    		    android:layout_height="20pt"
-    		    android:layout_marginTop="20dip"
-    		    android:orientation="horizontal" >
-    			
-    			<Button
-			    android:id="@+id/startrouting"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			   	android:layout_marginLeft="40dip"
-		        android:layout_marginRight="15dip"
-			    android:text="Start Routenführung"
-			    android:onClick="showMapRouting" />
-    			
-	    		<ProgressBar
-	            android:id="@+id/progressBar"
-	            style="?android:attr/progressBarStyleLarge"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_centerHorizontal="true"
-	            android:layout_centerVertical="true"
-	            android:visibility="gone"
-	            android:indeterminateDrawable="@drawable/progress" >
-        		</ProgressBar>
-    			
-    		</LinearLayout>
+			    android:id="@+id/linearLayout9"
+			    android:layout_width="match_parent"
+			    android:layout_height="20pt"
+			    android:layout_marginTop="20dip"
+			    android:orientation="horizontal"
+			    android:paddingBottom="0dp" >
+
+			    <Button
+			        android:id="@+id/startrouting"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="40dip"
+			        android:layout_marginRight="40dip"
+			        android:layout_weight="0.15"
+			        android:background="#29235C"
+			        android:paddingBottom="0dp"
+			        android:onClick="showMapRouting"
+			        android:text="Start Routenführung"
+			        android:textColor="@android:color/white"
+			        android:textSize="20sp"
+			        android:textStyle="italic" />
+
+			    <ProgressBar
+			        android:id="@+id/progressBar"
+			        style="?android:attr/progressBarStyleLarge"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_centerHorizontal="true"
+			        android:layout_centerVertical="true"
+			        android:indeterminateDrawable="@drawable/progress"
+			        android:visibility="gone" >
+			    </ProgressBar>
+			</LinearLayout>
+
 </LinearLayout>

@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contacts_layout_id"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+ 
+    tools:context=".DisplayContactsActivity" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:adjustViewBounds="true"
+            android:paddingRight="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/balkenoben" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/contacts_searchText"
+        android:layout_width="286dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Kontakte durchsuchen..." >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/contacts_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:text="Kontakte"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/secondary_text_light"
+        android:textStyle="italic" />
+
+    <ListView
+        android:id="@+id/contacts_List"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_weight="0.27"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/contacts_possibleContacts_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:text="Kontakt hinzufügen"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/secondary_text_light"
+        android:textStyle="italic" />
+
+    <ListView
+        android:id="@+id/contacts_possibleContacts_List"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_weight="0.4"
+        android:gravity="center_horizontal" 
+        android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+    </ListView>
+
+</LinearLayout>

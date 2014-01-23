@@ -1,0 +1,38 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:shrinkColumns="*"
+    android:stretchColumns="*">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/balkenoben" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Historie"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="italic" />
+
+    <ListView
+        android:id="@+id/list_messages"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/searchView1"
+        android:layout_marginTop="24dp"
+        android:layout_weight="0.55" 
+        android:layout_marginRight = "15dip"
+		android:layout_marginLeft = "15dip"
+		android:layout_marginBottom="15dip"
+		android:gravity = "center_horizontal">
+    </ListView>
+
+</TableLayout>

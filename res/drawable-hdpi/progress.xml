@@ -16,10 +16,10 @@
             android:width="48dip" />
 
         <gradient
-            android:centerColor="@color/common_action_bar_splitter"
+            android:centerColor="@android:color/white"
             android:centerY="0.50"
-            android:endColor="@color/common_action_bar_splitter"
-            android:startColor="@color/common_signin_btn_dark_text_default"
+            android:endColor="@android:color/white"
+            android:startColor="@android:color/white"
             android:type="sweep"
             android:useLevel="false" />
     </shape>
