@@ -114,8 +114,7 @@
 			    android:layout_height="wrap_content"
 			   	android:layout_marginLeft="40dip"
 		        android:layout_marginRight="15dip"
-			    android:text="Details"
-			    android:onClick="showDetails" />
+			    android:text="Details" />
     			
 	    		<ProgressBar
 	            android:id="@+id/progressBar"

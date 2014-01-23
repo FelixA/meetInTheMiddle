@@ -134,7 +134,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		    	//Setzen der Werte für Felder in Layout
 			    Toast.makeText(getApplicationContext(), "Lat + Lng konnten nicht ermittelt werden.", Toast.LENGTH_LONG).show();
 		    }
-		    final Button buttonDetails = (Button) findViewById(R.id.detailsBtn);
+		   /* final Button buttonDetails = (Button) findViewById(R.id.detailsBtn);
 		    buttonDetails.setOnClickListener(new View.OnClickListener() {				
 				@Override
 				public void onClick(View v) {
@@ -153,7 +153,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 						System.out.println("Detailsbutton");
 					}
 				}});
-		    
+		    */
             final Button button = (Button) findViewById(R.id.startrouting);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -568,18 +568,17 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     	@Override
 		protected PolylineOptions doInBackground(Void... params) {
 	    Location location = locationManager.getLastKnownLocation(provider);
-	    	double lat = (location.getLatitude());
-	  	    double lng = (location.getLongitude());
-	  	    aktPos = new LatLng(lat, lng);
+	    	//double lat = (location.getLatitude());
+	  	    //double lng = (location.getLongitude());
+	  	    //aktPos = new LatLng(lat, lng);
 	  	    ArrayList<LatLng> directionPoint = null;
 	  	    
-	  	    System.out.println("Aktuelle Position: "+lat+"/"+lng);
-	  	    /* Zielkoordinaten manuell angegeben, nachfolgend auslesen über Google Places/JSON
-	  	     * Auswahl nach Ranking am Zielort im Umkreis/radius von 200m
-	  	     * aktuelles Ziel/destPos stellt Marktplatz dar
-	  	    */
+	  	    //System.out.println("Aktuelle Position: "+lat+"/"+lng);
+
+	  	    
 	  	    //destPos = new LatLng(47.999008,7.842104);//Heilbronn(49.142696,9.212487);//Kriegstraße(49.005363,8.403747);//(47.996642,7.841449);//(49.142696 , 9.212487);Science-Center//(49.011373 , 8.364624);Philippsstraße//(48.543433,7.976418);Appenweiher//Freiburg(47.996642,7.841449);//Mannheim(49.480617,8.469086);//Baden-Baden//Heilbronn//Durlach(48.999197,8.47445);//Kriegstraße(49.005363,8.403747);//(49.009239, 8.403974);
-		    GMapV2Direction md = new GMapV2Direction();		    
+	  	    GMapV2Direction md = new GMapV2Direction();
+	  	    System.out.println("Pooblem: "+aktPos + ", "+destPos + mode + " "+ mode2);
 		    /*
 	  	     * Parameter-Übergabe laufen, Auto oder öffentliche Verkehrsmittel
 	  	     * String mode wird übergeben von vorangegangener Methode
@@ -590,7 +589,6 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	  	    
 	  	    if (checkWay==false)
 			{
-
 			  	    if(mode == "walking")
 			  	    {
 			  	    	if (mode2 == "walking")
@@ -1288,7 +1286,8 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 			
 			System.out.println("lat1, lng1, lat2, lng2: "+latPers1 + " " + lngPers1 + " " + latPers2 + " " + lngPers2);
 			aktPos = new LatLng(latPers1, lngPers1);
-			destPos = new LatLng(latPers2, lngPers2);
+			//destPos = new LatLng(latPers2, lngPers2);
+			destPos = new LatLng(49.005363,8.403747);
 		}
 		catch(Exception e)
 		{
