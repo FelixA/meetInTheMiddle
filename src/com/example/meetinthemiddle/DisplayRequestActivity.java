@@ -195,6 +195,13 @@ public class DisplayRequestActivity extends Activity implements
 		long lokalitaet = meetingausdb.getLokalitaet_fk();
 		Date uhrzeit = meetingausdb.getUhrzeit();
 		
+		
+		Intent rating = new Intent(DisplayRequestActivity.this, DisplayRatingActivity.class);
+		Bundle extras = getIntent().getExtras();
+		Long id = extras.getLong("MeetingId");
+		rating.putExtra("MeetingId", id);
+		startActivity(rating);
+		
 		Intent intentRouting = new Intent(DisplayRequestActivity.this, DisplayMap.class);
 		intentRouting.putExtra("PositionPerson1", locationPers1);
 		intentRouting.putExtra("PositionPerson2", locationPers2);
@@ -205,11 +212,7 @@ public class DisplayRequestActivity extends Activity implements
 		intentRouting.putExtra("Uhrzeit", date);
 		startActivity(intentRouting);
 		
-		Intent rating = new Intent(DisplayRequestActivity.this, DisplayRatingActivity.class);
-		Bundle extras = getIntent().getExtras();
-		Long id = extras.getLong("MeetingId");
-		rating.putExtra("MeetingId", id);
-		startActivity(rating);
+		
 		finish();
 	}
 
