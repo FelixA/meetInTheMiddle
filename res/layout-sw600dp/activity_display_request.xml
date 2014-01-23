@@ -57,16 +57,6 @@
 		android:textSize="20sp"
 		android:textStyle="italic" />
 
-	<ImageButton
-	    android:id="@+id/meetings_kindOf_button"
-	    android:layout_width="120dp"
-	    android:layout_height="120dp"
-	    android:layout_above="@+id/meetings_time_button"
-	    android:layout_alignLeft="@+id/meetings_time_button"
-	    android:background="@null"
-	    android:scaleType="fitCenter"
-	    android:src="@drawable/logo_aktion_hinzufuegen" />
-
 	<TextView
 	    android:id="@+id/request_kindOfTransportation_View"
 	    android:layout_width="wrap_content"
@@ -76,29 +66,7 @@
 	    android:layout_marginBottom="26dp"
 	    android:text="Anfahrt?"
 	    android:textAppearance="?android:attr/textAppearanceLarge"
-	    android:textSize="50dp" />
-
-	<ImageButton
-	    android:id="@+id/meetings_profile_Button"
-	    android:layout_width="120dp"
-	    android:layout_height="120dp"
-	    android:layout_above="@+id/meetings_kindOf_button"
-	    android:layout_alignLeft="@+id/meetings_kindOf_button"
-	    android:background="@null"
-	    android:scaleType="fitCenter"
-	    android:src="@drawable/logo_freunde_hinzufuegen" />
-
-	<ImageButton
-	    android:id="@+id/request_kindOfTransportation_button"
-	    android:layout_width="120dp"
-	    android:layout_height="120dp"
-	    android:layout_above="@+id/meetings_sendAbsagen"
-	    android:layout_marginBottom="37dp"
-	    android:layout_marginRight="46dp"
-	    android:layout_toLeftOf="@+id/request_kindOfTransportation_View"
-	    android:background="@null"
-	    android:scaleType="fitCenter"
-	    android:src="@drawable/logo_anfahrt_hinzufuegen" />
+	    android:textSize="40dp" />
 
 	<TextView
 	    android:id="@+id/TextView01"
@@ -114,17 +82,6 @@
 	    android:textAppearance="?android:attr/textAppearanceLarge"
 	    android:textSize="35dp" />
 
-	<ImageButton
-	    android:id="@+id/meetings_time_button"
-	    android:layout_width="120dp"
-	    android:layout_height="120dp"
-	    android:layout_above="@+id/TextView01"
-	    android:layout_alignLeft="@+id/request_kindOfTransportation_button"
-	    android:layout_marginBottom="41dp"
-	    android:background="@null"
-	    android:scaleType="fitCenter"
-	    android:src="@drawable/logo_uhrzeit_hinzufuegen" />
-
 	<TextView
 	    android:id="@+id/request_profile_View"
 	    android:layout_width="wrap_content"
@@ -134,7 +91,7 @@
 	    android:layout_marginBottom="26dp"
 	    android:text="Mit wem?"
 	    android:textAppearance="?android:attr/textAppearanceLarge"
-	    android:textSize="50dp" />
+	    android:textSize="40dp" />
 
 	<TextView
 	    android:id="@+id/request_kindOf_View"
@@ -145,7 +102,7 @@
 	    android:layout_toLeftOf="@+id/meetings_sendBestaetigung"
 	    android:text="Was tun?"
 	    android:textAppearance="?android:attr/textAppearanceLarge"
-	    android:textSize="50dp" />
+	    android:textSize="40dp" />
 
 	<TextView
 	    android:id="@+id/request_time_view"
@@ -156,6 +113,50 @@
 	    android:layout_marginTop="27dp"
 	    android:text="Wann?"
 	    android:textAppearance="?android:attr/textAppearanceLarge"
-	    android:textSize="50dp" />
+	    android:textSize="40dp" />
+
+	<ImageButton
+	    android:id="@+id/meetings_profile_Button"
+	    android:layout_width="120dp"
+	    android:layout_height="120dp"
+	    android:layout_alignRight="@+id/meetings_sendAbsagen"
+	    android:layout_below="@+id/textView1"
+	    android:layout_marginTop="37dp"
+	    android:background="@null"
+	    android:scaleType="fitCenter"
+	    android:src="@drawable/logo_freunde_hinzufuegen" />
+
+	<ImageButton
+	    android:id="@+id/meetings_time_button"
+	    android:layout_width="120dp"
+	    android:layout_height="120dp"
+	    android:layout_above="@+id/TextView01"
+	    android:layout_alignLeft="@+id/meetings_kindOf_button"
+	    android:layout_marginBottom="44dp"
+	    android:background="@null"
+	    android:scaleType="fitCenter"
+	    android:src="@drawable/logo_uhrzeit_hinzufuegen" />
+
+	<ImageButton
+	    android:id="@+id/meetings_kindOf_button"
+	    android:layout_width="120dp"
+	    android:layout_height="120dp"
+	    android:layout_alignLeft="@+id/meetings_profile_Button"
+	    android:layout_below="@+id/meetings_profile_Button"
+	    android:layout_marginTop="28dp"
+	    android:background="@null"
+	    android:scaleType="fitCenter"
+	    android:src="@drawable/logo_aktion_hinzufuegen" />
+
+	<ImageButton
+	    android:id="@+id/request_kindOfTransportation_button"
+	    android:layout_width="120dp"
+	    android:layout_height="120dp"
+	    android:layout_above="@+id/meetings_sendAbsagen"
+	    android:layout_alignRight="@+id/meetings_sendAbsagen"
+	    android:layout_marginBottom="37dp"
+	    android:background="@null"
+	    android:scaleType="fitCenter"
+	    android:src="@drawable/logo_anfahrt_hinzufuegen" />
 
 </RelativeLayout>
