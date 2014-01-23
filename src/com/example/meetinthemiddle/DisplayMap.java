@@ -1271,13 +1271,17 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		{
 			String lat1 = locationPers1.substring(0, (locationPers1.indexOf(",")-1));
 			System.out.println("lat1: "+lat1);
-			String lng1 = locationPers1.substring(locationPers1.indexOf(",")+2, locationPers1.length());
+			String lng1 = locationPers1.substring(locationPers1.indexOf(",")+1, locationPers1.length());
+			lat1 = lat1.replaceAll(" ", "");
+			lng1 = lng1.replaceAll(" ", "");
 			System.out.println("lng1: "+lng1);
 			double latPers1 = Double.parseDouble(lat1);
 			double lngPers1 = Double.parseDouble(lng1);
 			String lat2 = locationPers2.substring(0, (locationPers2.indexOf(",")-1));
 			System.out.println("lat2: "+lat2);
-			String lng2 = locationPers2.substring(locationPers2.indexOf(",")+2, locationPers2.length());
+			String lng2 = locationPers2.substring(locationPers2.indexOf(",")+1, locationPers2.length());
+			lat2 = lat2.replaceAll(" ", "");
+			lng2 = lng2.replaceAll(" ", "");
 			System.out.println("lng2: "+lng2);
 			double latPers2 = Double.parseDouble(lat2);
 			double lngPers2 = Double.parseDouble(lng2);	
