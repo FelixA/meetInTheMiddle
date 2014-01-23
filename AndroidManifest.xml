@@ -3,12 +3,6 @@
 	package="com.example.meetinthemiddle"
 	android:versionCode="1"
 	android:versionName="1.0" >
-	
-     <application
-        android:name="MeetInTheMiddle"
-        android:icon="@drawable/logo"  
-        android:label="MeetInTheMiddle"
-        android:theme="@style/AppTheme" >
 
 	<uses-sdk
 		android:minSdkVersion="11"
