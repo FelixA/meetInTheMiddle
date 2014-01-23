@@ -20,50 +20,58 @@
 			android:src="@drawable/balkenoben" />
 
 		<TextView
-		    android:id="@+id/textView2"
+			android:id="@+id/textView1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/createMeeting"
+			android:layout_centerHorizontal="true"
+			android:text="Erstelle ein neues Treffen"
+			android:textColor="@android:color/secondary_text_light"
+			android:textStyle="italic" />
+
+		<ImageButton
+			android:id="@+id/meetingHistory"
+			android:layout_width="120dp"
+			android:layout_height="120dp"
+			android:layout_alignLeft="@+id/createMeeting"
+			android:layout_below="@+id/textView1"
+			android:layout_marginTop="19dp"
+			android:adjustViewBounds="true"
+			android:background="@null"
+			android:maxHeight="80dp"
+			android:maxWidth="80dp"
+			android:onClick="meetingHistory"
+			android:padding="1dp"
+			android:scaleType="centerCrop"
+			android:src="@drawable/logo_uhrzeit_hinzufuegen" />
+
+		<TextView
+			android:id="@+id/textView2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/meetingHistory"
+			android:layout_centerHorizontal="true"
+			android:text="Geplante und vergangene Treffen"
+			android:textColor="@android:color/secondary_text_light"
+			android:textStyle="italic" />
+
+		<ImageView
+		    android:id="@+id/imageView2"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
-		    android:layout_centerHorizontal="true"
-		    android:layout_marginBottom="202dp"
-		    android:text="Geplante und vergangene Treffen"
-		    android:textColor="@android:color/secondary_text_light"
-		    android:textStyle="italic" />
-
-		<ImageButton
-		    android:id="@+id/meetingHistory"
-		    android:layout_width="120dp"
-		    android:layout_height="120dp"
-		    android:layout_above="@+id/textView2"
-		    android:layout_alignLeft="@+id/createMeeting"
-		    android:layout_marginBottom="26dp"
+		    android:layout_alignParentLeft="true"
 		    android:adjustViewBounds="true"
-		    android:background="@null"
-		    android:maxHeight="80dp"
-		    android:maxWidth="80dp"
-		    android:onClick="meetingHistory"
-		    android:padding="1dp"
 		    android:scaleType="centerCrop"
-		    android:src="@drawable/logo_uhrzeit_hinzufuegen" />
-
-		<TextView
-		    android:id="@+id/textView1"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_above="@+id/meetingHistory"
-		    android:layout_centerHorizontal="true"
-		    android:layout_marginBottom="78dp"
-		    android:text="Erstelle ein neues Treffen"
-		    android:textColor="@android:color/secondary_text_light"
-		    android:textStyle="italic" />
+		    android:src="@drawable/balkenunten" />
 
 		<ImageButton
 		    android:id="@+id/createMeeting"
 		    android:layout_width="120dp"
 		    android:layout_height="120dp"
-		    android:layout_above="@+id/textView1"
+		    android:layout_below="@+id/imageView1"
 		    android:layout_centerHorizontal="true"
-		    android:layout_marginBottom="25dp"
+		    android:layout_marginTop="32dp"
 		    android:adjustViewBounds="true"
 		    android:background="@null"
 		    android:maxHeight="80dp"

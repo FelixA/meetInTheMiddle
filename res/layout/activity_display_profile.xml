@@ -19,13 +19,14 @@
 			android:src="@drawable/balkenoben" />
 
 		<TextView
-			android:id="@+id/textView8"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="20dp"
-			android:text="@string/user_information"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:textColor="@android:color/secondary_text_light" />
+		    android:id="@+id/textView8"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_marginBottom="20dp"
+		    android:gravity="center"
+		    android:text="@string/user_information"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:textColor="@android:color/secondary_text_light" />
 
 		<TableLayout
 			android:layout_width="match_parent"
