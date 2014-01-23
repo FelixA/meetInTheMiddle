@@ -37,28 +37,57 @@ public class DisplayOverviewRouting extends android.support.v4.app.FragmentActiv
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_display_overview_routing);
 	   
-	    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-	    Criteria criteria = new Criteria();
-	    provider = locationManager.getBestProvider(criteria, false);
-	    Location location = locationManager.getLastKnownLocation(provider);
-	    System.out.println(":::Welcome to DisplayOvervireRouting:::");
-	    
-	    if (location != null) {
-		      System.out.println("Provider " + provider + " has been selected.");
-		      onLocationChanged(location);
-	    }
-	    else
-	    {
-	    	System.out.println("Location = null: "+location);
-		      latituteField.setText("Location not available");
-		      longitudeField.setText("Location not available");
-	    }
-		//onLocationChanged(location);
-
-	    
-	    
-	    
+	    loadActivity();
 	  }
+	  
+	  private void loadActivity() {
+		    locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+	        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+	            Toast.makeText(this, "GPS ist aktiviert.", Toast.LENGTH_SHORT).show();
+	            Criteria criteria = new Criteria();
+	    	    provider = locationManager.getBestProvider(criteria, false);
+	    	    Location location = locationManager.getLastKnownLocation(provider);
+	    	    
+	    	    if (location != null) {
+	    		      System.out.println("Provider " + provider + " has been selected.");
+	    		      onLocationChanged(location);
+	    	    }
+	    	    else
+	    	    {
+	    	    	System.out.println("Location = null: "+location);
+	    		      latituteField.setText("Location not available");
+	    		      longitudeField.setText("Location not available");
+	    	    }
+	        }
+	        else
+	        {
+	            showGPSDisabledAlertToUser();
+	        }	
+		}
+	  
+	  private void showGPSDisabledAlertToUser(){
+	        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+	        alertDialogBuilder.setMessage("GPS ist bislang deaktiviert. Wollen Sie es aktivieren?")
+	        .setCancelable(false)
+	        .setPositiveButton("GPS Einstellungen",
+	                new DialogInterface.OnClickListener(){
+	            public void onClick(DialogInterface dialog, int id){
+	                Intent callGPSSettingIntent = new Intent(
+	                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+	                startActivity(callGPSSettingIntent);
+	            }
+	        });
+	        alertDialogBuilder.setNegativeButton("Abbrechen",
+	                new DialogInterface.OnClickListener(){
+	            public void onClick(DialogInterface dialog, int id){
+	                dialog.cancel();
+	            }
+	        });
+	        AlertDialog alert = alertDialogBuilder.create();
+	        alert.show();
+	        
+	    }
 
 	@Override
 	public void onProviderDisabled(String provider) {

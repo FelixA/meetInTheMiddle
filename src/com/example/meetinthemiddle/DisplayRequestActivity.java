@@ -73,6 +73,7 @@ public class DisplayRequestActivity extends Activity implements
 	static final int TIME_DIALOG_ID = 0;
 
 	private final static int ONE = 1;
+	private Long modePers2;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -185,7 +186,24 @@ public class DisplayRequestActivity extends Activity implements
 		updateMeetingTask.execute();
 		//TODO: ROUTENFUEHRUNG STARTEN
 		// Benötige Positionsdaten von Person 1, bereits ausgelesen?
-		locationPers1 = new FindLocation1IDTask().execute().get();
+		
+		FindLocation1IDTask findLocation1Task = new FindLocation1IDTask();
+		Meeting meetingausdb = findLocation1Task.execute().get();
+		String locationPers1 = meetingausdb.getLocationPers1();
+		String locationPers2 = meetingausdb.getLocationPers2();
+		long modePers1 = meetingausdb.getVerkehrsmittel_pers1_fk();
+		long modePers2 = meetingausdb.getVerkehrsmittel_pers2_fk();
+		long lokalitaet = meetingausdb.getLokalitaet_fk();
+		Date uhrzeit = meetingausdb.getUhrzeit();
+		
+		Intent intentRouting = new Intent(DisplayRequestActivity.this, DisplayMap.class);
+		intentRouting.putExtra("PositionPerson1", locationPers1);
+		intentRouting.putExtra("PositionPerson2", locationPers2);
+		intentRouting.putExtra("ModusPers1", modePers1);
+		intentRouting.putExtra("ModusPers2", modePers2);
+		intentRouting.putExtra("lokalitaet", lokalitaet);
+		intentRouting.putExtra("Uhrzeit", uhrzeit);
+		startActivity(intentRouting);
 		
 		Intent rating = new Intent(DisplayRequestActivity.this, DisplayRatingActivity.class);
 		Bundle extras = getIntent().getExtras();
@@ -287,16 +305,16 @@ public class DisplayRequestActivity extends Activity implements
 
 	}
 	
-	private class FindLocation1IDTask extends AsyncTask<Void, Void, String>
+	private class FindLocation1IDTask extends AsyncTask<Void, Void, Meeting>
 	//TODO - getLocation from Pers1, als Variable kannst du die public String locationPers1 verwenden, die ist bereits oben definiert
 	{
 
 		@Override
-		protected String doInBackground(Void... params) {
+		protected Meeting doInBackground(Void... params) {
 			Bundle extras = getIntent().getExtras();
 			Long id = extras.getLong("MeetingId");
 			Meeting meeting = meetingDao.findMeetingById(id);
-					return meeting.getLocationPers1();
+					return meeting;
 		}
 		
 	}
