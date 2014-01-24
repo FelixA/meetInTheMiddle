@@ -412,12 +412,18 @@ public class DisplayContactsActivity extends Activity {
 
 		@Override
 		protected List<String> doInBackground(Void... params) {
+			Bundle extras = getIntent().getExtras();
 			List<Person> contactNames = new ArrayList<Person>();
 			possibleContactFirstNames = new ArrayList<String>();
 			contactNames = personDao.selectAll();
 			for (int i = 0; i < contactNames.size(); ++i) {
-				possibleContactFirstNames.add(contactNames.get(i)
-						.getFirstName());
+					if(extras.getLong("PersonId")==contactNames.get(i).getId()){
+						System.out.println("das bin ich selbst");
+					}else{
+						possibleContactFirstNames.add(contactNames.get(i)
+								.getFirstName());
+					}
+				
 			}
 			return possibleContactFirstNames;
 		}
@@ -428,10 +434,16 @@ public class DisplayContactsActivity extends Activity {
 		@Override
 		protected List<String> doInBackground(Void... params) {
 			List<Person> contactNames = new ArrayList<Person>();
+			Bundle extras = getIntent().getExtras();
+
 			possibleContactLastNames = new ArrayList<String>();
 			contactNames = personDao.selectAll();
-			for (int i = 0; i < contactNames.size(); ++i) {
+				for (int i = 0; i < contactNames.size(); ++i) {
+					if(extras.getLong("PersonId")==contactNames.get(i).getId()){
+						System.out.println("das bin ich selbst");
+					}else{
 				possibleContactLastNames.add(contactNames.get(i).getLastName());
+					}
 			}
 			return possibleContactLastNames;
 		}
