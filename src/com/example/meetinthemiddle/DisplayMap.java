@@ -394,12 +394,39 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	            String urlProminence = "";
 	            try 
 	            {
-	            	nl1 = doc.getElementsByTagName("PlaceSearchResponse");
+	            	/*nl1 = doc.getElementsByTagName("result");//PlaceSearchResponse");
 	            	Node responseNode = nl1.item(0);
 	            	nl2 = responseNode.getChildNodes();
 	            	Node statusNode = nl2.item(getNodeIndex(nl2, "status"));
 	            	String resultsStr = statusNode.getTextContent();
 	            	System.out.println("Results in URL? " +resultsStr );
+	            	
+	            	*/
+	            	String resultsStr = "";
+	            	try
+	            	{
+	            	nl1 = doc.getElementsByTagName("location");
+	    	        System.out.println("Länge Node Nl1 = "+nl1.getLength());
+	    	        Node locationNode = nl1.item(0);
+	    	        nl2 = locationNode.getChildNodes();
+	    	        Node latNode = nl2.item(getNodeIndex(nl2, "lat"));
+	    	        double lat = Double.parseDouble(latNode.getTextContent());
+	    	        Node lngNode = nl2.item(getNodeIndex(nl2, "lng"));
+	    	        double lng = Double.parseDouble(lngNode.getTextContent());
+	    	        System.out.println("lat/lng:"+lat+"/"+lng);
+	    	        nl3 = doc.getElementsByTagName("reference");
+	    	        System.out.println("Anzahl Elemente reference: "+nl3.getLength());
+	    	        Node referenceNode = nl3.item(0);
+	    	        reference = referenceNode.getTextContent();
+	    	        pTaskPOI = new LatLng(lat, lng);
+	            	}
+	            	catch(Exception e)
+	            	{
+	            		Log.e("getBarsEtc...", "failed");
+	            		resultsStr = "ZERO_RESULTS";
+	            	}
+	            	
+	            	
 	            	if (resultsStr == "ZERO_RESULTS");
 	            	{
 	            		urlProminence = "https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location="
@@ -1287,7 +1314,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 			System.out.println("lat1, lng1, lat2, lng2: "+latPers1 + " " + lngPers1 + " " + latPers2 + " " + lngPers2);
 			aktPos = new LatLng(latPers1, lngPers1);
 			//destPos = new LatLng(latPers2, lngPers2);
-			destPos = new LatLng(49.005363,8.403747);
+			destPos = new LatLng(49.008963,8.403747);
 		}
 		catch(Exception e)
 		{
