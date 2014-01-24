@@ -147,9 +147,11 @@ try{for (int i = 0; i < meetingAnfragen.size(); i++) {
 						android.R.id.text1, android.R.id.text2 });
 		einladungenList.setAdapter(einladungenAdapter);
 	}
-
+	
 	private void registerClickCallback() {
+		System.out.println("registerCallback");
 		final ListView anfragenList = (ListView) findViewById(R.id.messages_anfragenlist);
+		
 		anfragenList
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 					@Override
@@ -196,6 +198,7 @@ try{for (int i = 0; i < meetingAnfragen.size(); i++) {
 					}
 					
 				});
+		System.out.println("Nach anfragenlistener");
 		final ListView einladungenList = (ListView) findViewById(R.id.messagesInvitations_list);
 		einladungenList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -348,7 +351,9 @@ try{for (int i = 0; i < meetingAnfragen.size(); i++) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					} catch (Exception e){}
+					System.out.println("Vor aufruf registerCallback");
 					registerClickCallback();
+					System.out.println("Nach aufruf registercallback");
 				}else{System.out.println("anfrage ist noch nicht akzeptiert");
 					};}}catch(Exception e){}
 			return anfragenlist;
