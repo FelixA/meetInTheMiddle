@@ -7,7 +7,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
@@ -51,9 +54,17 @@ public class GCMIntentService extends GCMBaseIntentService {
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification(String msg) {
+    	
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
-        //TODO: CHECKEN
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+		//Define sound URI
+		Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		//Display notification
+		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		// Vibrate for 500 milliseconds
+		v.vibrate(500);
         if(msg=="Das treffen wurde erstellt"){
         	PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                     new Intent(this, DisplayMap.class), 0);
@@ -65,6 +76,7 @@ public class GCMIntentService extends GCMBaseIntentService {
                 new NotificationCompat.Builder(this)
         .setSmallIcon(R.drawable.meetinthemiddle)
         .setLargeIcon(bm)
+        .setSound(soundUri)
         .setContentTitle("Meet In The Middle")
         .setStyle(new NotificationCompat.BigTextStyle()
         .bigText(msg))
