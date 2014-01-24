@@ -370,7 +370,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	    
 		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location="
 				+ middlePoint.latitude + "," + middlePoint.longitude + rankingByDistance 
-				+ "&types=" + types + "&sensor=false&key=AIzaSyCmpO5pMHGahkcZg5TqAkXQ_P1xiNE6VKs";//AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
+				+ "&types=" + types + "&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
 
 		Log.i("public String getDetailsPlace", "Start: MeetingPoint: "+url);
 
@@ -404,7 +404,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	            	{
 	            		urlProminence = "https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location="
 	            				+ middlePoint.latitude + "," + middlePoint.longitude + rankingByProminence +"&radius=5000"
-	            				+ "&types=" + types + "&sensor=false&key=AIzaSyCmpO5pMHGahkcZg5TqAkXQ_P1xiNE6VKs";//AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
+	            				+ "&types=" + types + "&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
 	            		System.out.println("UrlProminence: "+urlProminence);
     	            	httpClient = new DefaultHttpClient();
         	            localContext = new BasicHttpContext();
