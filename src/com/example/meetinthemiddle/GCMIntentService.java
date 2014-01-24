@@ -60,7 +60,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
 		//Define sound URI
-		Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//		Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 		//Display notification
 		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		// Vibrate for 500 milliseconds
@@ -76,7 +76,7 @@ public class GCMIntentService extends GCMBaseIntentService {
                 new NotificationCompat.Builder(this)
         .setSmallIcon(R.drawable.meetinthemiddle)
         .setLargeIcon(bm)
-        .setSound(soundUri)
+//        .setSound(soundUri)
         .setContentTitle("Meet In The Middle")
         .setStyle(new NotificationCompat.BigTextStyle()
         .bigText(msg))
