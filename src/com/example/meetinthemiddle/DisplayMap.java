@@ -984,12 +984,12 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		    txtDistance.setText(distance+" m"); // txt.setText(result);
 		    System.out.println("Setzen der Marker");
 		    Marker destinationPos = map.addMarker(new MarkerOptions().position(destPos)
-		    		.title("Ziel"));
+		    		.title("Startpunkt des Empfängers"));
 		    destinationPos.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 		    Marker aktuellePosition = map.addMarker(new MarkerOptions().position(aktPos)
-		            .title("Aktuelle Position"));
+		            .title("Startpunkt des Erstellers"));
 		    Marker middle = map.addMarker(new MarkerOptions().position(middlePoint)
-		            .title("Mittelpunkt"));
+		            .title("Optimaler Mittelpunkt"));
 		    System.out.println("Setzen der Linie++++++");
 		    System.out.println(rectLine);
 		    Polyline polylin = map.addPolyline(rectLine);
