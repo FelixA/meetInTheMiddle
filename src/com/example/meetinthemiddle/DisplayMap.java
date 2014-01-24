@@ -207,9 +207,9 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     	protected String doInBackground(Void... params) {
     		Log.i("############placesTask", "REQUEST");
     		//funktioniert: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.016557,8.390047&rankby=prominence&radius=1000&types=movie_theater&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA
-    	    
+    	    int radius = (int) (distance/3);
     		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location="
-    				+ middlePoint.latitude + "," + middlePoint.longitude + rankingByDistance 
+    				+ middlePoint.latitude + "," + middlePoint.longitude + rankingByDistance +"&radius="+radius
     				+ "&types=" + types + "&sensor=false&key=AIzaSyCmpO5pMHGahkcZg5TqAkXQ_P1xiNE6VKs";//AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
 
     	    Log.i("meetingPoint", url);    	    
@@ -243,7 +243,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     	            	if (resultsStr == "ZERO_RESULTS");
     	            	{
     	            		urlProminence = "https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location="
-    	            				+ middlePoint.latitude + "," + middlePoint.longitude + rankingByProminence +"&radius=5000"
+    	            				+ middlePoint.latitude + "," + middlePoint.longitude + rankingByProminence +"&radius="+radius
     	            				+ "&types=" + types + "&sensor=false&key=AIzaSyCmpO5pMHGahkcZg5TqAkXQ_P1xiNE6VKs";//AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
     	            		System.out.println("UrlProminence: "+urlProminence);
         	            	httpClient = new DefaultHttpClient();
