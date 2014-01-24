@@ -1314,7 +1314,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 			System.out.println("lat1, lng1, lat2, lng2: "+latPers1 + " " + lngPers1 + " " + latPers2 + " " + lngPers2);
 			aktPos = new LatLng(latPers1, lngPers1);
 			//destPos = new LatLng(latPers2, lngPers2);
-			destPos = new LatLng(49.008963,8.403747);
+			destPos = new LatLng(49.010132 , 8.386655);
 		}
 		catch(Exception e)
 		{
