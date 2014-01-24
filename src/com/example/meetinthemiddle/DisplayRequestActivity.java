@@ -140,6 +140,10 @@ public class DisplayRequestActivity extends Activity implements
 		else
 			return "0" + String.valueOf(c);
 	}
+	public void sendAbsage(View view){
+		Intent intent = new Intent(DisplayRequestActivity.this,MainActivity.class);
+		startActivity(intent);
+	}
 
 	@SuppressLint("NewApi")
 	private void createPopups() {
@@ -294,6 +298,7 @@ public class DisplayRequestActivity extends Activity implements
 			return person;
 		}
 	}
+	
 
 	private class FindLocationTask extends AsyncTask<Long, Void, Location> {
 
