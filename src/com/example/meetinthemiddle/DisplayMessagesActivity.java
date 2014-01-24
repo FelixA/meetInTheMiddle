@@ -241,6 +241,9 @@ try{for (int i = 0; i < meetingAnfragen.size(); i++) {
 		@Override
 		protected Meeting doInBackground(String... params) {
 		Meeting meeting = new Meeting();
+		if(Integer.parseInt(params[1])<10){
+			params[1] = "0" + params[1];
+		}
 		meeting = meetingDao.findMeetingByPers2_FK_Uhrzeit(params[0],params[1],params[2]);
 			return meeting;
 		}
@@ -250,6 +253,9 @@ try{for (int i = 0; i < meetingAnfragen.size(); i++) {
 		@Override
 		protected Meeting doInBackground(String... params) {
 			Meeting meeting = new Meeting();
+			if(Integer.parseInt(params[1])<10){
+				params[1] = "0" + params[1];
+			}
 			meeting = meetingDao.findMeetingByPers1_FK_Uhrzeit(params[0],params[1],params[2]);
 			return meeting;
 		}
