@@ -118,7 +118,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 			formatParameters();
 			Log.e("DisplayMap/Übergabeparameter: ", "Parameter okay nach Formatierung? "+aktPos+", "+destPos+", "+mode+", "+mode2+", "+types+", "+uhrzeit);
 		    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		    loadActivity();
+		    //loadActivity();
 		    
 		    Criteria criteria = new Criteria();
 		    provider = locationManager.getBestProvider(criteria, false);
