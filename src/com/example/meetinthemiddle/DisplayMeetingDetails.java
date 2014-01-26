@@ -158,7 +158,7 @@ public class DisplayMeetingDetails extends android.support.v4.app.FragmentActivi
 
 	    Marker aktuellePosition = map.addMarker(new MarkerOptions().position(aktPos)
 	            .title("Treffpunkt"));
-	    aktuellePosition.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+	    aktuellePosition.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
 		
 	    map.moveCamera(CameraUpdateFactory.newLatLngZoom(aktPos, 12));
