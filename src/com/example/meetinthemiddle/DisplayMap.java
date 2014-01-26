@@ -92,6 +92,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	public final String rankingByProminence = "&rankby=prominence";
 	double distancePersonA, distancePersonB;
 	String durationPersonB, durationPersonA;
+	public double durationPartDbl;
 
     //Offizielle Parameter aus Übergabe
     String locationPers1, locationPers2, uhrzeit, mode, mode2, types;
@@ -260,7 +261,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     		{
     		Log.i("############placesTask", "REQUEST");
     		//funktioniert: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.016557,8.390047&rankby=prominence&radius=1000&types=movie_theater&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA
-    	    int radius = (int) (distance/3);
+    	    int radius = (int) (distance/5);
     		String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location="
     				+ middlePoint.latitude + "," + middlePoint.longitude + rankingByDistance +"&radius="+radius
     				+ "&types=" + types + "&sensor=false&key=AIzaSyCmpO5pMHGahkcZg5TqAkXQ_P1xiNE6VKs";//AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
@@ -765,7 +766,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 					Log.i("DurationPart1", ""+durationPart);
 					//String durationPartStr = durationPart.substring(0, durationPart.indexOf(" mins", 0));
 					//Eingefügt
-					double durationPartDbl = 0;
+					durationPartDbl = 0;
 					durationPartDbl = calculateDuration(durationPart);
 					
 					int halbeStrecke = (int) (durationCpl/2);
@@ -935,7 +936,8 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 					}
 				}
 				middlePoint = searchPoint;
-				
+				durationPersonA = String.valueOf(durationPartDbl);
+				//distancePersonA = md.getDistanceValue(doc);
 				
 				
 				//pTask = new placesTask();
@@ -969,8 +971,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 					doc = md.getDocument(aktPos, middlePoint,GMapV2Direction.MODE_TRANSIT);
 				}
 				directionPoint = md.getDirection(doc);
-				durationPersonA = md.getDurationValue(doc);
-				distancePersonA = md.getDistanceValue(doc);
+
 				Log.i("Mittelpunkt", ""+middlePoint);
 				System.out.println("Setzen des Mittelpunkts anhand errechneten Mittelpunkts ");
 				/*

@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="5dip"
+        android:textColor="@color/CornflowerBlue"
         android:text="Routenführung"
         android:textSize="30dip" />
 
@@ -67,7 +68,7 @@
     		        android:layout_height="wrap_content"
     		        android:layout_marginLeft="15dip"
     		        android:layout_marginRight="5dip"
-    		        android:text="Dauer"
+    		        android:text=""
     		        android:textSize="20dip" />
 
     		    <TextView
@@ -76,47 +77,39 @@
     		        android:layout_height="wrap_content"
     		        android:layout_marginLeft="25dip"
     		        android:layout_marginRight="10dip"
-    		        android:text="Distanz"
+    		        android:text=""
     		        android:textSize="20dip" >
     		    </TextView>
 	    
 	            
 	    </LinearLayout>
-	        
-    		<LinearLayout
-    		    android:id="@+id/linearLayout5"
-    		    android:layout_width="match_parent"
-    		    android:layout_height="15pt"
-    		    android:layout_marginTop="20dip"
-    		    android:orientation="horizontal" >
-
-    		</LinearLayout>
+   
 
 			<LinearLayout
     		    android:id="@+id/linearLayout9"
     		    android:layout_width="match_parent"
     		    android:layout_height="25pt"
-    		    android:layout_marginTop="20dip"
+    		    android:layout_marginTop="10dip"
     		    android:orientation="horizontal" >
     		    
 			    			    <Button
 			        android:id="@+id/startrouting"
-			        android:layout_width="wrap_content"
+			        android:layout_width="90dp"
 			        android:layout_height="wrap_content"
-			        android:layout_marginLeft="40dip"
-			        android:layout_marginRight="40dip"
+			        android:layout_marginLeft="15dip"
+			        android:layout_marginRight="20dip"
 			        android:layout_weight="0.15"
 			        android:background="#29235C"
 			        android:paddingBottom="0dp"
 			        android:onClick="showMapRouting"
 			        android:text="Start Routenführung"
 			        android:textColor="@android:color/white"
-			        android:textSize="20sp"
+			        android:textSize="16sp"
 			        android:textStyle="italic" />
 			    
 			    <Button
 			        android:id="@+id/detailsBtn"
-			        android:layout_width="wrap_content"
+			        android:layout_width="50dp"
 			        android:layout_height="wrap_content"
 			        android:layout_marginLeft="40dip"
 			        android:layout_marginRight="40dip"
