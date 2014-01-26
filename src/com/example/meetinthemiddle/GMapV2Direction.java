@@ -37,6 +37,7 @@ public Document getDocument(LatLng start, LatLng end, String mode) {
             + "origin=" + start.latitude + "," + start.longitude
             + "&destination=" + end.latitude + "," + end.longitude
             + "&sensor=false&units=metric&mode="+mode;
+		Log.i("driving oder walking", ""+url);
 	}
 	else if (mode == "MODE_DRIVING" || mode == "MODE_WALKING")
 	{
@@ -44,6 +45,8 @@ public Document getDocument(LatLng start, LatLng end, String mode) {
             + "origin=" + start.latitude + "," + start.longitude
             + "&destination=" + end.latitude + "," + end.longitude
             + "&sensor=false&units=metric&mode="+mode;
+		Log.i("driving oder walking", ""+url);
+
 	}
 	else if (mode == "transit")
 	{

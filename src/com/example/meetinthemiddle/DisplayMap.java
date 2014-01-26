@@ -136,6 +136,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		    	//Setzen der Werte für Felder in Layout
 			    Toast.makeText(getApplicationContext(), "Lat + Lng konnten nicht ermittelt werden.", Toast.LENGTH_LONG).show();
 		    }
+		    try {
 		   final Button buttonDetails = (Button) findViewById(R.id.detailsBtn);
 		    buttonDetails.setOnClickListener(new View.OnClickListener() {				
 				@Override
@@ -154,15 +155,15 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 							durationPersonB = "Zeit konnte nicht ermittelt werden";
 						}
 						
-						if (namePoint == "")
+						if (namePoint == "" || namePoint == null)
 						{
 							namePoint = "Konnte nicht ermittelt werden";
 						}
-						if (telNumber == "")
+						if (telNumber == "" || telNumber == null)
 						{
 							telNumber = "Konnte nicht ermittelt werden";
 						}
-						if (address == "")
+						if (address == "" || address == null)
 						{
 							address = "Konnte nicht ermittelt werden";
 						}
@@ -197,6 +198,12 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 						e.printStackTrace();
 					}
 				}});
+		    }
+		    catch(Exception e)
+		    {
+		    	Log.e("onClick Details", "Problem");
+		    	e.printStackTrace();
+		    }
 		    
             final Button button = (Button) findViewById(R.id.startrouting);
             button.setOnClickListener(new View.OnClickListener() {
@@ -249,6 +256,8 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     public class placesTask extends AsyncTask<Void, Void, String>{
     	@Override
     	protected String doInBackground(Void... params) {
+    		try
+    		{
     		Log.i("############placesTask", "REQUEST");
     		//funktioniert: https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=49.016557,8.390047&rankby=prominence&radius=1000&types=movie_theater&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA
     	    int radius = (int) (distance/3);
@@ -383,6 +392,12 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     	    {
     	    	Log.e("placesTask", "Fehler beim auslesen");
     	    }
+    		}
+    		catch(Exception e)
+    		{
+    			Log.e("DoinBackground", "Error");
+    			e.printStackTrace();
+    		}
     	    return "";
     	
     	}

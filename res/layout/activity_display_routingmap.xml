@@ -98,23 +98,37 @@
     		    android:layout_height="25pt"
     		    android:layout_marginTop="20dip"
     		    android:orientation="horizontal" >
+    		    
+			    			    <Button
+			        android:id="@+id/startrouting"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="40dip"
+			        android:layout_marginRight="40dip"
+			        android:layout_weight="0.15"
+			        android:background="#29235C"
+			        android:paddingBottom="0dp"
+			        android:onClick="showMapRouting"
+			        android:text="Start Routenführung"
+			        android:textColor="@android:color/white"
+			        android:textSize="20sp"
+			        android:textStyle="italic" />
+			    
+			    <Button
+			        android:id="@+id/detailsBtn"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="40dip"
+			        android:layout_marginRight="40dip"
+			        android:layout_weight="0.15"
+			        android:background="#29235C"
+			        android:paddingBottom="0dp"
+			        android:textColor="@android:color/white"
+			        android:textSize="20sp"
+			        android:textStyle="italic"
+			        android:text="Details" />
     			
-    			<Button
-			    android:id="@+id/startrouting"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			   	android:layout_marginLeft="40dip"
-		        android:layout_marginRight="15dip"
-			    android:text="Start Routenführung"
-			    android:onClick="showMapRouting" />
-    			
-    			<Button
-			    android:id="@+id/detailsBtn"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			   	android:layout_marginLeft="40dip"
-		        android:layout_marginRight="15dip"
-			    android:text="Details" />
+    		
     			
 	    		<ProgressBar
 	            android:id="@+id/progressBar"

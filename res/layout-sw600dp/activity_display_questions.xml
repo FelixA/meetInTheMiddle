@@ -99,30 +99,8 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_below="@+id/textViewQuestion4"
-        android:text="Das liegt zum einem am verwendeten Verkehrsmittel, zum anderen aber auch an der Wahl der Art des Treffpunkts. Mit einem Auto kann man in derselben Zeit eine deutlich größere Strecke überwinden, weshalb sich demzufolge auch der optimale Mittelpunkt verschiebt. Weiterhin ist nicht gewährleistet, dass genau in der Mitte ein Treffpunkt wie beispielsweise ein Kino liegt. Der Algorithmus sucht die nächstbeste hoch bewertete Alternative aus der Google Datenbank." />
+        android:text="Das liegt zum einem am verwendeten Verkehrsmittel, zum anderen aber auch an der Wahl der Art des Treffpunkts. Mit einem Auto kann man in derselben Zeit eine deutlich größere Strecke überwinden, weshalb sich demzufolge auch der optimale Mittelpunkt verschiebt. Weiterhin ist nicht gewährleistet, dass genau in der Mitte ein Treffpunkt wie beispielsweise ein Kino liegt. " />
     
-            <TextView
-        android:id="@+id/textViewQuestion5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="18dp"
-        android:textColor="@color/CornflowerBlue"
-       	android:layout_below="@+id/textViewAnswer4"
-        android:text="Ist diese App kostenpflichtig?"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textViewAnswer5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_below="@+id/textViewQuestion5"
-        android:text="Nein, die Applikation ist kostenfrei und kann von dir und deinen Freunden und allen, die Interesse daran haben, verwendet werden, ohne Limitierung." />
-
 
       <TextView
         android:id="@+id/textViewQuestion6"
@@ -133,7 +111,7 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="18dp"
         android:textColor="@color/CornflowerBlue"
-       	android:layout_below="@+id/textViewAnswer5"
+       	android:layout_below="@+id/textViewAnswer4"
         android:text="Wer hat denn diese großartige Applikation entwickelt?"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
