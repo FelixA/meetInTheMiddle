@@ -15,7 +15,7 @@ public class DisplayQuestionsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_questions);
 		// Show the Up button in the action bar.
-		setupActionBar();
+		//setupActionBar();
 	}
 
 	/**

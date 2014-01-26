@@ -14,6 +14,7 @@ import android.location.Criteria;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,7 +24,9 @@ public class DisplayMeetingDetails extends android.support.v4.app.FragmentActivi
 
 	  private LocationManager locationManager;
 	  public String provider, name, tel, address;
-	  public LatLng aktPos;
+	  public LatLng aktPos, middlePoint1;
+	  double lat, lng;
+	  
 
 
 	  
@@ -32,25 +35,46 @@ public class DisplayMeetingDetails extends android.support.v4.app.FragmentActivi
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_display_overview_routing);
-	   
-	    loadActivity();
+	    setContentView(R.layout.activity_display_meeting_details);
+
+			    
 	    try {
 	    	Bundle extras = getIntent().getExtras();
 	    	name = extras.getString("name");
 	    	tel = extras.getString("tel");
 	    	address = extras.getString("adresse");
-		    TextView txtName = (TextView) findViewById(R.id.textView2);
-		    txtName.setText(name);
-		    TextView txtTel = (TextView) findViewById(R.id.editText2);
-		    txtName.setText(tel);
-		    //TextView txtName = (TextView) findViewById(R.id.textView2);
-		    //txtName.setText(name);
+	    	lat = extras.getDouble("lat");
+	    	lng = extras.getDouble("lng");
+	    	middlePoint1 = new LatLng(lat, lng);
+	    	String durationPA = extras.getString("durationPersonA");
+	    	String durationPB = extras.getString("durationPersonB");
+	    	String distancePA = extras.getString("distancePersonA");
+	    	String distancePB = extras.getString("distancePersonB");
+		    TextView txtName = (TextView) findViewById(R.id.textName);
+		    txtName.setText("Name: "+name);
+		    TextView txtTel = (TextView) findViewById(R.id.textTel);
+		    txtTel.setText("Telefon: "+tel);
+		    TextView txtAddress = (TextView) findViewById(R.id.textAddress);
+		    txtAddress.setText("Adresse: "+address);
+		    System.out.println("Details: "+name+tel+address+lat+lng);
+		    TextView txtDurationPA = (TextView) findViewById(R.id.textDurationPersonA);
+		    TextView txtDurationPB = (TextView) findViewById(R.id.textDurationPersonB);
+		    TextView txtDistancePA = (TextView) findViewById(R.id.textDistancePersonA);
+		    TextView txtDistancePB = (TextView) findViewById(R.id.textDistancePersonB);
+		    txtDurationPA.setText(durationPA);
+		    txtDurationPB.setText(durationPB);
+		    txtDistancePA.setText(distancePA);
+		    txtDistancePB.setText(distancePB);
+//		    CameraPosition cameraPosition = null;
+//		    cameraPosition = new CameraPosition.Builder().target(middlePoint1).zoom(13).build();
+//		    Log.i("cameraPosition", "Zoom (15)");
 	    }
 	    catch (Exception e)
 	    {
 	    	
 	    }
+	    loadActivity();
+
 		
 	  }
 	  
@@ -125,19 +149,19 @@ public class DisplayMeetingDetails extends android.support.v4.app.FragmentActivi
 	public void onLocationChanged(Location location) {
 		// TODO Auto-generated method stub
 		System.out.println("location: "+location);
-		double lat = location.getLatitude();
-		double lng = location.getLongitude();
-		System.out.println("lat/lng: "+lat+"/"+lng);
-		//latituteField.setText(String.valueOf(lat));
-		//longitudeField.setText(String.valueOf(lng));
+		System.out.println(middlePoint1);
+
 		System.out.println("ende");
-		LatLng aktPos = new LatLng(lat, lng);
-	    //GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-	    //        .getMap();
-	    //Marker aktuellePosition = map.addMarker(new MarkerOptions().position(aktPos)
-	      //      .title("Aktuelle Position"));
+		LatLng aktPos = middlePoint1;
+	    GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+	            .getMap();
+
+	    Marker aktuellePosition = map.addMarker(new MarkerOptions().position(aktPos)
+	            .title("Treffpunkt"));
+	    aktuellePosition.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
 		
-	    //map.moveCamera(CameraUpdateFactory.newLatLngZoom(aktPos, 12));
+	    map.moveCamera(CameraUpdateFactory.newLatLngZoom(aktPos, 12));
 		
 	}
 

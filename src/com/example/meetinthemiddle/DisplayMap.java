@@ -90,7 +90,9 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
     public String details="";
 	public final String rankingByDistance = "&rankby=distance"; //Parameter radius hierzu deaktivieren, Ergebnisse werden nach distanz geordnet
 	public final String rankingByProminence = "&rankby=prominence";
-    
+	double distancePersonA, distancePersonB;
+	String durationPersonB, durationPersonA;
+
     //Offizielle Parameter aus Übergabe
     String locationPers1, locationPers2, uhrzeit, mode, mode2, types;
     long modePers1, modePers2, lokalitaet;
@@ -134,7 +136,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 		    	//Setzen der Werte für Felder in Layout
 			    Toast.makeText(getApplicationContext(), "Lat + Lng konnten nicht ermittelt werden.", Toast.LENGTH_LONG).show();
 		    }
-		   /* final Button buttonDetails = (Button) findViewById(R.id.detailsBtn);
+		   final Button buttonDetails = (Button) findViewById(R.id.detailsBtn);
 		    buttonDetails.setOnClickListener(new View.OnClickListener() {				
 				@Override
 				public void onClick(View v) {
@@ -142,18 +144,60 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 					Intent i = new Intent(DisplayMap.this,
 							DisplayMeetingDetails.class);
 					try
-					{
-						i.putExtra("name", namePoint);
-						i.putExtra("tel", telNumber);
-						i.putExtra("adresse", address);
-						startActivity(i);
+					{						
+						if (durationPersonA == "")
+						{
+							durationPersonA = "Zeit konnte nicht ermittelt werden";
+						}
+						if (durationPersonB == "")
+						{
+							durationPersonB = "Zeit konnte nicht ermittelt werden";
+						}
+						
+						if (namePoint == "")
+						{
+							namePoint = "Konnte nicht ermittelt werden";
+						}
+						if (telNumber == "")
+						{
+							telNumber = "Konnte nicht ermittelt werden";
+						}
+						if (address == "")
+						{
+							address = "Konnte nicht ermittelt werden";
+						}
+						try
+						{
+							i.putExtra("durationPersonA", durationPersonA);
+							i.putExtra("durationPersonB", durationPersonB);
+							i.putExtra("distancePersonA", distancePersonA);
+							i.putExtra("distancePersonA", distancePersonB);
+	
+							System.out.println("Mockdaten");
+							i.putExtra("name", namePoint);
+							i.putExtra("tel", telNumber);
+							i.putExtra("adresse", address);
+							System.out.println("Konvertierung latlng");
+							double lat = middlePoint.latitude;
+							double lng = middlePoint.longitude;
+							System.out.println("Übergabe an extras");
+							i.putExtra("lat", lat);
+							i.putExtra("lng", lng);
+							System.out.println("StartActivity");
+							startActivity(i);
+						}
+						catch(Exception e)
+						{
+							e.printStackTrace();
+						}
 					}
 					catch (Exception e)
 					{
-						System.out.println("Detailsbutton");
+						Log.e("DisplayMap", "Crash nach Click auf buttonDetails.");
+						e.printStackTrace();
 					}
 				}});
-		    */
+		    
             final Button button = (Button) findViewById(R.id.startrouting);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -256,7 +300,6 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
             	            doc = builder.parse(in);
             	            System.out.println("Doc ist gefüllt nach zweiten Versuch mit Prominence-Faktor");
     	            	}
-    	            	
     	            }
     	            catch(Exception e)
     	            {
@@ -476,7 +519,7 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 	    	//Mittels Reference auf Details zugreifen
 	    	String urlDetails = "https://maps.googleapis.com/maps/api/place/details/xml"
 	    	+ "?reference="+reference 
-	    	+ "&sensor=false&key=AIzaSyCmpO5pMHGahkcZg5TqAkXQ_P1xiNE6VKs";//AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";
+	    	+ "&sensor=false&key=AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA";//AIzaSyCW2yIWAH8FtzCwhYKAazZnFIi6Fc71trA"; 
 	    	//Log.i("urlDetails", ""+urlDetails);
 	    	detailsArr = null;
 	    	try
@@ -911,6 +954,8 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 					doc = md.getDocument(aktPos, middlePoint,GMapV2Direction.MODE_TRANSIT);
 				}
 				directionPoint = md.getDirection(doc);
+				durationPersonA = md.getDurationValue(doc);
+				distancePersonA = md.getDistanceValue(doc);
 				Log.i("Mittelpunkt", ""+middlePoint);
 				System.out.println("Setzen des Mittelpunkts anhand errechneten Mittelpunkts ");
 				/*
@@ -951,6 +996,10 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 				}
 				
 				directionPoint = md.getDirection(doc);
+				// Änderung Anfang
+				durationPersonB = md.getDurationValue(doc);
+				distancePersonB = md.getDistanceValue(doc);
+				//Änderung Ende
 				System.out.println("+++++++++++++++++Zeichnen der 2. Linie");
 				rectLine = new PolylineOptions().width(7).color(Color.GREEN);
 				System.out.println("DP2: "+directionPoint);
@@ -962,99 +1011,93 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 			}
 
 			return rectLine;
-			
 
-			//Zeichnung zweite Strecke in anderer Farbe
 		}
 	
 		@Override
 	    protected void onPostExecute(PolylineOptions rectLine) {
-			Log.i("onPostExecute", ""+aktPos + "/" + middlePoint + "/" + destPos);
-		    GoogleMap map = ((MapFragment) getFragmentManager()
-                 .findFragmentById(R.id.map)).getMap();
-		    System.out.println("MapFragment/");
-		    TextView txtDuration = (TextView) findViewById(R.id.TextViewTime);
-		    txtDuration.setText(duration);
-		    if (beta == true)
-		    {
-		    	//TextView txtBeta = (TextView) findViewById(R.id.);
-		    	//txtBeta.setText("Laufen ist schneller als Bahnfahren :)");
-		    }
-		    TextView txtDistance = (TextView) findViewById(R.id.TextView02);
-		    txtDistance.setText(distance+" m"); // txt.setText(result);
-		    System.out.println("Setzen der Marker");
-		    Marker destinationPos = map.addMarker(new MarkerOptions().position(destPos)
-		    		.title("Startpunkt des Empfängers"));
-		    destinationPos.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-		    Marker aktuellePosition = map.addMarker(new MarkerOptions().position(aktPos)
-		            .title("Startpunkt des Erstellers"));
-		    Marker middle = map.addMarker(new MarkerOptions().position(middlePoint)
-		            .title("Optimaler Mittelpunkt"));
-		    System.out.println("Setzen der Linie++++++");
-		    System.out.println(rectLine);
-		    Polyline polylin = map.addPolyline(rectLine);
-		    middle.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-		    bar.setVisibility(View.GONE);
-		    System.out.println("CameraPosition");
-		 // Move the camera instantly to aktPos with a zoom of 15.		    
-		    //map.moveCamera(CameraUpdateFactory.newLatLngZoom(aktPos, 12));
-		    CameraPosition cameraPosition = null;
-		    if (distance < 1000)
-		    {
-		    	 cameraPosition = new CameraPosition.Builder().target(
-				    		aktPos).zoom(15).build();
-				    Log.i("cameraPosition", "Zoom (15)");
-		    }
-		    else if (distance < 1500)
-		    {
-			    cameraPosition = new CameraPosition.Builder().target(
-			    		aktPos).zoom(14).build();
-			    Log.i("cameraPosition", "Zoom (14)");
-		    }
-		    else if (distance < 5000)
-		    {
-			    cameraPosition = new CameraPosition.Builder().target(
-			    		aktPos).zoom(13).build();
-			    Log.i("cameraPosition", "Zoom (13)");
-		    }
-		    else if (distance < 30000)
-		    {
-			    cameraPosition = new CameraPosition.Builder().target(
-			    		aktPos).zoom(12).build();
-			    Log.i("cameraPosition", "Zoom (12)");
-		    }
-		    else if (distance > 30000 && distance < 60000)
-		    {
-			    cameraPosition = new CameraPosition.Builder().target(
-			    		aktPos).zoom(11).build();
-			    Log.i("cameraPosition", "Zoom (11)");
-		    }
-		    else if (distance > 60000 && distance < 80000)
-		    {
-		    	cameraPosition = new CameraPosition.Builder().target(
-			    		aktPos).zoom(10).build();
-			    Log.i("cameraPosition", "Zoom (10)");
-		    }
-		    else if (distance < 100000)
-		    {
-		    	cameraPosition = new CameraPosition.Builder().target(
-			    		aktPos).zoom(9).build();
-			    Log.i("cameraPosition", "Zoom (9)");
-		    }
-		    else if (distance >= 100000)
-		    {
-		    	cameraPosition = new CameraPosition.Builder().target(
-			    		aktPos).zoom(8).build();
-			    Log.i("cameraPosition", "Zoom (8)");
-		    }
-		    map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-		    map.getUiSettings().setCompassEnabled(true);
-		    map.getUiSettings().setMyLocationButtonEnabled(true);
-		    System.out.println("Ende PostExecute mit Setzen der Marker und TextView");
-		    
-		    //Abfrage über Button
-		    //Error-Code abfragen, danach Bewertungsactivity starten
-
+			try{
+				Log.i("onPostExecute", ""+aktPos + "/" + middlePoint + "/" + destPos);
+			    GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+			    //TextView txtDuration = (TextView) findViewById(R.id.TextViewTime);
+			    //txtDuration.setText(duration);
+			    
+			    //TextView txtDistance = (TextView) findViewById(R.id.TextView02);
+			    //txtDistance.setText(distance+" m"); // txt.setText(result);
+			    System.out.println("Setzen der Marker");
+			    Marker destinationPos = map.addMarker(new MarkerOptions().position(destPos)
+			    		.title("Startpunkt des Empfängers"));
+			    destinationPos.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+			    Marker aktuellePosition = map.addMarker(new MarkerOptions().position(aktPos)
+			            .title("Startpunkt des Erstellers"));
+			    Marker middle = map.addMarker(new MarkerOptions().position(middlePoint)
+			            .title("Optimaler Mittelpunkt"));
+			    System.out.println("Setzen der Linie++++++");
+			    System.out.println(rectLine);
+			    Polyline polylin = map.addPolyline(rectLine);
+			    middle.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+			    bar.setVisibility(View.GONE);
+			    System.out.println("CameraPosition");
+			 // Move the camera instantly to aktPos with a zoom of 15.		    
+			    //map.moveCamera(CameraUpdateFactory.newLatLngZoom(aktPos, 12));
+			    CameraPosition cameraPosition = null;
+			    if (distance < 1000)
+			    {
+			    	 cameraPosition = new CameraPosition.Builder().target(
+					    		aktPos).zoom(15).build();
+					    Log.i("cameraPosition", "Zoom (15)");
+			    }
+			    else if (distance < 1500)
+			    {
+				    cameraPosition = new CameraPosition.Builder().target(
+				    		aktPos).zoom(14).build();
+				    Log.i("cameraPosition", "Zoom (14)");
+			    }
+			    else if (distance < 5000)
+			    {
+				    cameraPosition = new CameraPosition.Builder().target(
+				    		aktPos).zoom(13).build();
+				    Log.i("cameraPosition", "Zoom (13)");
+			    }
+			    else if (distance < 30000)
+			    {
+				    cameraPosition = new CameraPosition.Builder().target(
+				    		aktPos).zoom(12).build();
+				    Log.i("cameraPosition", "Zoom (12)");
+			    }
+			    else if (distance > 30000 && distance < 60000)
+			    {
+				    cameraPosition = new CameraPosition.Builder().target(
+				    		aktPos).zoom(11).build();
+				    Log.i("cameraPosition", "Zoom (11)");
+			    }
+			    else if (distance > 60000 && distance < 80000)
+			    {
+			    	cameraPosition = new CameraPosition.Builder().target(
+				    		aktPos).zoom(10).build();
+				    Log.i("cameraPosition", "Zoom (10)");
+			    }
+			    else if (distance < 100000)
+			    {
+			    	cameraPosition = new CameraPosition.Builder().target(
+				    		aktPos).zoom(9).build();
+				    Log.i("cameraPosition", "Zoom (9)");
+			    }
+			    else if (distance >= 100000)
+			    {
+			    	cameraPosition = new CameraPosition.Builder().target(
+				    		aktPos).zoom(8).build();
+				    Log.i("cameraPosition", "Zoom (8)");
+			    }
+			    map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+			    map.getUiSettings().setCompassEnabled(true);
+			    map.getUiSettings().setMyLocationButtonEnabled(true);
+			    System.out.println("Ende PostExecute mit Setzen der Marker und TextView");
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 	    }
 
 
@@ -1313,8 +1356,8 @@ public class DisplayMap extends android.support.v4.app.FragmentActivity implemen
 			
 			System.out.println("lat1, lng1, lat2, lng2: "+latPers1 + " " + lngPers1 + " " + latPers2 + " " + lngPers2);
 			aktPos = new LatLng(latPers1, lngPers1);
-			//destPos = new LatLng(latPers2, lngPers2);
-			destPos = new LatLng(49.010132 , 8.386655);
+			destPos = new LatLng(latPers2, lngPers2);
+			//destPos = new LatLng(49.010132 , 8.386655);
 		}
 		catch(Exception e)
 		{

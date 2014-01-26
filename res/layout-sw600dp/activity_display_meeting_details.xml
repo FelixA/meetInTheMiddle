@@ -1,104 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
 
+	<ImageView
+		android:id="@+id/imageView1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:adjustViewBounds="true"
+		android:scaleType="centerCrop"
+		android:src="@drawable/balkenoben" />
+	
+	 <TextView
+        android:id="@+id/textHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="18dp"
+        android:layout_alignLeft="@+id/map"
+        
+        android:textSize="40dp"
+        android:layout_below="@+id/imageView1"
+        android:textColor="@color/CornflowerBlue"
+        android:text="Details"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+	 
+	 	
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textHeader"
+        android:layout_marginLeft="15dp"
+        android:layout_alignLeft="@+id/map"
+        android:textSize="25dp"
+        android:layout_marginTop="20dp"
+        android:text="Name des Treffpunkts" />
+    
+        <TextView
+        android:id="@+id/textTel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textName"
+        android:layout_alignLeft="@+id/map"
+        android:layout_marginLeft="15dp"
+        android:textSize="25dp"
+        android:layout_marginTop="20dp"
+        android:text="Telefonnummer des Treffpunkts" />
+        
+        <TextView
+        android:id="@+id/textAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textTel"
+        android:layout_alignLeft="@+id/map"
+        android:textSize="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:text="Adresse" />
+	 
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="550dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/textAddress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        class="com.google.android.gms.maps.MapFragment" />
+    
+    <TextView
+        android:id="@+id/textPersonA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/map"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="55dp"
-        android:layout_marginTop="18dp"
-        android:text="Details Meeting"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/balkenoben" />
-
-    <fragment
-        android:id="@+id/map"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="265dp"
-        class="com.google.android.gms.maps.MapFragment" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/map"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_marginBottom="105dp"
-        android:ems="10"
-        android:inputType="time"
-        android:text="Wann los?" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="87dp"
-        android:ems="10"
-        android:inputType="textPostalAddress"
-        android:text="Adresse" />
-
+        android:layout_below="@+id/map"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:textColor="@color/Blue"
+        android:textStyle="bold"
+        android:text="Person A" />
+    
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textPersonB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginTop="24dp"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+        android:layout_alignLeft="@+id/textPersonA"
+        android:layout_below="@+id/map"
+        android:layout_marginLeft="300dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/Green"
+        android:text="Person B" />
+    
+        <TextView
+        android:id="@+id/textDurationPersonA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textPersonA"
+        android:layout_below="@+id/textPersonA"
+        android:textSize="25dp"
+        android:layout_marginTop="20dp"
+        android:text="Duration Person A" />
+    
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textDurationPersonB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/editText1"
-        android:layout_marginLeft="28dp"
-        android:layout_toRightOf="@+id/map"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/editText2"
+        android:layout_alignLeft="@+id/textPersonA"
+        android:layout_below="@+id/textPersonB"
+        android:layout_marginLeft="300dp"
+        android:textSize="25dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:text="Duration Person A" />
+    
+            <TextView
+        android:id="@+id/textDistancePersonA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_alignRight="@+id/textView3"
-        android:ems="10"
-        android:inputType="textPostalAddress"
-        android:text="Adresse" >
-
-        <requestFocus />
-    </EditText>
-
-    <EditText
-        android:id="@+id/EditText01"
+        android:layout_alignLeft="@+id/textPersonA"
+        android:textSize="25dp"
+        android:layout_below="@+id/textDurationPersonA"
+        android:layout_marginTop="20dp"
+        android:text="Duration Person A" />
+    
+    <TextView
+        android:id="@+id/textDistancePersonB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText3"
-        android:layout_alignBottom="@+id/editText3"
-        android:layout_alignLeft="@+id/editText2"
-        android:ems="10"
-        android:inputType="time"
-        android:text="Wann los?" />
+        android:layout_alignLeft="@+id/textDistancePersonA"
+        android:layout_below="@+id/textDurationPersonB"
+        android:textSize="25dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:text="Duration Person A" />
 
 </RelativeLayout>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" >
+
+	<ImageView
+		android:id="@+id/imageView1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:adjustViewBounds="true"
+		android:scaleType="centerCrop"
+		android:src="@drawable/balkenoben" />
+	
+	    <TextView
+        android:id="@+id/textViewQuestion1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/CornflowerBlue"
+        android:text="Was ist Meet in the middle?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textViewAnswer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewQuestion1"
+        android:layout_below="@+id/textViewQuestion1"
+        android:text="Meet in the middle ist eine Applikation, die im Rahmen einer Vorlesung an der Hochschule entwickelt wurde. Diese App erleichtert zwei Personen die Suche nach einem geeigneten Treffpunkt." />
+
+        <TextView
+        android:id="@+id/textViewQuestion2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/CornflowerBlue"
+       	android:layout_below="@+id/textViewAnswer1"
+        android:text="Für wenn ist Meet in the middle gedacht?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textViewAnswer2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/textViewQuestion2"
+        android:text="Für alle, die Interesse an Treffen mit anderen Personen haben. Wenn sich zwei Personen zu einer gemeinsamen Aktivität wie beispielsweise den Besuch eines Cafes treffen wollen, können Sie einfach über diese App den optimalen Mittelpunkt ausfindig machen." />
+    
+            <TextView
+        android:id="@+id/textViewQuestion3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/CornflowerBlue"
+       	android:layout_below="@+id/textViewAnswer2"
+        android:text="Was ist der optimale Mittelpunkt?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textViewAnswer3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/textViewQuestion3"
+        android:text="Der optimale Mittelpunkt ist ein anhand eines Algorithmus berechneter Ort, an dem sich beide Personen treffen können. Das besondere an diesem Ort ist, dass beide Personen unabhängig vom verwendeten Verkehrsmittel nahezu die identische Zeit benötigen, um diesen zu erreichen. Dadurch sit gewährleistet, dass keiner mehr Zeit aufwenden muss als der andere." />
+    
+            <TextView
+        android:id="@+id/textViewQuestion4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/CornflowerBlue"
+       	android:layout_below="@+id/textViewAnswer3"
+        android:text="Wieso liegt der optimale Mittelpunkt nicht genau in der Mitte?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textViewAnswer4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/textViewQuestion4"
+        android:text="Das liegt zum einem am verwendeten Verkehrsmittel, zum anderen aber auch an der Wahl der Art des Treffpunkts. Mit einem Auto kann man in derselben Zeit eine deutlich größere Strecke überwinden, weshalb sich demzufolge auch der optimale Mittelpunkt verschiebt. Weiterhin ist nicht gewährleistet, dass genau in der Mitte ein Treffpunkt wie beispielsweise ein Kino liegt. Der Algorithmus sucht die nächstbeste hoch bewertete Alternative aus der Google Datenbank." />
+    
+            <TextView
+        android:id="@+id/textViewQuestion5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/CornflowerBlue"
+       	android:layout_below="@+id/textViewAnswer4"
+        android:text="Ist diese App kostenpflichtig?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textViewAnswer5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/textViewQuestion5"
+        android:text="Nein, die Applikation ist kostenfrei und kann von dir und deinen Freunden und allen, die Interesse daran haben, verwendet werden, ohne Limitierung." />
+
+
+      <TextView
+        android:id="@+id/textViewQuestion6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/CornflowerBlue"
+       	android:layout_below="@+id/textViewAnswer5"
+        android:text="Wer hat denn diese großartige Applikation entwickelt?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textViewAnswer7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/textViewQuestion6"
+        android:text="Arne Christiansen: " />
+    
+    <TextView
+        android:id="@+id/textViewAnswer20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignLeft="@id/textViewAnswer7"
+        android:layout_below="@+id/textViewQuestion6"
+        android:text="DB-Struktur, Anbindung Google Maps/Google Places/Google Directions, Entwicklung Algorithmus Treffen, Mockuperstellung, Dokumentation" />    
+
+    <TextView
+        android:id="@+id/textViewAnswer8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textViewAnswer20"
+        android:text="Lukas Maier" />
+     <TextView
+        android:id="@+id/textViewAnswer21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/textViewAnswer8"
+        android:layout_below="@+id/textViewAnswer20"
+        android:text="Entwicklung Algorithmus Treffen, Anbindung GCM, Konzept, Präsentation, Dokumentation" />    
+        <TextView
+        android:id="@+id/textViewAnswer9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textViewAnswer21"
+        android:text="Felix Albert" />
+        
+     <TextView
+        android:id="@+id/textViewAnswer22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/textViewAnswer9"
+        android:layout_below="@+id/textViewAnswer21"
+        android:text="Datenbankserver und Datenbankstruktur, Registrierung und An-/Abmeldung, Rest-Services, Anbindung GCM, " />    
+        <TextView
+        android:id="@+id/textViewAnswer10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textViewAnswer22"
+        android:text="Lewa Podiev" />
+        
+     <TextView
+        android:id="@+id/textViewAnswer23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_alignLeft="@id/textViewAnswer10"
+        android:layout_below="@+id/textViewAnswer22"
+        android:text="Layout und Design, Entwicklung Rest-Services" />    
+     
+</RelativeLayout>

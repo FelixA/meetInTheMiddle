@@ -96,7 +96,7 @@
             android:background="@null"
             android:maxHeight="80dp"
             android:maxWidth="80dp"
-            android:onClick="displayProfile"
+            android:onClick="displayFAQ"
             android:padding="1dp"
             android:scaleType="centerCrop"
             android:src="@drawable/faq" />

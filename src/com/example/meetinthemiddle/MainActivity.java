@@ -293,9 +293,17 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 
+	// Zeigt die FAQ an
+		public void displayFAQ(View view) {
+			System.out.println("displayFAQ in main activity");
+			Intent intent = new Intent(this, DisplayFAQ.class);
+			startActivity(intent);
+		}
+	
 	// Zeigt die FAQ.
 	public void displayQuestions(View view) {
-		Intent intent = new Intent(this, DisplayQuestionsActivity.class);
+		System.out.println("displayQuestions in main activity");
+		Intent intent = new Intent(this, DisplayFAQ.class);
 		startActivity(intent);
 	}
 
@@ -406,8 +414,5 @@ public class MainActivity extends Activity {
 				treffenListe.setAdapter(adapter);
 			 }
 		}
-		
-		    
-		
 	}
 }

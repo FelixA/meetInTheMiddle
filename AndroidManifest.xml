@@ -165,6 +165,16 @@
 			android:screenOrientation="portrait" >
 		</activity>
 		<activity
+			android:name="com.example.meetinthemiddle.DisplayFAQ"
+			android:label="@string/title_activity_display_questions"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
+			android:name="com.example.meetinthemiddle.DisplayMeetingDetails"
+			android:label="@string/title_activity_display_details"
+			android:screenOrientation="portrait" >
+		</activity>
+		<activity
 			android:name="com.example.meetinthemiddle.DisplayMeetingFunctionsActivity"
 			android:label="@string/title_activity_display_meeting_functions"
 			android:screenOrientation="portrait" >
