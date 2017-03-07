@@ -139,6 +139,6 @@ s
 
 
 
-this is  <a name="bla"></a>
+this is  <a name="bla"></a> bla
 
 take me to the heading Take me to [tith](#tith)
